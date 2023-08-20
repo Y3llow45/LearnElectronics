@@ -1,0 +1,49 @@
+/* header.css */
+
+/* Navbar styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+    color: white;
+}
+
+/* First bar styles */
+.first-bar {
+    display: flex;
+}
+
+.dashboard-link, .nav-link {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+/* Second bar styles */
+.second-bar {
+    display: flex;
+}
+
+.btn {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.btn-login, .btn-signup {
+    background-color: #28a745;
+}
