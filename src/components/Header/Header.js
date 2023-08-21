@@ -11,10 +11,10 @@ function Header() {
                 <Link to='/' className='nav-link'>Home</Link>
                 <Link to='/lessons' className='nav-link'>Lessons</Link>
                 <Link to='/add' className='nav-link'>Add Lessons</Link>
+                <Link to='/signup' className='nav-link'>Sign up</Link>
             </div>
             <div className='nav-user'>
                 <h3>Hello, anonymous!</h3>
-                <Link to='/signup' className='nav-link'>Sign up</Link>
             </div>
             <label htmlFor="menu-toggle" id="menu-icon">&#9776;</label>
         </div>
