@@ -1,7 +1,15 @@
 {
-    "lessons": [
-      { "id": 1, "title": "Lesson 1", "content": "Content of Lesson 1" },
-      { "id": 2, "title": "Lesson 2", "content": "Content of Lesson 2" }
-    ]
+  "lessons": [
+    { 
+      "id": 1, 
+      "title": "Lesson 1", 
+      "content": "Content of Lesson 1" 
+    },
+    { 
+      "id": 2, 
+      "title": "Lesson 2", 
+      "content": "Content of Lesson 2" 
+    }
+  ]
 }
   
