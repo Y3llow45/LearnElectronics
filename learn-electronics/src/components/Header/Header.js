@@ -6,7 +6,7 @@ import userAvatar from '../../assets/userAvatar.png';
 function Header() {
     console.log('header');
     return (
-        <div className='nav-bar curved'>
+        <div className='nav-bar'>
             <h2 className='nav-h2-first'>Learn</h2><h2 className='nav-h2-second'>Electronics</h2> 
             <div className='nav-link-menu'>
                 <NavLink  to='/' className='nav-link'>Home</NavLink >
@@ -15,7 +15,7 @@ function Header() {
                 <NavLink  to='/signup' className='nav-link'>Sign up</NavLink >
             </div>
             <div className='nav-user'>
-                <h3>Wellcome, Guest!</h3>
+                <h3 className='nav-user-wellcome'>Wellcome, Guest!</h3>
             </div>
             <label htmlFor="menu-toggle" className="menu-icon" hidden>&#9776;</label>
             <img className='nav-user-avatar' src={userAvatar} alt='UA' height='35px'/>

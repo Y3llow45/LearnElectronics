@@ -27,9 +27,9 @@ class Lessons extends Component {
     }
     renderLesson(x) {
         return (
-            <div key={x.id}>
-                <h3>{x.title}</h3>
-                <div dangerouslySetInnerHTML={{ __html: x.content }} />
+            <div key={x.id} className="lesson-bar">
+                <h3 className="lesson-bar-title">{x.title}</h3>
+                <div className="lesson-bar-content" dangerouslySetInnerHTML={{ __html: x.content }} />
             </div>
         );
     }
@@ -38,8 +38,7 @@ class Lessons extends Component {
         const { lessons } = this.state;
     
         return (
-            <div className="lessons">
-                <h3>Lessons</h3>
+            <div className="lessons-bar">
                 <SearchBar />
                 {lessons.map(x => this.renderLesson(x))}
             </div>
