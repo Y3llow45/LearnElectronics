@@ -1,6 +1,7 @@
 import { Component } from "react";
 import './Lessons.css';
 import * as LessonService from '../../services/LessonServices';
+import SearchBar from './SearchBar/SearchBar';
 
 class Lessons extends Component {
     constructor(props) {
@@ -14,12 +15,8 @@ class Lessons extends Component {
     componentDidMount() {
         LessonService.getAll()
             .then(res => {
-                console.log('Response from LessonService:', res);
-    
                 if (res && res.lessons) {
-                    this.setState({ lessons: res.lessons }, () => {
-                        console.log('New State is:', this.state.lessons);
-                    });
+                    this.setState({ lessons: res.lessons });
                 } else {
                     console.error('Invalid data format:', res);
                 }
@@ -28,18 +25,23 @@ class Lessons extends Component {
                 console.error('Error fetching lessons:', error);
             });
     }
+    renderLesson(x) {
+        return (
+            <div key={x.id}>
+                <h3>{x.title}</h3>
+                <div dangerouslySetInnerHTML={{ __html: x.content }} />
+            </div>
+        );
+    }
+
     render() {
         const { lessons } = this.state;
     
         return (
             <div className="lessons">
                 <h3>Lessons</h3>
-                {lessons.map(lesson => (
-                    <div key={lesson.id}>
-                        <h3>{lesson.title}</h3>
-                        <p>{lesson.content}</p>
-                    </div>
-                ))}
+                <SearchBar />
+                {lessons.map(x => this.renderLesson(x))}
             </div>
         );
     }
@@ -48,8 +50,8 @@ class Lessons extends Component {
 
 export default Lessons;
 /*{lessons.map(lesson => (
-                    <li key={lesson.id}>
+                    <div key={lesson.id}>
                         <h3>{lesson.title}</h3>
                         <p>{lesson.content}</p>
-                    </li>
-                ))}*/
+                    </div>
+                ))} */

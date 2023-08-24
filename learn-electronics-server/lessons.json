@@ -2,14 +2,54 @@
   "lessons": [
     { 
       "id": 1, 
-      "title": "Lesson 1", 
-      "content": "Content of Lesson 1" 
+      "title": "Introduction to Electricity", 
+      "content": "Electricity is a fundamental aspect of modern life. It is a form of energy resulting from the movement of charged particles such as electrons or ions, commonly referred to as current. The electric charge is carried by various materials known as conductors, with copper and aluminum being the most commonly used. Electric power generation is the process of converting other forms of energy, like nuclear, chemical, or mechanical energy, into electrical energy. Electricity plays a crucial role in almost every aspect of life today, from powering homes and industries to driving cars and other modes of transportation.",
+      "order": "image1, content1, content2, image2, image3, content3"
     },
     { 
       "id": 2, 
-      "title": "Lesson 2", 
-      "content": "Content of Lesson 2" 
+      "title": "AC vs. DC Voltage", 
+      "content": "AC voltage refers to alternating current, where the direction of the current periodically reverses, while DC voltage refers to direct current, where the current flows in one direction only. AC voltage is commonly used in household and industrial applications, while DC voltage is used in electronic devices and batteries. AC voltage can be easily transformed using transformers, while DC voltage requires specialized converters. AC voltage is more efficient at transmitting power over long distances, while DC voltage is preferred for devices that require consistent and stable voltage."
+    },
+    { 
+      "id": 3, 
+      "title": "Ohm's Law and Resistors", 
+      "content": "Ohm's Law states that the current flowing through a conductor between two points is directly proportional to the voltage across the two points. This relationship is expressed as I = V/R, where I is the current, V is the voltage, and R is the resistance of the conductor. Resistors are electrical components that introduce a specific amount of resistance in a circuit, which limits the flow of current and can be used for various purposes such as voltage dividers, current limiters, and signal conditioning. Resistors are characterized by their resistance value (measured in ohms), power rating, and tolerance."
+    },
+    { 
+      "id": 4, 
+      "title": "Basic Electrical Components", 
+      "content": "Basic electrical components include resistors, capacitors, inductors, diodes, transistors, and integrated circuits. Resistors regulate electrical current by opposing the flow of electrons, while capacitors store electrical energy. Inductors induce a magnetic field when an electrical current is applied, while diodes allow current to flow in one direction only. Transistors amplify and switch electronic signals, and integrated circuits combine multiple electronic components on a single microchip. These components are essential building blocks for designing and constructing electronic circuits for various applications, from simple battery-powered devices to complex computer systems."
+    },
+    { 
+      "id": 5, 
+      "title": "Circuit Types: Series vs. Parallel", 
+      "content": "Series circuits are connected one after another, creating a single path for current to flow through all components in the circuit. The voltage is divided across the components in the circuit, meaning that each component receives a fraction of the total voltage. If one component fails, the entire circuit will stop working. Parallel circuits, on the other hand, have multiple paths for current to flow through, with each component receiving the full voltage. If one component fails, the others will continue working. Parallel circuits are typically used in household electrical systems, while series circuits are used in electronics and appliances."
+    },
+    { 
+      "id": 6, 
+      "title": "Electromagnetic Induction", 
+      "content": "Electromagnetic induction is the process of generating an electric current by changing the magnetic field around a conductor. This phenomenon is the basis of many electrical devices such as generators, transformers, and induction motors. It is also used in wireless charging, metal detectors, and MRI machines. The principle of electromagnetic induction was first discovered by Michael Faraday in 1831. He demonstrated that a changing magnetic field induces an electric current in a nearby conductor. This discovery revolutionized the way we understand electricity and magnetism and paved the way for many modern technologies."
+    },
+    { 
+      "id": 7, 
+      "title": "Introduction to Semiconductors", 
+      "content": "Semiconductors are materials with electrical conductivity between conductors and insulators. They are used in a wide range of electronic devices such as transistors, diodes, solar cells, and LEDs. The most commonly used materials for semiconductors are silicon and germanium due to their abundance and low cost. With advancements in nanotechnology, semiconductors have become increasingly smaller, faster, and more efficient, leading to the development of new technologies such as smartphones, computers, and other modern electronic devices. Semiconductors play a critical role in shaping the modern world and continuously driving technological advancement."
+    },
+    { 
+      "id": 8, 
+      "title": "Introduction to Digital Logic", 
+      "content": "Digital logic is the foundation of modern computing systems. It involves the use of binary digits, or bits, to represent and manipulate information. The basic building blocks of digital logic are logic gates, such as AND, OR, and NOT gates, which can be combined to create more complex circuits. These circuits can perform operations such as arithmetic, data storage, and decision-making. Digital logic is essential for the creation of microprocessors, which power many everyday devices, including smartphones, computers, and cars. Understanding digital logic is crucial for anyone interested in electronics, computer science, or engineering."
+    },
+    { 
+      "id": 9, 
+      "title": "Electricity Safety and Regulations", 
+      "content": "Electricity safety and regulations are essential to ensure the proper usage of electrical devices and prevent hazards. Safety measures may include grounding electrical equipment, using circuit breakers and fuses, and avoiding water contact when handling electrical devices. Regulations are set by government agencies and industry standards to ensure the safety of electrical installation, maintenance, and operation. These regulations may include licensing requirements, inspection procedures, and electrical codes. Adhering to these safety measures and regulations not only reduces the risk of accidents and injuries but also increases the lifespan of electrical equipment."
+    },
+    { 
+      "id": 10, 
+      "title": "Introduction to Microcontrollers", 
+      "content": "Microcontrollers are small computer chips that can be programmed to perform specific tasks. They contain a central processing unit (CPU), memory, and input/output peripherals. They are commonly used in devices such as home appliances, cars, and medical equipment. They can be programmed in various programming languages, including C and Assembly, and can communicate with other devices through various communication protocols such as Bluetooth and Wi-Fi. Some popular microcontrollers include the Arduino and Raspberry Pi."
     }
   ]
 }
-  
