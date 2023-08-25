@@ -1,7 +1,7 @@
-const url = 'http://localhost:5000/lessons';
+const url = 'http://localhost:5000/';
 
 export const getAll = () => {
-    return fetch(url)
+    return fetch(`${url}lessons`)
         .then(res => res.json())
         .then((data) => {
             console.log('JSON response:', data); 
@@ -12,13 +12,17 @@ export const getAll = () => {
         });
 }
 
-/*
-export const getOne = (petId) => {
-    return fetch(`${url}/${petId}`)
+
+export const search = (category, keyword) => {
+    return fetch(`${url}/search/${category}/${keyword}`)
         .then(res => res.json())
+        .then((data) => {
+            return data;
+        })
         .catch(error => console.log(error));
 };
 
+/*
 export const create = (petName, description, imageURL, category) => {
     let pet = {
         name: petName,

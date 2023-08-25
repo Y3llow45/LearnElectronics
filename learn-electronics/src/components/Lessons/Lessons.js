@@ -9,7 +9,8 @@ class Lessons extends Component {
 
         this.state = {
             lessons: [],
-        }
+            expandedLessonId: null
+        };
     }
 
     componentDidMount() {
@@ -25,18 +26,32 @@ class Lessons extends Component {
                 console.error('Error fetching lessons:', error);
             });
     }
+
+    toggleContent = (lessonId) => {
+        this.setState(prevState => ({
+            expandedLessonId: prevState.expandedLessonId === lessonId ? null : lessonId
+        }));
+    };
+
     renderLesson(x) {
+        const { expandedLessonId } = this.state;
+    
         return (
-            <div key={x.id} className="lesson-bar">
-                <h3 className="lesson-bar-title">{x.title}</h3>
-                <div className="lesson-bar-content" dangerouslySetInnerHTML={{ __html: x.content }} />
+            <div key={x.id} className={`lesson-bar ${expandedLessonId === x.id ? 'expanded' : ''}`}>
+                <h3 className="lesson-bar-title" onClick={() => this.toggleContent(x.id)}>
+                    {x.title}
+                    {expandedLessonId === x.id ? '▲' : '▼'}
+                </h3>
+                {expandedLessonId === x.id && (
+                    <div className="lesson-bar-content" dangerouslySetInnerHTML={{ __html: x.content }} />
+                )}
             </div>
         );
     }
 
     render() {
         const { lessons } = this.state;
-    
+
         return (
             <div className="lessons-bar">
                 <SearchBar />
@@ -44,7 +59,6 @@ class Lessons extends Component {
             </div>
         );
     }
-    
 }
 
 export default Lessons;

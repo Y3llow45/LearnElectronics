@@ -10,10 +10,10 @@
   
 .lesson-bar-title {
     padding-top: 10px;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: lighter;
     text-align: center;
-    margin-bottom: 0px;
+    padding-bottom: 5px;
     font-family:sans-serif
 }
   
