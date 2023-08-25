@@ -7,8 +7,8 @@ class SearchBar extends Component {
 
         this.state = {
             keyword: '',
-            category: 'All',
-            likes: 'All'
+            category: 'all',
+            likes: 'all'
         };
     }
 
@@ -46,15 +46,15 @@ class SearchBar extends Component {
                     onChange={this.onInputChangeHandler}
                 />
                 <select value={this.state.category} onChange={this.onCategoryChangeHandler}>
-                    <option value="All">All Categories</option>
-                    <option value="Lessons">Lessons</option>
-                    <option value="Electric Components">Electric Components</option>
-                    <option value="Microcontrollers">Microcontrollers</option>
+                    <option value="all">All Categories</option>
+                    <option value="lessons">Lessons</option>
+                    <option value="electric-components">Electric Components</option>
+                    <option value="microcontrollers">Microcontrollers</option>
                 </select>
                 <select value={this.state.likes} onChange={this.onLikesChangeHandler}>
-                    <option value="All">All Likes</option>
-                    <option value="Liked">Liked</option>
-                    <option value="Not Liked">Not Liked</option>
+                    <option value="all">All Likes</option>
+                    <option value="liked">Liked</option>
+                    <option value="not-liked">Not Liked</option>
                 </select>
                 <button onClick={this.handleSearch.bind(this)}>Search</button>
             </div>

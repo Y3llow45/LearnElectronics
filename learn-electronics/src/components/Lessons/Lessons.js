@@ -48,9 +48,3 @@ class Lessons extends Component {
 }
 
 export default Lessons;
-/*{lessons.map(lesson => (
-                    <div key={lesson.id}>
-                        <h3>{lesson.title}</h3>
-                        <p>{lesson.content}</p>
-                    </div>
-                ))} */

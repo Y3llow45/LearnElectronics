@@ -7,7 +7,6 @@ export const getAll = () => {
             console.log('JSON response:', data); 
             return data;
         })
-        //.then(lesson => lesson.map(x => ({...x, likes: Number(x.likes)})))
         .catch((error) => {
             console.error('Error fetching data:', error);
         });
