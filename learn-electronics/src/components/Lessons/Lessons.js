@@ -48,13 +48,16 @@ class Lessons extends Component {
             </div>
         );
     }
+    handleSearchResults = (searchResults) => {
+        this.setState({ lessons: searchResults });
+    };
 
     render() {
         const { lessons } = this.state;
 
         return (
             <div className="lessons-bar">
-                <SearchBar />
+                <SearchBar onSearchResults={this.handleSearchResults}/>
                 {lessons.map(x => this.renderLesson(x))}
             </div>
         );

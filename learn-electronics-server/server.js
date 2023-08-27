@@ -22,20 +22,16 @@ app.get('/lessons', (req, res) => {
 
 app.get('/search/:category/:keyword', (req, res) => {
   const { category, keyword } = req.params;
-
-  // Read lessons data from the JSON file
   fs.readFile('lessons.json', 'utf8', (err, data) => {
     if (err) {
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
-      const lessons = JSON.parse(data).lessons;
-
-      // Filter the lessons based on the search criteria
-      const filteredLessons = lessons.filter(lesson => {
+        const lessons = JSON.parse(data).lessons;
+        const filteredLessons = lessons.filter(lesson => {
         const lowercaseTitle = lesson.title.toLowerCase();
         const lowercaseKeyword = keyword.toLowerCase();
         return (
-          (category === 'All' || category === lesson.category) &&
+          (category === 'all' || category === lesson.category) &&
           lowercaseTitle.includes(lowercaseKeyword)
         );
       });
