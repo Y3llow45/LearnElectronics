@@ -1,7 +1,13 @@
 const express = require('express');
+const mongoose = require('mongoose')
+require('dotenv').config();
 const fs = require('fs');
 const app = express();
-const port = 5000;
+const port = process.env.PORT;
+const AtlasUri = process.env.ATLASURI;
+
+const User = require("./user");
+const bob = new User({name: "Bob", age: 5})
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -45,8 +51,6 @@ app.get('/search/:category', (req, res) => {
   });
 });
 
-
-
 app.get('/search/:category/:keyword', (req, res) => {
   let { category, keyword } = req.params;
   console.log(category, keyword);
@@ -81,6 +85,12 @@ app.get('/search/:category/:keyword', (req, res) => {
   });
 });
 
+mongoose.connect(AtlasUri).then(() => {
+  console.log('connected');
+  bob.save();
+  let firstArticle = User.findOne({});
+  console.log(firstArticle);
+})
 
 app.use((req, res) => {
   res.status(404).send('Not Found');
