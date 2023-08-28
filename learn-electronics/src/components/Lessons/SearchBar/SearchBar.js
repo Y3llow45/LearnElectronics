@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './SearchBar.css';
+import { search } from '../../../services/LessonServices';
 
 class SearchBar extends Component {
     constructor(props) {
@@ -8,7 +9,6 @@ class SearchBar extends Component {
         this.state = {
             keyword: '',
             category: 'all',
-            likes: 'all'
         };
     }
 
@@ -24,16 +24,20 @@ class SearchBar extends Component {
         });
     };
 
-    onLikesChangeHandler = (event) => {
-        this.setState({ likes: event.target.value }, () => {
-            console.log(this.state.likes);
-        });
-    };
-
     handleSearch = (e) => {
         e.preventDefault();
         console.log(this.state);
-        // Call your search logic here using this.state values
+        search(this.state.category, this.state.keyword)
+            .then(res => {
+                if (res && res.lessons) {
+                    this.props.onSearchResults(res.lessons);
+                } else {
+                    console.error('Invalid data format:', res);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching lessons:', error);
+            })
     };
 
     render() {
@@ -50,11 +54,6 @@ class SearchBar extends Component {
                     <option value="lessons">Lessons</option>
                     <option value="electric-components">Electric Components</option>
                     <option value="microcontrollers">Microcontrollers</option>
-                </select>
-                <select value={this.state.likes} onChange={this.onLikesChangeHandler}>
-                    <option value="all">All Likes</option>
-                    <option value="liked">Liked</option>
-                    <option value="not-liked">Not Liked</option>
                 </select>
                 <button onClick={this.handleSearch.bind(this)}>Search</button>
             </div>

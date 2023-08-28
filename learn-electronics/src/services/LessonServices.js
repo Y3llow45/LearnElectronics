@@ -14,7 +14,7 @@ export const getAll = () => {
 
 
 export const search = (category, keyword) => {
-    return fetch(`${url}/search/${category}/${keyword}`)
+    return fetch(`${url}search/${category}/${keyword}`)
         .then(res => res.json())
         .then((data) => {
             return data;
