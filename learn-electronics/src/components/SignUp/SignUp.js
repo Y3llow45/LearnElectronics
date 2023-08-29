@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import './SignUp.css'; // Import your CSS file for styling
+import './SignUp.css';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import { signUp } from '../../services/LessonServices';
 
 class SignUp extends Component {
     constructor(props) {
@@ -20,7 +21,18 @@ class SignUp extends Component {
 
     handleSignUp = (event) => {
         event.preventDefault();
-        console.log(this.state.username, this.state.email, this.state.password)
+        console.log(this.state.username, this.state.email, this.state.password);
+        signUp(this.state.username, this.state.email, this.state.password)
+            .then(res => {
+                if(res.status === 201){
+                    console.log('created!');
+                }else {
+                    console.error(`Error: ${res.statusText}`)
+                }
+            })
+            .catch(err => {
+                console.error(`Error: ${err}`)
+            })
     };
 
     render() {
@@ -57,7 +69,7 @@ class SignUp extends Component {
                             required
                         />
                         <br></br>
-                        <button type="submit">Sign Up</button>
+                        <button type="submit" className='form-submit'>Sign Up</button>
                     </form>
                     <div className="signin-link">
                         <p>Already have an account? <NavLink to="/signin">Sign In</NavLink></p>

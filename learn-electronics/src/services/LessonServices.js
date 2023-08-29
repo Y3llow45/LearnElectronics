@@ -22,25 +22,22 @@ export const search = (category, keyword) => {
         .catch(error => console.log(error));
 };
 
-/*
-export const create = (petName, description, imageURL, category) => {
-    let pet = {
-        name: petName,
-        description,
-        imageURL,
-        category,
-        likes: 0,
+export const signUp = (username, email, password) => {
+    let User = {
+        username: username,
+        email: email,
+        password: password,
     };
     
-    return fetch(url, {
+    return fetch(`${url}signup`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(pet)
+        body: JSON.stringify(User)
     });
 };
-
+/*
 export const update = (petId, pet) => {
     return fetch(`${url}/${petId}`, {
         method: 'PUT',

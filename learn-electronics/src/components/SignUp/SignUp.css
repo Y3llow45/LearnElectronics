@@ -21,7 +21,7 @@
     padding-left: 5px;
     padding-right: 5px;
 
-    margin-top: 30px;
+    margin-top: 10rem;
     border-radius: 12px;
 
     background: #C9D6FF;  /* fallback for old browsers */
@@ -38,7 +38,15 @@
     border: 1px rgb(88, 88, 88) solid;
     border-radius: 10px;
     height: 2rem;
+}
 
+.form-submit {
+    width: 280px;
+    font-size: 16px;
+    padding: 6px;
+    border-radius: 10px;
+    border: white;
+    background: linear-gradient(to right, #f8d8d8, #C9D6FF);
 }
 
 .input-form {
@@ -50,4 +58,8 @@
 .form-tittle {
     font-size: 30px;
     margin-bottom: 30px;
+}
+
+.signin-link {
+    padding-top: 5px;
 }

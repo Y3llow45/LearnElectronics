@@ -1,8 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose')
 require('dotenv').config();
 const fs = require('fs');
 const app = express();
+app.use(cors());
 const port = process.env.PORT;
 const AtlasUri = process.env.ATLASURI;
 
@@ -84,6 +86,12 @@ app.get('/search/:category/:keyword', (req, res) => {
     }
   });
 });
+
+app.post('/signup', (req, res) => {
+  console.log(req.app);
+  res.statusMessage = "idk bro";
+  res.status(200).send();
+})
 
 /*mongoose.connect(AtlasUri).then(() => {
   console.log('connected');
