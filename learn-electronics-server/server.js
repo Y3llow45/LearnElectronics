@@ -85,12 +85,12 @@ app.get('/search/:category/:keyword', (req, res) => {
   });
 });
 
-mongoose.connect(AtlasUri).then(() => {
+/*mongoose.connect(AtlasUri).then(() => {
   console.log('connected');
   bob.save();
   let firstArticle = User.findOne({});
   console.log(firstArticle);
-})
+})*/
 
 app.use((req, res) => {
   res.status(404).send('Not Found');
