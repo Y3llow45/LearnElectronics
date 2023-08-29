@@ -23,10 +23,10 @@ export const search = (category, keyword) => {
 };
 
 export const signUp = (username, email, password) => {
-    let User = {
-        username: username,
-        email: email,
-        password: password,
+    let user = {
+        username,
+        email,
+        password,
     };
     
     return fetch(`${url}signup`, {
@@ -34,7 +34,7 @@ export const signUp = (username, email, password) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(User)
+        body: JSON.stringify(user)
     });
 };
 /*

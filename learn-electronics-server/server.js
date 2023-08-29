@@ -1,15 +1,18 @@
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose')
 require('dotenv').config();
 const fs = require('fs');
 const app = express();
+
 app.use(cors());
+app.use(bodyParser.json());
+
 const port = process.env.PORT;
 const AtlasUri = process.env.ATLASURI;
 
 const User = require("./user");
-const bob = new User({name: "Bob", age: 5})
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -88,9 +91,17 @@ app.get('/search/:category/:keyword', (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
-  console.log(req.app);
-  res.statusMessage = "idk bro";
-  res.status(200).send();
+  try{
+    const { username, email, password } = req.body;
+    console.log(username, email, password);
+    let newUser = new User({username: username, email: email, password: password})
+    newUser.save();
+  }
+  catch(error){
+    res.statusMessage = `${error}`;
+    res.status(500).send();
+  }
+  res.status(201).send();
 })
 
 /*mongoose.connect(AtlasUri).then(() => {
@@ -99,6 +110,10 @@ app.post('/signup', (req, res) => {
   let firstArticle = User.findOne({});
   console.log(firstArticle);
 })*/
+
+mongoose.connect(AtlasUri).then(() => {
+  console.log('Connected');
+})
 
 app.use((req, res) => {
   res.status(404).send('Not Found');
