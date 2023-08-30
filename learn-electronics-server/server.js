@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 require('dotenv').config();
 const fs = require('fs');
 const app = express();
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -13,13 +15,6 @@ const port = process.env.PORT;
 const AtlasUri = process.env.ATLASURI;
 
 const User = require("./user");
-
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
 
 app.get('/lessons', (req, res) => {
   fs.readFile('lessons.json', 'utf8', (err, data) => {
@@ -92,10 +87,16 @@ app.get('/search/:category/:keyword', (req, res) => {
 
 app.post('/signup', (req, res) => {
   try{
-    const { username, email, password } = req.body;
+    let { username, email, password } = req.body;
     console.log(username, email, password);
-    let newUser = new User({username: username, email: email, password: password})
-    newUser.save();
+    bcrypt
+      .hash(password, saltRounds)
+      .then(hash => {
+        console.log(hash)
+        let newUser = new User({username: username, email: email, password: hash})
+        newUser.save();
+      })
+      .catch((err) => {throw err})
   }
   catch(error){
     res.statusMessage = `${error}`;
