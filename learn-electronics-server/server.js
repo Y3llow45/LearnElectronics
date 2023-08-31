@@ -1,8 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 require('dotenv').config();
+const verifyToken = require('./middleware/verifyToken');
+
 const fs = require('fs');
 const app = express();
 const bcrypt = require('bcrypt');
@@ -132,11 +134,17 @@ app.post('/signin', async (req, res) => {
 
     // Successful sign-in
     console.log('Logged in');
-    res.status(200).json({ message: 'Sign in successful' });
+    const token = generateToken(user._id);
+
+    res.status(200).json({ message: 'Sign in successful', token });
   } catch (error) {
     console.error('Error during sign-in:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+});
+
+app.get('/protected-route', verifyToken, (req, res) => {
+  // Handle protected route logic
 });
 
 /*mongoose.connect(AtlasUri).then(() => {
@@ -178,8 +186,6 @@ app.listen(port, () => {
       }
   });
 }); */
-
-
 
 /*const http = require('http');
 const fs = require('fs');
