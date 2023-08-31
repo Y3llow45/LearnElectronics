@@ -17,7 +17,8 @@ app.use(bodyParser.json());
 const port = process.env.PORT;
 const AtlasUri = process.env.ATLASURI;
 
-const User = require("./user");
+const User = require("./models/user");
+const Lesson = require("./models/lesson");
 
 app.get('/lessons', (req, res) => {
   fs.readFile('lessons.json', 'utf8', (err, data) => {
@@ -149,7 +150,13 @@ app.post('/signin', async (req, res) => {
 app.post('/add', verifyToken, (req, res) => {
   const { tittle, content, category } = req.body;
   console.log(tittle,content,category);
-  res.status(200).json({ message: 'Successful add'});
+  try{
+    let newLesson = new Lesson({tittle:tittle, content:content, category:category});
+    newLesson.save();
+    res.status(200).json({ message: 'Successful add'});
+  }catch(error){
+    res.status(500).json({ message: error});
+  }
 });
 
 
