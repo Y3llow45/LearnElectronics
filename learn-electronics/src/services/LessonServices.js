@@ -38,9 +38,9 @@ export const signUp = (username, email, password) => {
     });
 };
 
-export const signIn = (usernameOrEmail, password) => {
+export const signIn = (email, password) => {
     let user = {
-        usernameOrEmail,
+        email,
         password,
     };
     

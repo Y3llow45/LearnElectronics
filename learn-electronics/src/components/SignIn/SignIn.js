@@ -10,7 +10,7 @@ class SignUp extends Component {
         super(props);
 
         this.state = {
-            usernameOrEmail: '',
+            email: '',
             password: ''
         };
     }
@@ -21,8 +21,8 @@ class SignUp extends Component {
 
     handleSign = (event) => {
         event.preventDefault();
-        console.log(this.state.usernameOrEmail, this.state.password);
-        signIn(this.state.usernameOrEmail, this.state.password)
+        console.log(this.state.email, this.state.password);
+        signIn(this.state.email, this.state.password)
             .then(res => {
                 if(res.status === 201){ //What status code do i need to send if logging was successful?
                     console.log('Logged in!');

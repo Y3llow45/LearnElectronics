@@ -105,12 +105,37 @@ app.post('/signup', (req, res) => {
   res.status(201).send();
 })
 
-app.post('/signin', (req, res) => {
-  const { usernameOrEmail, password } = req.body;
-  if (email === validEmail && password === validPassword) {
-      res.status(200).json({ message: 'Sign in successful' });
-  } else {
+app.post('/signin', async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    console.log(email);
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        console.log('Wrong credentials. No such user');
+        return res.status(401).json({ error: 'Invalid credentials' });
+    }
+    bcrypt
+      .hash(user.password, saltRounds)
+      .then(hash => {
+        user.password = hash;
+      })
+      .catch((err) => {throw err})
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log(password, user.password);
+
+    if (!isPasswordValid) {
+      console.log('Wrong credentials. Wrong password');
       res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    // Successful sign-in
+    console.log('Logged in');
+    res.status(200).json({ message: 'Sign in successful' });
+  } catch (error) {
+    console.error('Error during sign-in:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
