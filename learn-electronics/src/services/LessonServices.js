@@ -37,6 +37,22 @@ export const signUp = (username, email, password) => {
         body: JSON.stringify(user)
     });
 };
+
+export const signIn = (usernameOrEmail, password) => {
+    let user = {
+        usernameOrEmail,
+        password,
+    };
+    
+    return fetch(`${url}signin`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user)
+    });
+};
+
 /*
 export const update = (petId, pet) => {
     return fetch(`${url}/${petId}`, {

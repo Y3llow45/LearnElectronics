@@ -5,6 +5,7 @@ import Home from './components/Home/Home';
 import Lessons from './components/Lessons/Lessons';
 import Add from './components/Add/Add';
 import SignUp from './components/SignUp/SignUp';
+import SignIn from './components/SignIn/SignIn';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="/lessons" component={Lessons} />
             <Route path="/add" component={Add} />
             <Route path="/signup" component={SignUp} />
+            <Route path="/signin" component={SignIn} />
           </Switch>
       </div>
   );

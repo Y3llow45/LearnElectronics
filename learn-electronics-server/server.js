@@ -105,6 +105,15 @@ app.post('/signup', (req, res) => {
   res.status(201).send();
 })
 
+app.post('/signin', (req, res) => {
+  const { usernameOrEmail, password } = req.body;
+  if (email === validEmail && password === validPassword) {
+      res.status(200).json({ message: 'Sign in successful' });
+  } else {
+      res.status(401).json({ error: 'Invalid credentials' });
+  }
+});
+
 /*mongoose.connect(AtlasUri).then(() => {
   console.log('connected');
   bob.save();

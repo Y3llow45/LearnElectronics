@@ -1,13 +1,13 @@
 import React from 'react';
 
-const FormComponent = ({ emailorusername, password, handleInputChange }) => {
+const FormComponent = ({ usernameOrEmail, password, handleInputChange }) => {
     return (
         <div>
             <input
                 type="email"
                 name="email"
                 placeholder="Email"
-                value={emailorusername}
+                value={usernameOrEmail}
                 onChange={handleInputChange}
                 className='input-form'
                 required
