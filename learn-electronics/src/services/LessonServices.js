@@ -63,9 +63,9 @@ export const signIn = (email, password) => {
         });
 };
 
-export const add = (title, content, category) => {
+export const add = (tittle, content, category) => {
     let lesson = {
-        title,
+        tittle,
         content,
         category,
     };
@@ -83,7 +83,7 @@ export const add = (title, content, category) => {
         },
         body: JSON.stringify(lesson)
     })  
-        .then(res => res.json())
+        .then(response => response.json())
         .then(data => {
             console.log(data);
         })

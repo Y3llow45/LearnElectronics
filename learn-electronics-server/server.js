@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const verifyToken = require('./middleware/verifyToken');
+const generateToken = require('./genToken');
 
 const fs = require('fs');
 const app = express();
@@ -134,6 +135,8 @@ app.post('/signin', async (req, res) => {
 
     // Successful sign-in
     console.log('Logged in');
+    console.log(user);
+    console.log(user._id);
     const token = generateToken(user._id);
 
     res.status(200).json({ message: 'Sign in successful', token });
@@ -143,9 +146,12 @@ app.post('/signin', async (req, res) => {
   }
 });
 
-app.get('/protected-route', verifyToken, (req, res) => {
-  // Handle protected route logic
+app.post('/add', verifyToken, (req, res) => {
+  const { tittle, content, category } = req.body;
+  console.log(tittle,content,category);
+  res.status(200).json({ message: 'Successful add'});
 });
+
 
 /*mongoose.connect(AtlasUri).then(() => {
   console.log('connected');
