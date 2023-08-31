@@ -24,7 +24,7 @@ class SignUp extends Component {
         console.log(this.state.email, this.state.password);
         signIn(this.state.email, this.state.password)
             .then(res => {
-                if(res.status === 201){ //What status code do i need to send if logging was successful?
+                if(res.status === 200){
                     console.log('Logged in!');
                 }else {
                     console.error(`Error: ${res.statusText}`)

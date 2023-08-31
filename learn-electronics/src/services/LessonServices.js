@@ -50,7 +50,46 @@ export const signIn = (email, password) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(user)
-    });
+    })  
+        .then(res => res.json())
+        .then(data => {
+            if(data.token){
+                localStorage.setItem('token', data.token)
+                console.log('Logged in!')
+            }
+        })
+        .catch(error => {
+            console.error('Error signing in:', error);
+        });
+};
+
+export const add = (title, content, category) => {
+    let lesson = {
+        title,
+        content,
+        category,
+    };
+    const token = localStorage.getItem('token');
+    if(!token) {
+        console.log('Login first');
+        return;
+    }
+    
+    return fetch(`${url}add`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+        body: JSON.stringify(lesson)
+    })  
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 };
 
 /*
