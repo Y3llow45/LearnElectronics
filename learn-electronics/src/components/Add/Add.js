@@ -7,7 +7,7 @@ class Add extends Component{
         super(props);
 
         this.state = {
-            tittle: '',
+            title: '',
             content: '',
             category: ''
         };
@@ -18,7 +18,7 @@ class Add extends Component{
 
     handleAdd = (event) => {
         event.preventDefault();
-        add(this.state.tittle, this.state.content, this.state.category)
+        add(this.state.title, this.state.content, this.state.category)
             .then(res => {
                 if(res.status === 201){
                     console.log('Created!');
@@ -35,32 +35,36 @@ class Add extends Component{
     render(){
         return (
             <div>
-                <h3>Add</h3>
-                <h3>Not auth</h3>
-                <form className="signup-form" onSubmit={this.handleAdd}>
-                    <input type="tittle"
-                    name="tittle"
-                    placeholder="tittle"
-                    value={this.state.tittle}
-                    onChange={this.handleInputChange}
-                    className='input-form'
-                    required></input>
-                    <input type="content"
-                    name="content"
-                    placeholder="content"
-                    value={this.state.content}
-                    onChange={this.handleInputChange}
-                    className='input-form'
-                    required></input>
-                    <input type="category"
-                    name="category"
-                    placeholder="category"
-                    value={this.state.category}
-                    onChange={this.handleInputChange}
-                    className='input-form'
-                    required></input>
-                    <button type="submit" className='form-submit'>Add</button>
-                </form>
+                <div className='add-container'>
+                    <form className="" onSubmit={this.handleAdd}>
+                        <input type="title"
+                            name="title"
+                            placeholder="title"
+                            value={this.state.title}
+                            onChange={this.handleInputChange}
+                            className='input-form'
+                            required></input>
+                        <input type="content"
+                            name="content"
+                            placeholder="content"
+                            value={this.state.content}
+                            onChange={this.handleInputChange}
+                            className='input-form'
+                            required></input>
+                        <input type="category"
+                            name="category"
+                            placeholder="category"
+                            value={this.state.category}
+                            onChange={this.handleInputChange}
+                            className='input-form'
+                            required>
+                        </input>
+                        <button type="submit" className='form-submit'>Add</button>
+                    </form>
+                </div>
+                <div className='add-result-container'>
+                    <div dangerouslySetInnerHTML={{ __html: this.state.content }} />
+                </div>
             </div>
         );
     }

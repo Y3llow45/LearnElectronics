@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const verifyToken = require('./middleware/verifyToken');
 const generateToken = require('./genToken');
+//const getDate = require('./getDate')
 
 const fs = require('fs');
 const app = express();
@@ -148,10 +149,10 @@ app.post('/signin', async (req, res) => {
 });
 
 app.post('/add', verifyToken, (req, res) => {
-  const { tittle, content, category } = req.body;
-  console.log(tittle,content,category);
+  const { title, content, category } = req.body;
+  console.log(title,content,category);
   try{
-    let newLesson = new Lesson({tittle:tittle, content:content, category:category});
+    let newLesson = new Lesson({title:title, content:content, category:category});
     newLesson.save();
     res.status(200).json({ message: 'Successful add'});
   }catch(error){

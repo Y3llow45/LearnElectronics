@@ -63,9 +63,9 @@ export const signIn = (email, password) => {
         });
 };
 
-export const add = (tittle, content, category) => {
+export const add = (title, content, category) => {
     let lesson = {
-        tittle,
+        title,
         content,
         category,
     };
