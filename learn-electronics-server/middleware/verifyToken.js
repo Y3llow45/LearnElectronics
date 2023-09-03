@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const SSKEY = process.env.SSKEY;
 
 const verifyToken = (req, res, next) => {
-    console.log('verifing');
     const token = req.header('Authorization');
 
     if (!token) {
@@ -12,12 +11,11 @@ const verifyToken = (req, res, next) => {
     }
 
     try {
-        const verified = jwt.verify(token, SSKEY, (err, user) => {
+        jwt.verify(token, SSKEY, (err) => {
             if(err){
-                console.log("Here",err);
+                console.log("Error verifing token",err);
             }
             else{
-                console.log('YES!');
                 next()
             }
 

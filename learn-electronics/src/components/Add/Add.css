@@ -1,0 +1,35 @@
+.add-container {
+    display: block;
+    width: 75%;
+    text-align: center;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.flex {
+    display: flex;
+    margin: auto;
+    width: 50%;
+}
+.add-result-container {
+    margin-left: 0px;
+    text-align: center;
+    width: 1500px;
+}
+
+.input-form {
+    background-color: white;
+    margin-right: 20px;
+}
+
+.form-submit {
+    margin-top: 10px;
+}
+
+.form-submit {
+    display: flex;
+}
+
+.form-submit-space {
+    margin-left: 30px;
+}

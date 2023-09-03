@@ -150,7 +150,6 @@ app.post('/signin', async (req, res) => {
 
 app.post('/add', verifyToken, (req, res) => {
   const { title, content, category } = req.body;
-  console.log(title,content,category);
   try{
     let newLesson = new Lesson({title:title, content:content, category:category});
     newLesson.save();
