@@ -55,6 +55,7 @@ export const signIn = (email, password) => {
         .then(data => {
             if(data.token){
                 localStorage.setItem('token', data.token)
+                localStorage.setItem('username', data.username);
                 console.log('Logged in!')
             }
         })

@@ -19,17 +19,16 @@
 
 .input-form {
     background-color: white;
-    margin-right: 20px;
 }
-
-.form-submit {
-    margin-top: 10px;
-}
-
-.form-submit {
-    display: flex;
+.add-space-left {
+    margin-left: 20px;
 }
 
 .form-submit-space {
     margin-left: 30px;
+    margin-top: 10px;
+}
+
+.form-submit-top {
+    margin-top: 10px;
 }

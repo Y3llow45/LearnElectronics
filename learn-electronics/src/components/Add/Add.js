@@ -10,7 +10,7 @@ class Add extends Component{
         this.state = {
             title: '',
             content: '',
-            category: ''
+            category: 'lessons'
         };
     }
     handleInputChange = (event) => {
@@ -33,6 +33,7 @@ class Add extends Component{
 
     handleAdd = (event) => {
         event.preventDefault();
+        console.log(this.state.title, this.state.content, this.state.category);
         add(this.state.title, this.state.content, this.state.category)
             .then(res => {
                 if(res.status === 201){
@@ -45,7 +46,6 @@ class Add extends Component{
                 console.error(`Error: ${err}`)
             })
     };
-
 
     render(){
         return (
@@ -61,7 +61,7 @@ class Add extends Component{
                             className='input-form'
                             required>
                         </input>
-                        <select required name="category" className="input-form" value={this.state.category} onChange={this.handleInputChange}>
+                        <select required name="category" className="input-form add-space-left" value={this.state.category} onChange={this.handleInputChange}>
                             <option value="lessons">Lessons</option>
                             <option value="electric-components">Electric Components</option>
                             <option value="microcontrollers">Microcontrollers</option>
@@ -79,7 +79,7 @@ class Add extends Component{
                         />
                         <div id='add-result-container' dangerouslySetInnerHTML={{ __html: this.state.content }} style={{ display: 'none' }}/>    
                         <div className='flex'>
-                            <button onClick={this.handlePreviewChange} className='form-submit'>Preview</button>
+                            <button onClick={this.handlePreviewChange} className='form-submit form-submit-top'>Preview</button>
                             <button type="submit" className='form-submit form-submit-space' onClick={this.handleAdd}>Add</button>
                         </div>
                     </form>

@@ -137,11 +137,8 @@ app.post('/signin', async (req, res) => {
 
     // Successful sign-in
     console.log('Logged in');
-    console.log(user);
-    console.log(user._id);
     const token = generateToken(user._id);
-
-    res.status(200).json({ message: 'Sign in successful', token });
+    res.status(200).json({ message: 'Sign in successful', token, username: user.username });
   } catch (error) {
     console.error('Error during sign-in:', error);
     res.status(500).json({ error: 'Internal Server Error' });

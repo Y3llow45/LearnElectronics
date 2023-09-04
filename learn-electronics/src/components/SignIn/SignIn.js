@@ -5,15 +5,16 @@ import { signIn } from '../../services/LessonServices';
 import FormComponent from '../Form/FormComponent/FormComponent';
 import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputChange';
 
-class SignUp extends Component {
+class SignIn extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
         };
     }
+    
 
     handleInputChange = (event) => {
         handleInputChangeComponent(event, this.setState.bind(this));
@@ -36,6 +37,7 @@ class SignUp extends Component {
     };
 
     render() {
+        
         return (
             <div className="signup-container-border">
                 <div className='signup-container'>
@@ -56,4 +58,4 @@ class SignUp extends Component {
     }
 }
 
-export default SignUp;
+export default SignIn;
