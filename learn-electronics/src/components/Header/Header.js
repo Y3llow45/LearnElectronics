@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import './Header.css';
 import userAvatar from '../../assets/userAvatar.png';
-import { useState } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 
 //To Do: Hover efect on 'Electronics' text. Hover e => l,e,c glow in color: hsl(185, 62%, 45%);
 function Header() {
-    const [username, setusername] = useState('Guest');
+    const { username } = useAuth();
     return (
         <div className='nav-bar'>
             <h2 className='nav-h2-first'>Learn</h2><h2 className='nav-h2-second'>Electronics</h2> 
@@ -16,7 +16,11 @@ function Header() {
                 <NavLink  to='/signup' className='nav-link'>Sign up</NavLink >
             </div>
             <div className='nav-user'>
-                <h3 className='nav-user-wellcome'>Welcome, Guest</h3>
+                {username ? (
+                    <h3 className='nav-user-wellcome'>Welcome, {username}!</h3>
+                ) : (
+                    <h3 className='nav-user-wellcome'>Welcome, Guest</h3>
+                )}
             </div>
             <label htmlFor="menu-toggle" className="menu-icon" hidden>&#9776;</label>
             <img className='nav-user-avatar' src={userAvatar} alt='UA' height='35px'/>

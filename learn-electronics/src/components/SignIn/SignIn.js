@@ -1,61 +1,64 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import './SignIn.css';
-import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 import { signIn } from '../../services/LessonServices';
 import FormComponent from '../Form/FormComponent/FormComponent';
-import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputChange';
+import { handleInputChangeComponent } from '../Form/handleInputChange/handleInputChange';
 
-class SignIn extends Component {
-    constructor(props) {
-        super(props);
+const SignIn = () => {
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+  });
 
-        this.state = {
-            email: '',
-            password: '',
-        };
-    }
-    
+  const handleUsernameUpdate = (newUsername) => {
+    // Update the state with the new username
+    setState({ ...state, username: newUsername });
+  };
 
-    handleInputChange = (event) => {
-        handleInputChangeComponent(event, this.setState.bind(this));
-    }
+  const handleInputChange = (event) => {
+    handleInputChangeComponent(event, setState);
+  };
 
-    handleSign = (event) => {
-        event.preventDefault();
-        console.log(this.state.email, this.state.password);
-        signIn(this.state.email, this.state.password)
-            .then(res => {
-                if(res.status === 200){
-                    console.log('Logged in!');
-                }else {
-                    console.error(`Error: ${res.statusText}`)
-                }
-            })
-            .catch(err => {
-                console.error(`Error: ${err}`)
-            })
-    };
+  const handleSign = (event) => {
+    event.preventDefault();
+    console.log(state.email, state.password);
+    signIn(state.email, state.password, handleUsernameUpdate)
+      .then((res) => {
+        if (res.status === 200) {
+          console.log('Logged in!');
+        } else {
+          console.error(`Error: ${res.statusText}`);
+        }
+      })
+      .catch((err) => {
+        console.error(`Error: ${err}`);
+      });
+  };
 
-    render() {
-        
-        return (
-            <div className="signup-container-border">
-                <div className='signup-container'>
-                    <h2 className='form-tittle'>Sign In</h2>
-                    <form className="signup-form" onSubmit={this.handleSign}>
-                        <FormComponent email={this.state.email}
-                            password={this.state.password}
-                            handleInputChange={this.handleInputChange}/>
-                        <br></br>
-                        <button type="submit" className='form-submit'>Sign In</button>
-                    </form>
-                    <div className="signin-link">
-                        <p>Don't have an account? <NavLink to="/signup">Sign Up</NavLink></p>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
+  return (
+    <div className="signup-container-border">
+      <div className="signup-container">
+        <h2 className="form-tittle">Sign In</h2>
+        <form className="signup-form" onSubmit={handleSign}>
+          <FormComponent
+            email={state.email}
+            password={state.password}
+            handleInputChange={handleInputChange}
+          />
+          <br></br>
+          <button type="submit" className="form-submit">
+            Sign In
+          </button>
+        </form>
+        <div className="signin-link">
+          <p>
+            Don't have an account? <NavLink to="/signup">Sign Up</NavLink>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default SignIn;

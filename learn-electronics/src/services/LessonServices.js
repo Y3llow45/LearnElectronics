@@ -38,7 +38,7 @@ export const signUp = (username, email, password) => {
     });
 };
 
-export const signIn = (email, password) => {
+export const signIn = (email, password, updateUsername) => {
     let user = {
         email,
         password,
@@ -55,7 +55,8 @@ export const signIn = (email, password) => {
         .then(data => {
             if(data.token){
                 localStorage.setItem('token', data.token)
-                localStorage.setItem('username', data.username);
+                localStorage.setItem('username', data.username)
+                updateUsername(data.username);
                 console.log('Logged in!')
             }
         })
