@@ -34,7 +34,7 @@ const SignIn = () => {
   const handleSign = (event) => {
     event.preventDefault();
     console.log(state.email, state.password);
-    signIn(state.email, state.password)
+    signIn(state.email, state.password, setUsername)
       .then((res) => {
         if (res.status === 200) {
           console.log('Logged in!');
