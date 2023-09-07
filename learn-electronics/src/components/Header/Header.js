@@ -8,7 +8,8 @@ function Header() {
     const { username } = useAuth();
     return (
         <div className='nav-bar'>
-            <h2 className='nav-h2-first'>Learn</h2><h2 className='nav-h2-second'>Electronics</h2> 
+            <h2 className='nav-h2-first'>Learn</h2>
+            <h3 class="animate-charcter">Electronics</h3>
             <div className='nav-link-menu'>
                 <NavLink  to='/' className='nav-link'>Home</NavLink >
                 <NavLink  to='/lessons' className='nav-link'>Lessons</NavLink >

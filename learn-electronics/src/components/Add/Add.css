@@ -19,6 +19,7 @@
 
 .input-form {
     background-color: white;
+    resize: none;
 }
 .add-space-left {
     margin-left: 20px;
