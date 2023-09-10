@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import './Lessons.css';
 import * as LessonService from '../../services/LessonServices';
 import SearchBar from './SearchBar/SearchBar';
@@ -9,7 +9,7 @@ class Lessons extends Component {
 
         this.state = {
             lessons: [],
-            expandedLessonId: null
+            selectedLessonId: null
         };
     }
 
@@ -27,52 +27,60 @@ class Lessons extends Component {
             });
     }
 
-    toggleContent = (lessonId) => {
-        this.setState(prevState => ({
-            expandedLessonId: prevState.expandedLessonId === lessonId ? null : lessonId
-        }));
+    handleLessonClick = (lessonId) => {
+        this.setState({ selectedLessonId: lessonId });
     };
 
-    renderLesson(x) {
-        const { expandedLessonId } = this.state;
-     
+    renderLessonList() {
+        const { lessons, selectedLessonId } = this.state;
+
         return (
-            <div key={x.id} className={`lesson-bar ${expandedLessonId === x.id ? 'expanded' : ''}`}>
-                <h3 className="lesson-bar-title" onClick={() => this.toggleContent(x.id)}>
-                    {x.title}
-                    {expandedLessonId === x.id ? '▲' : '▼'}
-                </h3>
-                {expandedLessonId === x.id && (
-                    <div className="lesson-bar-content" dangerouslySetInnerHTML={{ __html: x.content }} />
+            <div className="lesson-list">
+                {lessons.map(x => (
+                    <div
+                        key={x.id}
+                        className={`lesson-title ${selectedLessonId === x.id ? 'selected' : ''}`}
+                        onClick={() => this.handleLessonClick(x.id)}
+                    >
+                        {x.title}
+                    </div>
+                    
+                ))}
+            </div>
+        );
+    }
+
+    renderLessonContent() {
+        const { lessons, selectedLessonId } = this.state;
+        const selectedLesson = lessons.find(x => x.id === selectedLessonId);
+
+        return (
+            <div className="lesson-content">
+                {selectedLesson && (
+                    <div>
+                        <p className="content-lesson-title">{selectedLesson.title}</p>
+                        <div>
+                            <p  className="lesson-text" dangerouslySetInnerHTML={{ __html: selectedLesson.content }}></p>
+                        </div>
+                    </div>
                 )}
             </div>
         );
     }
-    
+
     handleSearchResults = (searchResults) => {
         this.setState({ lessons: searchResults });
     };
 
     render() {
-        const { lessons } = this.state;
-
         return (
-            <div className="lessons-bar">
-                <SearchBar onSearchResults={this.handleSearchResults}/>
-                {lessons.map(x => this.renderLesson(x))}           
+            <div className="lessons-container">
+                {this.renderLessonList()}
+                <SearchBar onSearchResults={this.handleSearchResults} />
+                {this.renderLessonContent()}
             </div>
         );
     }
 }
 
 export default Lessons;
-
-/*<div key={x.id} className={`lesson-bar ${expandedLessonId === x.id ? 'expanded' : ''}`}>
-                <h3 className="lesson-bar-title" onClick={() => this.toggleContent(x.id)}>
-                    {x.title}
-                    {expandedLessonId === x.id ? '▲' : '▼'}
-                </h3>
-                {expandedLessonId === x.id && (
-                    <div className="lesson-bar-content" dangerouslySetInnerHTML={{ __html: x.content }} />
-                )}
-            </div>*/

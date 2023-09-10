@@ -1,45 +1,46 @@
-.lesson-bar {
-    align-items: center;
-    background-color: #ffffff;
-    margin-left: 132px;
-    margin-right: 132px;
-    border-radius: 12px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-  
-.lesson-bar-title {
-    padding-top: 10px;
-    font-size: 24px;
-    font-weight: lighter;
-    text-align: center;
-    padding-bottom: 5px;
-    font-family:sans-serif
-}
-  
-.lesson-bar-content {
-    padding: 0px 51px 1px 51px;
-    font-weight: 100 !important;
-    font-family:sans-serif;
-}
-
-
-.list-group-item {
-    background: #ffffff;
-    border: none;
-    font-size: 1.05rem;
-    margin: 10px 0px 10px 5px;
-    text-decoration: none;
-}
-
-.list-group {
-    background-color: #ffffff;
-}
-
-.div-scroll {
-    overflow-y: auto;
-    overflow-x: hidden;
-    width: 100%;
+.lesson-list {
+    width: 20%;
     height: 100%;
-    box-sizing: inherit;
+    overflow-y: auto;
+    background-color: #ffffff;
+    float: left;
+}
+
+.lessons-container {
+    display: flexbox;
+}
+.content-lesson-title {
+    font-size: 20px;
+    padding-left: 30px
+    
+}
+.lesson-title {
+    padding: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.lesson-title.selected {
+    background-color: rgb(58, 184, 146); /* Change to your desired background color */
+    color: white; /* Change to your desired text color */
+}
+
+.lesson-content {
+    width: 70%;
+    float: left;
+    padding: 20px;
+    font-weight: 500;
+}
+
+.lesson-text {
+    font-size: 16px;
+    font-weight: 100;
+    font-family: sans-serif;
+}
+
+@media(max-width: 708px){
+    .lessons-container {
+        display: block;
+    }
 }
