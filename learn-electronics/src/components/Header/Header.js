@@ -1,10 +1,18 @@
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
 import './Header.css';
 import userAvatar from '../../assets/userAvatar.png';
 import { useAuth } from '../../contexts/AuthContext';
+import { slide as Menu } from 'react-burger-menu';
+import { NavLink } from 'react-router-dom';
 
 function Header() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { username } = useAuth();
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
         <div className='nav-bar'>
             <div className='left-div'>
@@ -12,11 +20,17 @@ function Header() {
                 <h3 className="animate-charcter">Electronics</h3>
             </div>
             <div className='nav-link-menu'>
-                <NavLink  to='/' className='nav-link'>Home</NavLink >
-                <NavLink  to='/lessons' className='nav-link'>Lessons</NavLink >
-                <NavLink  to='/add' className='nav-link'>Add lessons</NavLink >
-                <NavLink  to='/signup' className='nav-link'>Sign up</NavLink >
+                <NavLink to='/' className='nav-link'>Home</NavLink>
+                <NavLink to='/lessons' className='nav-link'>Lessons</NavLink>
+                <NavLink to='/add' className='nav-link'>Add lessons</NavLink>
+                <NavLink to='/signup' className='nav-link'>Sign up</NavLink>
             </div>
+            <Menu isOpen={isMenuOpen} onStateChange={({ isOpen }) => setIsMenuOpen(isOpen)}>
+                <NavLink to='/' className="menu-item">Home</NavLink>
+                <NavLink to='/about' className="menu-item">About</NavLink>
+                <NavLink to='/contact' className="menu-item">Contact</NavLink>
+                <a onClick={toggleMenu} className="menu-item">Settings</a>
+            </Menu>
             <div className='right-div'>
                 <div className='nav-user'>
                     {username ? (
@@ -25,8 +39,8 @@ function Header() {
                         <h3 className='nav-user-wellcome'>Welcome, Guest</h3>
                     )}
                 </div>
-                <button htmlFor="menu-toggle" className="menu-icon">&#9776;</button>
-                <img className='nav-user-avatar' src={userAvatar} alt='UA' height='35px'/>
+                <img className='nav-user-avatar' src={userAvatar} alt='UA' height='35px' />
+                <button onClick={toggleMenu} className="menu-icon">&#9776;</button>
             </div>
         </div>
     );
@@ -34,6 +48,8 @@ function Header() {
 
 export default Header;
 
+
+//<button htmlFor="menu-toggle" className="menu-icon">&#9776;</button>
 
 //htmlFor="menu-toggle" className="menu-icon"
 /*{isAuthenticated

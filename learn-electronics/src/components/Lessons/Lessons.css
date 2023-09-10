@@ -40,7 +40,21 @@
 }
 
 @media(max-width: 708px){
-    .lessons-container {
-        display: block;
+    .lesson-list {
+        width: 20.5%;
+    }
+    select {
+        display: none;
+    }
+    .lesson-title {
+        padding: 5px;
+        font-size: 15px;
+    }
+}
+
+@media(max-width: 569px) {
+    .lesson-title {
+        padding: 1px;
+        font-size: 12px;
     }
 }

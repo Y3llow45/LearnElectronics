@@ -4,7 +4,7 @@
     align-items: center;
     gap: 10px;
     justify-content: center;
-    margin: 30px 50px 50px 30px;
+    margin: 30px 50px 0px 30px;
 }
 
 /* Styling for the input field */
@@ -33,3 +33,8 @@
     cursor: pointer;
 }
 
+@media(max-width: 708px){
+    .search-bar {
+        padding-left: 10%;
+    }
+}
