@@ -29,11 +29,11 @@
     border: none;
     font-size: 1.05rem;
     margin: 10px 0px 10px 5px;
+    text-decoration: none;
 }
 
 .list-group {
     background-color: #ffffff;
-    width: 260px;
 }
 
 .div-scroll {

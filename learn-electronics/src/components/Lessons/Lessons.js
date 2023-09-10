@@ -37,25 +37,14 @@ class Lessons extends Component {
         const { expandedLessonId } = this.state;
      
         return (
-            <div className="list-group">
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
-                <a to={x.title} class="list-group-item">{x.title}</a>
+            <div key={x.id} className={`lesson-bar ${expandedLessonId === x.id ? 'expanded' : ''}`}>
+                <h3 className="lesson-bar-title" onClick={() => this.toggleContent(x.id)}>
+                    {x.title}
+                    {expandedLessonId === x.id ? '▲' : '▼'}
+                </h3>
+                {expandedLessonId === x.id && (
+                    <div className="lesson-bar-content" dangerouslySetInnerHTML={{ __html: x.content }} />
+                )}
             </div>
         );
     }
@@ -69,10 +58,8 @@ class Lessons extends Component {
 
         return (
             <div className="lessons-bar">
-                <div className="div-scroll">
-                    {lessons.map(x => this.renderLesson(x))}
-                </div>
                 <SearchBar onSearchResults={this.handleSearchResults}/>
+                {lessons.map(x => this.renderLesson(x))}           
             </div>
         );
     }

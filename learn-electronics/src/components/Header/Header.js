@@ -25,7 +25,7 @@ function Header() {
                         <h3 className='nav-user-wellcome'>Welcome, Guest</h3>
                     )}
                 </div>
-                <label htmlFor="menu-toggle" className="menu-icon">&#9776;</label>
+                <button htmlFor="menu-toggle" className="menu-icon">&#9776;</button>
                 <img className='nav-user-avatar' src={userAvatar} alt='UA' height='35px'/>
             </div>
         </div>
@@ -34,6 +34,8 @@ function Header() {
 
 export default Header;
 
+
+//htmlFor="menu-toggle" className="menu-icon"
 /*{isAuthenticated
                     ? <h3>Welcome, {username}!</h3>
                     : <h3>Welcome, Guest</h3>
