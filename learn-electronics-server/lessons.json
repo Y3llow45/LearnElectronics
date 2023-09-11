@@ -3,7 +3,7 @@
     { 
       "id": 1, 
       "title": "Introduction to Electricity", 
-      "content": "<h3>Electricityis a fundamental aspect of modern life. It is a form of energy resulting from the movement of charged particles such as electrons or ions, commonly referred to as current. The electric charge is carried by various materials known as conductors, with copper and aluminum being the most commonly used. Electric power generation is the process of converting other forms of energy, like nuclear, chemical, or mechanical energy, into electrical energy. Electricity plays a crucial role in almost every aspect of life today, from powering homes and industries to driving cars and other modes of transportation.</h3>",
+      "content": "<p>Electricityis a fundamental aspect of modern life. It is a form of energy resulting from the movement of charged particles such as electrons or ions, commonly referred to as current. The electric charge is carried by various materials known as conductors, with copper and aluminum being the most commonly used. Electric power generation is the process of converting other forms of energy, like nuclear, chemical, or mechanical energy, into electrical energy. Electricity plays a crucial role in almost every aspect of life today, from powering homes and industries to driving cars and other modes of transportation.</p>",
       "category": "lessons",
       "likes": 0
     },

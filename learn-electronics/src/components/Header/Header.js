@@ -25,11 +25,16 @@ function Header() {
                 <NavLink to='/add' className='nav-link'>Add lessons</NavLink>
                 <NavLink to='/signup' className='nav-link'>Sign up</NavLink>
             </div>
-            <Menu isOpen={isMenuOpen} onStateChange={({ isOpen }) => setIsMenuOpen(isOpen)}>
-                <NavLink to='/' className="menu-item">Home</NavLink>
-                <NavLink to='/about' className="menu-item">About</NavLink>
-                <NavLink to='/contact' className="menu-item">Contact</NavLink>
-                <a onClick={toggleMenu} className="menu-item">Settings</a>
+            <Menu
+                isOpen={isMenuOpen}
+                onStateChange={({ isOpen }) => setIsMenuOpen(isOpen)}
+                menuClassName="slide-menu"
+                right
+            >
+                {<div className='hamburger-links'><NavLink to='/' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Home</NavLink>
+                <NavLink to='/lessons' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Lessons</NavLink>
+                <NavLink to='/add' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Add lessons</NavLink>
+                <NavLink to='/signup' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Sign up</NavLink></div>}
             </Menu>
             <div className='right-div'>
                 <div className='nav-user'>
@@ -39,8 +44,8 @@ function Header() {
                         <h3 className='nav-user-wellcome'>Welcome, Guest</h3>
                     )}
                 </div>
-                <img className='nav-user-avatar' src={userAvatar} alt='UA' height='35px' />
                 <button onClick={toggleMenu} className="menu-icon">&#9776;</button>
+                <img className='nav-user-avatar' src={userAvatar} alt='UA' height='35px' /> 
             </div>
         </div>
     );
