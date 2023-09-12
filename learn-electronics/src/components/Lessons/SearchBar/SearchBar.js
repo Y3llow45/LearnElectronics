@@ -49,7 +49,7 @@ class SearchBar extends Component {
                     value={this.state.keyword}
                     onChange={this.onInputChangeHandler}
                 />
-                <select value={this.state.category} onChange={this.onCategoryChangeHandler}>
+                <select value={this.state.category} onChange={this.onCategoryChangeHandler} className='searchbar-select'>
                     <option value="all">All Categories</option>
                     <option value="lessons">Lessons</option>
                     <option value="electric-components">Electric Components</option>

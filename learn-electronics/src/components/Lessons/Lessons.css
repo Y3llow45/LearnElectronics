@@ -43,7 +43,7 @@
     .lesson-list {
         width: 20.5%;
     }
-    select {
+    .searchbar-select {
         display: none;
     }
     .lesson-title {

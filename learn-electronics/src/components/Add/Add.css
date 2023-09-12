@@ -1,16 +1,41 @@
 .add-container {
-    display: block;
     width: 75%;
     text-align: center;
     margin: auto;
     margin-top: 30px;
+    display: flex;
 }
 
-.flex {
+.add-input-container {
     display: flex;
-    margin: auto;
-    width: 50%;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
 }
+
+@media (max-width: 768px) {
+    .add-input-container {
+        display: grid;
+        flex-direction: column; 
+        gap: 5px; 
+    }
+    .add-select {
+        width: 100%;
+    }
+}
+
+.add-input-form {
+    width: 22% !important;
+}
+.add-select {
+    width: 22% !important;
+}
+
+.add-form-submit {
+    max-width: 200px;
+}
+/*
 .add-result-container {
     margin-left: 0px;
     text-align: center;
@@ -33,3 +58,4 @@
 .form-submit-top {
     margin-top: 10px;
 }
+*/
