@@ -93,8 +93,7 @@
 .menu-icon{
     padding-top: 3px;
     font-size: 30px;
-    margin-left: 30px;
-    display: none;
+    margin-left: 10px;
     border: none;
     background: none;
 }
@@ -133,9 +132,6 @@ body {
 @media (max-width: 838px) {
     .nav-link-menu {
         display: none;
-    }
-    .menu-icon{
-        display:block;
     }
 }
 
@@ -209,6 +205,7 @@ body {
     fill: #000000;
 }
   
+
 .bm-overlay {
     display: none;
     

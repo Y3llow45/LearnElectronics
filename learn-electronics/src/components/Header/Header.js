@@ -7,23 +7,22 @@ import { NavLink } from 'react-router-dom';
 
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { username } = useAuth();
+    const { username, setUsername } = useAuth();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+    const logout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        setUsername('Guest');
+    }
 
     return (
         <div className='nav-bar'>
             <div className='left-div'>
                 <h2 className='nav-h2-first'>Learn</h2>
                 <h3 className="animate-charcter">Electronics</h3>
-            </div>
-            <div className='nav-link-menu'>
-                <NavLink to='/' className='nav-link'>Home</NavLink>
-                <NavLink to='/lessons' className='nav-link'>Lessons</NavLink>
-                <NavLink to='/add' className='nav-link'>Add lessons</NavLink>
-                <NavLink to='/signup' className='nav-link'>Sign up</NavLink>
             </div>
             <Menu
                 isOpen={isMenuOpen}
@@ -34,7 +33,8 @@ function Header() {
                 {<div className='hamburger-links'><NavLink to='/' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Home</NavLink>
                 <NavLink to='/lessons' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Lessons</NavLink>
                 <NavLink to='/add' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Add lessons</NavLink>
-                <NavLink to='/signup' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Sign up</NavLink></div>}
+                <NavLink to='/signup' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Sign up</NavLink>
+                <NavLink to='/home' className='nav-link nav-link-hamburger' onClick={logout}>Log out</NavLink></div>}
             </Menu>
             <div className='right-div'>
                 <div className='nav-user'>
@@ -44,15 +44,20 @@ function Header() {
                         <h3 className='nav-user-wellcome'>Welcome, Guest</h3>
                     )}
                 </div>
-                <button onClick={toggleMenu} className="menu-icon">&#9776;</button>
                 <img className='nav-user-avatar' src={userAvatar} alt='UA' height='35px' /> 
+                <button onClick={toggleMenu} className="menu-icon">&#9776;</button>
             </div>
         </div>
     );
 }
 
 export default Header;
-
+/*<div className='nav-link-menu'>
+                <NavLink to='/' className='nav-link'>Home</NavLink>
+                <NavLink to='/lessons' className='nav-link'>Lessons</NavLink>
+                <NavLink to='/add' className='nav-link'>Add lessons</NavLink>
+                <NavLink to='/signup' className='nav-link'>Sign up</NavLink>
+            </div> */
 
 //<button htmlFor="menu-toggle" className="menu-icon">&#9776;</button>
 
