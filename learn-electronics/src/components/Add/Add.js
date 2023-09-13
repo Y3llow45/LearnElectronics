@@ -51,6 +51,47 @@ class Add extends Component{
         return (
             <div className='add-container'>
                 <form>
+                    <div className='add-first'>
+                        <input type="title"
+                            name="title"
+                            placeholder="title"
+                            value={this.state.title}
+                            onChange={this.handleInputChange}
+                            className='input-form add-input-form'
+                            required>
+                        </input>
+                        <select required name="category" className="input-form add-select" value={this.state.category} onChange={this.handleInputChange}>
+                            <option value="lessons">Lessons</option>
+                            <option value="electric-components">Electric Components</option>
+                            <option value="microcontrollers">Microcontrollers</option>
+                        </select>
+                        <input type='image'></input>
+                        <button onClick={this.handlePreviewChange} className='form-submit add-form-submit'>Preview</button>
+                        <button type="submit" className='form-submit add-form-submit' onClick={this.handleAdd}>Add</button>
+                    </div>
+
+                    <div className='add-second'>
+                        <textarea
+                            name="content"
+                            placeholder="Content"
+                            value={this.state.content}
+                            onChange={this.handleInputChange}
+                            className="input-form add-input-form-textarea"
+                            id="txt-are-content"
+                            required
+                        />
+                        <div id='add-result-container' dangerouslySetInnerHTML={{ __html: this.state.content }} style={{ display: 'none' }}/>    
+                    </div>
+                </form>
+            </div>
+        );
+    }
+}
+
+export default Add;
+
+/*<div className='add-container'>
+                <form>
                     <div className='add-input-container'>
                         <input type="title"
                             name="title"
@@ -80,9 +121,4 @@ class Add extends Component{
                     />
                     <div id='add-result-container' dangerouslySetInnerHTML={{ __html: this.state.content }} style={{ display: 'none' }}/>    
                 </form>
-            </div>
-        );
-    }
-}
-
-export default Add;
+            </div>*/
