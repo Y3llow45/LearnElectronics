@@ -2,9 +2,8 @@ import {add} from '../../services/LessonServices'
 import { Component } from 'react';
 import './Add.css';
 import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputChange';
-
 import Editor, { createEditorStateWithText } from '@draft-js-plugins/editor';
-
+import {stateToHTML} from 'draft-js-export-html';
 import createToolbarPlugin from '@draft-js-plugins/static-toolbar';
 import editorStyles from './editorStyles.module.css';
 import buttonStyles from './buttonStyles.module.css';
@@ -53,6 +52,10 @@ class Add extends Component{
 
     handlePreviewChange = (e) => {
         e.preventDefault();
+        const contentState = this.state.editorState.getCurrentContent();
+        const htmlContent = stateToHTML(contentState);
+        console.log(htmlContent)
+        this.setState({ content: htmlContent });
         let result = document.getElementById('add-result-container');
         let content = document.getElementById('txt-are-content');
         if (result.style.display === 'none' || result.style.display === '') {
@@ -63,6 +66,7 @@ class Add extends Component{
             result.style.display = 'none';
             content.style.display = 'block';
         }
+        
     }
 
     handleAdd = (event) => {
@@ -100,16 +104,16 @@ class Add extends Component{
                             <option value="microcontrollers">Microcontrollers</option>
                         </select>
                         <div className={editorStyles.editor} onClick={this.focus}>
-          <Editor
-            editorState={this.state.editorState}
-            onChange={this.onChange}
-            plugins={plugins}
-            ref={(element) => {
-              this.editor = element;
-            }}
-          />
-          <Toolbar />
-        </div>
+                            <Toolbar />
+                            <Editor
+                                editorState={this.state.editorState}
+                                onChange={this.onChange}
+                                plugins={plugins}
+                                ref={(element) => {
+                                    this.editor = element;
+                                }}
+                            />
+                        </div>
                         <button onClick={this.handlePreviewChange} className='form-submit add-form-submit'>Preview</button>
                         <button type="submit" className='form-submit add-form-submit' onClick={this.handleAdd}>Add</button>
                     </div>
