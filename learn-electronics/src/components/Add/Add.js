@@ -8,6 +8,7 @@ import createToolbarPlugin from '@draft-js-plugins/static-toolbar';
 import editorStyles from './editorStyles.module.css';
 import buttonStyles from './buttonStyles.module.css';
 import toolbarStyles from './toolbarStyles.module.css';
+import CustomImageEditor from './CustomImageEditor/CustomImageEditor';
 
 const toolbarPlugin = createToolbarPlugin({
     theme: { buttonStyles, toolbarStyles },
@@ -103,6 +104,9 @@ class Add extends Component{
                             <option value="electric-components">Electric Components</option>
                             <option value="microcontrollers">Microcontrollers</option>
                         </select>
+                        <div className='add-first'>
+                            <CustomImageEditor />
+                        </div>
                         <div className={editorStyles.editor} onClick={this.focus}>
                             <Toolbar />
                             <Editor
