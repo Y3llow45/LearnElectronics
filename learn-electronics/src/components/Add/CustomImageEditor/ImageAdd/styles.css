@@ -103,3 +103,7 @@
   .addImageConfirmButton:active {
     background: #e6e6e6;
   }
+
+img {
+  max-width: 400px;
+}

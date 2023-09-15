@@ -17,7 +17,7 @@
     { 
       "id": 3, 
       "title": "Ohm's Law and Resistors", 
-      "content": "<h3>Ohm's Law states that the current flowing through a conductor between two points is directly proportional to the voltage across the two points. This relationship is expressed as I = V/R, where I is the current, V is the voltage, and R is the resistance of the conductor. Resistors are electrical components that introduce a specific amount of resistance in a circuit, which limits the flow of current and can be used for various purposes such as voltage dividers, current limiters, and signal conditioning. Resistors are characterized by their resistance value (measured in ohms), power rating, and tolerance.</h3>",
+      "content": "<h4>Ohm's Law states that the current flowing through a conductor between two points is directly proportional to the voltage across the two points. This relationship is expressed as I = V/R, where I is the current, V is the voltage, and R is the resistance of the conductor. Resistors are electrical components that introduce a specific amount of resistance in a circuit, which limits the flow of current and can be used for various purposes such as voltage dividers, current limiters, and signal conditioning. Resistors are characterized by their resistance value (measured in ohms), power rating, and tolerance.</h4>",
       "category": "lessons",
       "likes": 1
     },
