@@ -1,4 +1,169 @@
+import React, { Component } from 'react';
 import {add} from '../../services/LessonServices'
+import Editor, { createEditorStateWithText } from '@draft-js-plugins/editor';
+import {stateToHTML} from 'draft-js-export-html';
+import createToolbarPlugin from '@draft-js-plugins/static-toolbar';
+import editorStyles from './editorStyles.module.css';
+import buttonStyles from './buttonStyles.module.css';
+import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputChange';
+import toolbarStyles from './toolbarStyles.module.css';
+import createImagePlugin from '@draft-js-plugins/image';
+import ImageAdd from './CustomImageEditor/ImageAdd/ImageAdd';
+
+const imagePlugin = createImagePlugin();
+
+const toolbarPlugin = createToolbarPlugin({
+  theme: { buttonStyles, toolbarStyles },
+});
+const { Toolbar } = toolbarPlugin;
+const plugins = [toolbarPlugin, imagePlugin];
+
+const text =
+  'Click on the + button below and insert "/images/canada-landscape-small.jpg" to add the landscape image. Alternatively, you can use any image URL on the web.';
+
+class Add extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      title: '',
+      content: '',
+      category: 'lessons',
+      editorState: createEditorStateWithText(text),
+    };
+  }
+
+  onChange = (editorState) => {
+    this.setState({
+      editorState,
+    });
+  };
+
+  focus = () => {
+    this.editor.focus();
+  };
+
+  handleInputChange = (event) => {
+    handleInputChangeComponent(event, this.setState.bind(this));
+  };
+
+  handlePreviewChange = (e) => {
+    e.preventDefault();
+    const contentState = this.state.editorState.getCurrentContent();
+    const htmlContent = stateToHTML(contentState);
+    console.log(htmlContent)
+    this.setState({ content: htmlContent });
+    let result = document.getElementById('add-result-container');
+    let content = document.getElementById('txt-are-content');
+    if (result.style.display === 'none' || result.style.display === '') {
+      result.style.display = 'block';
+      result.style.height = '517px';
+      content.style.display = 'none';
+    } else {
+      result.style.display = 'none';
+      content.style.display = 'block';
+    }
+  };
+
+  handleAdd = (event) => {
+    event.preventDefault();
+    console.log(this.state.title, this.state.content, this.state.category);
+    add(this.state.title, this.state.content, this.state.category)
+      .then(res => {
+        if(res.status === 201){
+            console.log('Created!');
+        }else {
+            console.error(`Error: ${res.statusText}`)
+        }
+      })
+      .catch(err => {
+        console.error(`Error: ${err}`)
+      })
+  };
+
+  render() {
+    return (
+      <div className='add-container'>
+        <form>
+          <div className='add-first'>
+            <input
+              type='title'
+              name='title'
+              placeholder='title'
+              value={this.state.title}
+              onChange={this.handleInputChange}
+              className='input-form add-input-form'
+              required
+            />
+            <select
+              required
+              name='category'
+              className='input-form add-select'
+              value={this.state.category}
+              onChange={this.handleInputChange}
+            >
+              <option value='lessons'>Lessons</option>
+              <option value='electric-components'>Electric Components</option>
+              <option value='microcontrollers'>Microcontrollers</option>
+            </select>
+            <div className={editorStyles.editor} onClick={this.focus}>
+              <Toolbar />
+              <Editor
+                editorState={this.state.editorState}
+                onChange={this.onChange}
+                plugins={plugins}
+                ref={(element) => {
+                  this.editor = element;
+                }}
+              />
+            </div>
+            <ImageAdd
+              editorState={this.state.editorState}
+              onChange={this.onChange}
+              modifier={imagePlugin.addImage}
+            />
+            <button
+              onClick={this.handlePreviewChange}
+              className='form-submit add-form-submit'
+            >
+              Preview
+            </button>
+            <button
+              type='submit'
+              className='form-submit add-form-submit'
+              onClick={this.handleAdd}
+            >
+              Add
+            </button>
+          </div>
+
+          <div className='add-second'>
+            <textarea
+              name='content'
+              placeholder='Content'
+              value={this.state.content}
+              onChange={this.handleInputChange}
+              className='input-form add-input-form-textarea'
+              id='txt-are-content'
+              required
+            />
+            <div
+              id='add-result-container'
+              dangerouslySetInnerHTML={{ __html: this.state.content }}
+              style={{ display: 'none' }}
+            />
+          </div>
+        </form>
+      </div>
+    );
+  }
+}
+
+export default Add;
+
+
+
+/*import {add} from '../../services/LessonServices'
 import { Component } from 'react';
 import './Add.css';
 import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputChange';
@@ -92,30 +257,30 @@ class Add extends Component{
                 <form>
                     <div className='add-first'>
                         <input type="title"
-                            name="title"
-                            placeholder="title"
-                            value={this.state.title}
-                            onChange={this.handleInputChange}
-                            className='input-form add-input-form'
-                            required>
+                          name="title"
+                          placeholder="title"
+                          value={this.state.title}
+                          onChange={this.handleInputChange}
+                          className='input-form add-input-form'
+                          required>
                         </input>
                         <select required name="category" className="input-form add-select" value={this.state.category} onChange={this.handleInputChange}>
-                            <option value="lessons">Lessons</option>
-                            <option value="electric-components">Electric Components</option>
-                            <option value="microcontrollers">Microcontrollers</option>
+                          <option value="lessons">Lessons</option>
+                          <option value="electric-components">Electric Components</option>
+                          <option value="microcontrollers">Microcontrollers</option>
                         </select>
                         <div className='add-first'>
-                            <CustomImageEditor />
+                          <CustomImageEditor />
                         </div>
                         <div className={editorStyles.editor} onClick={this.focus}>
                             <Toolbar />
                             <Editor
-                                editorState={this.state.editorState}
-                                onChange={this.onChange}
-                                plugins={plugins}
-                                ref={(element) => {
-                                    this.editor = element;
-                                }}
+                              editorState={this.state.editorState}
+                              onChange={this.onChange}
+                              plugins={plugins}
+                              ref={(element) => {
+                                  this.editor = element;
+                              }}
                             />
                         </div>
                         <button onClick={this.handlePreviewChange} className='form-submit add-form-submit'>Preview</button>
@@ -124,13 +289,13 @@ class Add extends Component{
 
                     <div className='add-second'>
                         <textarea
-                            name="content"
-                            placeholder="Content"
-                            value={this.state.content}
-                            onChange={this.handleInputChange}
-                            className="input-form add-input-form-textarea"
-                            id="txt-are-content"
-                            required
+                          name="content"
+                          placeholder="Content"
+                          value={this.state.content}
+                          onChange={this.handleInputChange}
+                          className="input-form add-input-form-textarea"
+                          id="txt-are-content"
+                          required
                         />
                         <div id='add-result-container' dangerouslySetInnerHTML={{ __html: this.state.content }} style={{ display: 'none' }}/>    
                     </div>
@@ -140,7 +305,7 @@ class Add extends Component{
     }
 }
 
-export default Add;
+export default Add;*/
 
 /*<div className='add-container'>
                 <form>
