@@ -3,12 +3,13 @@ import {add} from '../../services/LessonServices'
 import Editor, { createEditorStateWithText } from '@draft-js-plugins/editor';
 import {stateToHTML} from 'draft-js-export-html';
 import createToolbarPlugin from '@draft-js-plugins/static-toolbar';
-import editorStyles from './editorStyles.module.css';
+import editorStyles from './CustomImageEditor/editorStyles.module.css';
 import buttonStyles from './buttonStyles.module.css';
 import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputChange';
 import toolbarStyles from './toolbarStyles.module.css';
 import createImagePlugin from '@draft-js-plugins/image';
 import ImageAdd from './CustomImageEditor/ImageAdd/ImageAdd';
+import './Add.css';
 
 const imagePlugin = createImagePlugin();
 
@@ -19,7 +20,7 @@ const { Toolbar } = toolbarPlugin;
 const plugins = [toolbarPlugin, imagePlugin];
 
 const text =
-  'Click on the + button below and insert "/images/canada-landscape-small.jpg" to add the landscape image. Alternatively, you can use any image URL on the web.';
+  'Enter lesson content';
 
 class Add extends Component {
   constructor(props) {

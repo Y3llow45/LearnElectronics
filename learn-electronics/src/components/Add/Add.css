@@ -2,8 +2,7 @@
     width: 75%;
     text-align: center;
     margin: auto;
-    margin-top: 30px;
-    display: flex;
+    margin-top: 7rem;
 }
 
 .add-input-container {
@@ -30,6 +29,8 @@
 }
 .add-select {
     width: 22% !important;
+    height: 2.2rem;
+    margin-left: 10px;
 }
 
 .add-form-submit {

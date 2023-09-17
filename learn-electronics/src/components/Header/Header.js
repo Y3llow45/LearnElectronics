@@ -34,7 +34,7 @@ function Header() {
                 <NavLink to='/lessons' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Lessons</NavLink>
                 <NavLink to='/add' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Add lessons</NavLink>
                 <NavLink to='/signup' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Sign up</NavLink>
-                <NavLink to='/home' className='nav-link nav-link-hamburger' onClick={logout}>Log out</NavLink></div>}
+                <NavLink to='' className='nav-link nav-link-hamburger' onClick={logout}>Log out</NavLink></div>}
             </Menu>
             <div className='right-div'>
                 <div className='nav-user'>
