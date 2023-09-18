@@ -107,8 +107,15 @@ class Add extends Component {
               <option value='electric-components'>Electric Components</option>
               <option value='microcontrollers'>Microcontrollers</option>
             </select>
-            <div className={editorStyles.editor} onClick={this.focus}>
+            <div style={{ display: 'inline-flex', width: '60%', justifyContent: 'center' }}>
+              <ImageAdd
+                editorState={this.state.editorState}
+                onChange={this.onChange}
+                modifier={imagePlugin.addImage}
+              />
               <Toolbar />
+            </div>
+            <div className={editorStyles.editor} onClick={this.focus}>
               <Editor
                 editorState={this.state.editorState}
                 onChange={this.onChange}
@@ -118,11 +125,6 @@ class Add extends Component {
                 }}
               />
             </div>
-            <ImageAdd
-              editorState={this.state.editorState}
-              onChange={this.onChange}
-              modifier={imagePlugin.addImage}
-            />
             <button
               onClick={this.handlePreviewChange}
               className='form-submit add-form-submit'
