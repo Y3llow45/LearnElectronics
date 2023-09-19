@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './styles.css';
+import './styles.css';
 
 export default class ImageAdd extends Component {
   state = {
@@ -30,16 +30,16 @@ export default class ImageAdd extends Component {
   render() {
 
     return (
-      <div className={styles.addImage}>
+      <div className="addImage">
           <input
             type="text"
             placeholder="Paste the image url …"
-            className={styles.addImageInput}
+            className="addImageInput"
             onChange={this.changeUrl}
             value={this.state.url}
           />
           <button
-            className={styles.addImageConfirmButton}
+            className="addImageConfirmButton"
             type="button"
             onClick={this.addImage}
           >

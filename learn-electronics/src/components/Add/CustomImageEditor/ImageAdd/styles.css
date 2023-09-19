@@ -1,6 +1,7 @@
 .addImage {
-    background: #FFF;
-    display: inline-block;
+    display: flex;
+    height: 37px;
+    margin-right: 5px;
   }
   
   .addImagePopover {
@@ -64,44 +65,34 @@
   }
   
   .addImageInput {
-    box-sizing: border-box;
-    border: 1px solid #ddd;
+    /*box-sizing: border-box;*/
+    border: 1px solid #000000;
     cursor: text;
-    padding: 4px;
     width: 78%;
     border-radius: 2px;
-    margin-bottom: 1em;
-    box-shadow: inset 0px 1px 8px -3px #ABABAB;
-    background: #fefefe;
+    margin-right: 2px;
+    height: 29px;
+    margin-top: 2px;
   }
   
   .addImageConfirmButton {
-    box-sizing: border-box;
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 0;
-    color: #888;
-    margin: 0;
-    border-radius: 2.1em;
-    cursor: pointer;
-    height: 2.1em;
-    width: 18%;
-    font-size: 1em;
-    line-height: 2.1em;
-    margin: 0;
-    margin-left: 4%;
+    background: #333;
+    color: #ddd;
+    font-size: 18px;
+    border: 0;
+    vertical-align: bottom;
+    border: 1px black solid;
+    height: 37px;
+    width: 44px;
+    border-radius: 4px;
+  }
+  .addImageConfirmButton:hover {
+    outline: 0;
+    background: #444;
   }
   
   .addImageConfirmButton:focus {
-    outline: 0; /* reset for :focus */
-  }
-  
-  .addImageConfirmButton:hover {
-    background: #f3f3f3;
-  }
-  
-  .addImageConfirmButton:active {
-    background: #e6e6e6;
+    outline: 0;
   }
 
 img {

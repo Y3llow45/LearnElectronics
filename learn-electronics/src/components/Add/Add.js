@@ -107,7 +107,7 @@ class Add extends Component {
               <option value='electric-components'>Electric Components</option>
               <option value='microcontrollers'>Microcontrollers</option>
             </select>
-            <div style={{ display: 'inline-flex', width: '60%', justifyContent: 'center' }}>
+            <div style={{ display: 'inline-flex', width: '60%', justifyContent: 'center', marginBottom: '5px' }}>
               <ImageAdd
                 editorState={this.state.editorState}
                 onChange={this.onChange}
