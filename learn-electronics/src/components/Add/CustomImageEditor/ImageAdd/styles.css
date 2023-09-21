@@ -1,7 +1,7 @@
 .addImage {
     display: flex;
     height: 37px;
-    margin-right: 5px;
+    margin-right: 10px;
   }
   
   .addImagePopover {
@@ -70,9 +70,9 @@
     cursor: text;
     width: 78%;
     border-radius: 2px;
-    margin-right: 2px;
-    height: 29px;
-    margin-top: 2px;
+    margin-right: 3px;
+    border-radius: 6px;
+    padding: 5px;
   }
   
   .addImageConfirmButton {
@@ -97,4 +97,14 @@
 
 img {
   max-width: 400px;
+}
+
+@media(max-width:829px) {
+  .bunchOfbuttons{
+    display: grid !important;
+    margin: auto;
+  }
+  .addImage {
+    margin-bottom: 5px;
+  }
 }

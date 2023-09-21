@@ -87,27 +87,29 @@ class Add extends Component {
       <div className='add-container'>
         <form>
           <div className='add-first'>
-            <input
-              type='title'
-              name='title'
-              placeholder='title'
-              value={this.state.title}
-              onChange={this.handleInputChange}
-              className='input-form add-input-form'
-              required
-            />
-            <select
-              required
-              name='category'
-              className='input-form add-select'
-              value={this.state.category}
-              onChange={this.handleInputChange}
-            >
-              <option value='lessons'>Lessons</option>
-              <option value='electric-components'>Electric Components</option>
-              <option value='microcontrollers'>Microcontrollers</option>
-            </select>
-            <div style={{ display: 'inline-flex', width: '60%', justifyContent: 'center', marginBottom: '5px' }}>
+            <div className='add-first-inputs'>
+              <input
+                type='title'
+                name='title'
+                placeholder='title'
+                value={this.state.title}
+                onChange={this.handleInputChange}
+                className='input-form add-input-form'
+                required
+              />
+              <select
+                required
+                name='category'
+                className='input-form add-select'
+                value={this.state.category}
+                onChange={this.handleInputChange}
+              >
+                <option value='lessons'>Lessons</option>
+                <option value='electric-components'>Electric Components</option>
+                <option value='microcontrollers'>Microcontrollers</option>
+              </select>
+            </div>
+            <div className='bunchOfbuttons' style={{ display: 'inline-flex', width: '60%', justifyContent: 'center', marginBottom: '10px' }}>
               <ImageAdd
                 editorState={this.state.editorState}
                 onChange={this.onChange}
@@ -127,7 +129,7 @@ class Add extends Component {
             </div>
             <button
               onClick={this.handlePreviewChange}
-              className='form-submit add-form-submit'
+              className='form-submit add-form-submit add-preview-button'
             >
               Preview
             </button>

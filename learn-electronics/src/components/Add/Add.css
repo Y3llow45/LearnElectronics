@@ -22,10 +22,17 @@
     .add-select {
         width: 100%;
     }
+    .addImage {
+        margin-right: 0px;
+    }
+}
+
+.input-form {
+    background-color: white;
 }
 
 .add-input-form {
-    width: 22% !important;
+    width: 18.3% !important;
 }
 .add-select {
     width: 22% !important;
@@ -35,6 +42,9 @@
 
 .add-form-submit {
     max-width: 200px;
+}
+.add-preview-button {
+    margin-right: 10px;
 }
 /*
 .add-result-container {
