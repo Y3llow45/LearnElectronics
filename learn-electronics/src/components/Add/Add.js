@@ -9,6 +9,7 @@ import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputC
 import toolbarStyles from './toolbarStyles.module.css';
 import createImagePlugin from '@draft-js-plugins/image';
 import ImageAdd from './CustomImageEditor/ImageAdd/ImageAdd';
+import { toast } from "react-toastify";
 import './Add.css';
 
 const imagePlugin = createImagePlugin();
@@ -19,8 +20,13 @@ const toolbarPlugin = createToolbarPlugin({
 const { Toolbar } = toolbarPlugin;
 const plugins = [toolbarPlugin, imagePlugin];
 
-const text =
-  'Enter lesson content';
+const text = 'Enter lesson content';
+const addErrors = {errorEmpty: 'Provide title and content',
+errorTitleExist: 'Lesson with such title already exist',
+errorTitleLength: 'Title is too short',
+errorTitleLengthMax: 'Title is too long',
+errorContentLength: 'Content is too short',
+errorContentLengthMax: 'Content is too long'}
 
 class Add extends Component {
   constructor(props) {
@@ -31,8 +37,21 @@ class Add extends Component {
       content: '',
       category: 'lessons',
       editorState: createEditorStateWithText(text),
+      displayError: '',
     };
   }
+  displayLoginNotification = (text) => {
+    toast.success(text);
+  };/*toast.warn('👋 Welcome to Copycat!', {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });*/
 
   onChange = (editorState) => {
     this.setState({
@@ -55,24 +74,30 @@ class Add extends Component {
     console.log(htmlContent)
     this.setState({ content: htmlContent });
     let result = document.getElementById('add-result-container');
-    let content = document.getElementById('txt-are-content');
+    //let content = document.getElementById('');//txt-are-content
     if (result.style.display === 'none' || result.style.display === '') {
       result.style.display = 'block';
       result.style.height = '517px';
-      content.style.display = 'none';
+      //content.style.display = 'none';
     } else {
       result.style.display = 'none';
-      content.style.display = 'block';
+      //content.style.display = 'block';
     }
   };
 
   handleAdd = (event) => {
     event.preventDefault();
-    console.log(this.state.title, this.state.content, this.state.category);
+    //console.log(this.state.title, this.state.content, this.state.category);
+    let errorMessage = document.getElementById('add-error');
+    if(this.state.title == '' || this.state.content == ''){
+      this.setState({displayError: addErrors.errorEmpty})
+      this.displayLoginNotification("Add Successful");
+    }
     add(this.state.title, this.state.content, this.state.category)
       .then(res => {
         if(res.status === 201){
             console.log('Created!');
+            this.displayLoginNotification("Add Successful");
         }else {
             console.error(`Error: ${res.statusText}`)
         }
@@ -141,17 +166,8 @@ class Add extends Component {
               Add
             </button>
           </div>
-
+          <span id='add-error' className='add-error-span' style={{display: 'none'}}>{this.state.displayError}</span>
           <div className='add-second'>
-            <textarea
-              name='content'
-              placeholder='Content'
-              value={this.state.content}
-              onChange={this.handleInputChange}
-              className='input-form add-input-form-textarea'
-              id='txt-are-content'
-              required
-            />
             <div
               id='add-result-container'
               dangerouslySetInnerHTML={{ __html: this.state.content }}
@@ -166,6 +182,15 @@ class Add extends Component {
 
 export default Add;
 
+/*<textarea
+              name='content'
+              placeholder='Content'
+              value={this.state.content}
+              onChange={this.handleInputChange}
+              className='input-form add-input-form-textarea'
+              id='txt-are-content'
+              required
+            />*/
 
 
 /*import {add} from '../../services/LessonServices'

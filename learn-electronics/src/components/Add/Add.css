@@ -46,6 +46,11 @@
 .add-preview-button {
     margin-right: 10px;
 }
+
+.add-error-span {
+    font-size: 20px;
+    color: red;
+}
 /*
 .add-result-container {
     margin-left: 0px;

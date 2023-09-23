@@ -7,17 +7,32 @@ import Add from './components/Add/Add';
 import SignUp from './components/SignUp/SignUp';
 import SignIn from './components/SignIn/SignIn';
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
       <div className="container">
         <Header />
+        <ToastContainer 
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
         <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/lessons" component={Lessons} />
-            <Route path="/add" component={Add} />
-            <Route path="/signup" component={SignUp} />
-            <Route path="/signin" component={SignIn} />
-          </Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/lessons" component={Lessons} />
+          <Route path="/add" component={Add} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/signin" component={SignIn} />
+        </Switch>
       </div>
   );
 }
