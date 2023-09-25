@@ -42,6 +42,9 @@ class Add extends Component {
   }
   displayLoginNotification = (text) => {
     toast.success(text);
+  };
+  displayLoginError = (text) => {
+    toast.error(text);
   };/*toast.warn('👋 Welcome to Copycat!', {
     position: "top-right",
     autoClose: 5000,
@@ -91,20 +94,21 @@ class Add extends Component {
     let errorMessage = document.getElementById('add-error');
     if(this.state.title == '' || this.state.content == ''){
       this.setState({displayError: addErrors.errorEmpty})
-      this.displayLoginNotification("Add Successful");
+      this.displayLoginError(addErrors.errorEmpty);
+    }else {
+      add(this.state.title, this.state.content, this.state.category)
+        .then(res => {
+          if(res.status === 201){
+              console.log('Created!');
+              this.displayLoginNotification("Add Successful");
+          }else {
+              console.error(`Error: ${res.statusText}`)
+          }
+        })
+        .catch(err => {
+          console.error(`Error: ${err}`)
+      })
     }
-    add(this.state.title, this.state.content, this.state.category)
-      .then(res => {
-        if(res.status === 201){
-            console.log('Created!');
-            this.displayLoginNotification("Add Successful");
-        }else {
-            console.error(`Error: ${res.statusText}`)
-        }
-      })
-      .catch(err => {
-        console.error(`Error: ${err}`)
-      })
   };
 
   render() {
@@ -166,7 +170,6 @@ class Add extends Component {
               Add
             </button>
           </div>
-          <span id='add-error' className='add-error-span' style={{display: 'none'}}>{this.state.displayError}</span>
           <div className='add-second'>
             <div
               id='add-result-container'

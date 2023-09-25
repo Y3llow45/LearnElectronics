@@ -14,16 +14,17 @@ function App() {
   return (
       <div className="container">
         <Header />
-        <ToastContainer 
+        <ToastContainer
+          className="add-toast-container"
           position="top-right"
-          autoClose={5000}
+          autoClose={2000}
           hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
+          newestOnTop={true}
+          closeOnClick={true}
           rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
+          pauseOnFocusLoss={false}
+          draggable={false}
+          pauseOnHover={false}
           theme="light"
         />
         <Switch>
