@@ -21,7 +21,8 @@ const { Toolbar } = toolbarPlugin;
 const plugins = [toolbarPlugin, imagePlugin];
 
 const text = 'Enter lesson content';
-const addErrors = {errorEmpty: 'Provide title and content',
+const addErrors = {
+errorEmpty: 'Provide title and content',
 errorTitleExist: 'Lesson with such title already exist',
 errorTitleLength: 'Title is too short',
 errorTitleLengthMax: 'Title is too long',
@@ -37,7 +38,6 @@ class Add extends Component {
       content: '',
       category: 'lessons',
       editorState: createEditorStateWithText(text),
-      displayError: '',
     };
   }
   displayLoginNotification = (text) => {
@@ -91,11 +91,13 @@ class Add extends Component {
   handleAdd = (event) => {
     event.preventDefault();
     //console.log(this.state.title, this.state.content, this.state.category);
-    let errorMessage = document.getElementById('add-error');
-    if(this.state.title == '' || this.state.content == ''){
-      this.setState({displayError: addErrors.errorEmpty})
+    if(this.state.title === '' || this.state.content === ''){
+      console.log(this.state)
       this.displayLoginError(addErrors.errorEmpty);
-    }else {
+    }else if(this.state.content.length < 80) {
+      this.displayLoginError('Content is too short');
+    }
+    else {
       add(this.state.title, this.state.content, this.state.category)
         .then(res => {
           if(res.status === 201){
