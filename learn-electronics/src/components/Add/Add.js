@@ -22,12 +22,13 @@ const plugins = [toolbarPlugin, imagePlugin];
 
 const text = 'Enter lesson content';
 const addErrors = {
-errorEmpty: 'Provide title and content',
-errorTitleExist: 'Lesson with such title already exist',
-errorTitleLength: 'Title is too short',
-errorTitleLengthMax: 'Title is too long',
-errorContentLength: 'Content is too short',
-errorContentLengthMax: 'Content is too long'}
+  errorEmpty: 'Provide title and content',
+  errorTitleExist: 'Lesson with such title already exist',
+  errorTitleLength: 'Title is too short',
+  errorTitleLengthMax: 'Title is too long',
+  errorContentLength: 'Content is too short',
+  errorContentLengthMax: 'Content is too long'
+}
 
 class Add extends Component {
   constructor(props) {
@@ -35,7 +36,6 @@ class Add extends Component {
 
     this.state = {
       title: '',
-      content: '',
       category: 'lessons',
       editorState: createEditorStateWithText(text),
     };
@@ -68,37 +68,22 @@ class Add extends Component {
 
   handleInputChange = (event) => {
     handleInputChangeComponent(event, this.setState.bind(this));
-  };
-
-  handlePreviewChange = (e) => {
-    e.preventDefault();
-    const contentState = this.state.editorState.getCurrentContent();
-    const htmlContent = stateToHTML(contentState);
-    console.log(htmlContent)
-    this.setState({ content: htmlContent });
-    let result = document.getElementById('add-result-container');
-    //let content = document.getElementById('');//txt-are-content
-    if (result.style.display === 'none' || result.style.display === '') {
-      result.style.display = 'block';
-      result.style.height = '517px';
-      //content.style.display = 'none';
-    } else {
-      result.style.display = 'none';
-      //content.style.display = 'block';
-    }
+    
   };
 
   handleAdd = (event) => {
     event.preventDefault();
+    const contentState = this.state.editorState.getCurrentContent();
+    const htmlContent = stateToHTML(contentState);
     //console.log(this.state.title, this.state.content, this.state.category);
-    if(this.state.title === '' || this.state.content === ''){
+    if(this.state.title === '' || htmlContent === ''){
       console.log(this.state)
       this.displayLoginError(addErrors.errorEmpty);
-    }else if(this.state.content.length < 80) {
+    }else if(htmlContent.length < 120) {
       this.displayLoginError('Content is too short');
     }
     else {
-      add(this.state.title, this.state.content, this.state.category)
+      add(this.state.title, htmlContent, this.state.category)
         .then(res => {
           if(res.status === 201){
               console.log('Created!');
@@ -159,25 +144,12 @@ class Add extends Component {
               />
             </div>
             <button
-              onClick={this.handlePreviewChange}
-              className='form-submit add-form-submit add-preview-button'
-            >
-              Preview
-            </button>
-            <button
               type='submit'
               className='form-submit add-form-submit'
               onClick={this.handleAdd}
             >
               Add
             </button>
-          </div>
-          <div className='add-second'>
-            <div
-              id='add-result-container'
-              dangerouslySetInnerHTML={{ __html: this.state.content }}
-              style={{ display: 'none' }}
-            />
           </div>
         </form>
       </div>
