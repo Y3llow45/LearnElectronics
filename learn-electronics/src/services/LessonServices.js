@@ -1,3 +1,4 @@
+import { displayLoginNotification } from '../components/Notify/Notify';
 const url = 'http://localhost:5000/';
 
 export const getAll = () => {
@@ -85,7 +86,13 @@ export const add = (title, content, category) => {
         },
         body: JSON.stringify(lesson)
     })  
-        .then(response => response.json())
+        .then(res => {
+            res.json()
+            if(res.status === 201){
+                console.log('Created!');
+                displayLoginNotification("Add Successful");
+            }
+        })
         .then(data => {
             console.log(data);
         })

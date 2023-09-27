@@ -9,8 +9,8 @@ import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputC
 import toolbarStyles from './toolbarStyles.module.css';
 import createImagePlugin from '@draft-js-plugins/image';
 import ImageAdd from './CustomImageEditor/ImageAdd/ImageAdd';
-import { toast } from "react-toastify";
 import './Add.css';
+import { displayLoginError } from '../Notify/Notify';
 
 const imagePlugin = createImagePlugin();
 
@@ -40,12 +40,7 @@ class Add extends Component {
       editorState: createEditorStateWithText(text),
     };
   }
-  displayLoginNotification = (text) => {
-    toast.success(text);
-  };
-  displayLoginError = (text) => {
-    toast.error(text);
-  };/*toast.warn('👋 Welcome to Copycat!', {
+  /*toast.warn('👋 Welcome to Copycat!', {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
@@ -78,23 +73,12 @@ class Add extends Component {
     //console.log(this.state.title, this.state.content, this.state.category);
     if(this.state.title === '' || htmlContent === ''){
       console.log(this.state)
-      this.displayLoginError(addErrors.errorEmpty);
-    }else if(htmlContent.length < 120) {
-      this.displayLoginError('Content is too short');
+      displayLoginError(addErrors.errorEmpty);
+    }else if(htmlContent.length < 120 || htmlContent.length > 10000) {
+      displayLoginError('Content is too short or too long');
     }
     else {
       add(this.state.title, htmlContent, this.state.category)
-        .then(res => {
-          if(res.status === 201){
-              console.log('Created!');
-              this.displayLoginNotification("Add Successful");
-          }else {
-              console.error(`Error: ${res.statusText}`)
-          }
-        })
-        .catch(err => {
-          console.error(`Error: ${err}`)
-      })
     }
   };
 

@@ -145,14 +145,14 @@ app.post('/signin', async (req, res) => {
   }
 });
 
-app.post('/add', verifyToken, (req, res) => {
+app.post('/add', verifyToken, async (req, res) => {
   const { title, content, category } = req.body;
   try{
     let newLesson = new Lesson({title:title, content:content, category:category});
-    newLesson.save();
-    res.status(200).json({ message: 'Successful add'});
+    await newLesson.save();
+    res.status(201).json({message: 'created!'});
   }catch(error){
-    res.status(500).json({ message: error});
+    res.status(500).json({ message: error.message});
   }
 });
 
