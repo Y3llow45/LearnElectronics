@@ -27,7 +27,7 @@ app.get('/lessons', (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
       res.status(200).json(JSON.parse(data));
-    }
+    } 
   });
 });
 

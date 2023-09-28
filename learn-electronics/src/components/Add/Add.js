@@ -74,7 +74,7 @@ class Add extends Component {
     if(this.state.title === '' || htmlContent === ''){
       console.log(this.state)
       displayLoginError(addErrors.errorEmpty);
-    }else if(htmlContent.length < 120 || htmlContent.length > 10000) {
+    }else if(htmlContent.length < 120 || htmlContent.length > 5000) {
       displayLoginError('Content is too short or too long');
     }
     else {

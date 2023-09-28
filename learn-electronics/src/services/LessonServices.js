@@ -3,7 +3,7 @@ const url = 'http://localhost:5000/';
 
 export const getAll = () => {
     return fetch(`${url}lessons`)
-        .then(res => res.json())
+        .then(res => res.json()) 
         .then((data) => {
             console.log('JSON response:', data); 
             return data;

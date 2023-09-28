@@ -4,7 +4,7 @@ const SSKEY = process.env.SSKEY;
 
 const generateToken = (userId) => {
     userId = userId.toString();
-    const token = jwt.sign({ userId }, SSKEY, { expiresIn: '1d' });
+    const token = jwt.sign({ userId }, SSKEY);//, { expiresIn: '1d' }
     return token;
 };
 
