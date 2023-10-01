@@ -10,7 +10,7 @@ export const getAll = () => {
         })
         .catch((error) => {
             console.error('Error fetching data:', error);
-        });
+    });
 }
 
 

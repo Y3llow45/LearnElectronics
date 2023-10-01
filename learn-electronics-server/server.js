@@ -1,25 +1,22 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-require('dotenv').config();
 const verifyToken = require('./middleware/verifyToken');
-const generateToken = require('./genToken');
-//const getDate = require('./getDate')
-
+const generateToken = require('./services/genToken');
 const fs = require('fs');
 const app = express();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-app.use(cors());
-app.use(bodyParser.json());
-
 const port = process.env.PORT;
 const AtlasUri = process.env.ATLASURI;
-
 const User = require("./models/user");
 const Lesson = require("./models/lesson");
+
+app.use(cors());
+app.use(bodyParser.json());
 
 app.get('/lessons', (req, res) => {
   fs.readFile('lessons.json', 'utf8', (err, data) => {
@@ -167,6 +164,7 @@ app.post('/add', verifyToken, async (req, res) => {
 mongoose.connect(AtlasUri).then(() => {
   console.log('Connected');
 })
+const db = mongoose.connection;
 
 app.use((req, res) => {
   res.status(404).send('Not Found');
