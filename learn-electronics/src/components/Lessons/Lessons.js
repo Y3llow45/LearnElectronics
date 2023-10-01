@@ -18,10 +18,10 @@ class Lessons extends Component {
             .then(res => {
                 if (res && Array.isArray(res)) {
                     const lessonsObject = {};
-                        res.forEach(lesson => {
-                    lessonsObject[lesson.id] = lesson;
-                });
-                    this.setState({ lessons: res.lessons });
+                    res.forEach(lesson => {
+                        lessonsObject[lesson.title] = lesson;
+                    });
+                    this.setState({ lessons: lessonsObject });
                 } else {
                     console.error('Invalid data format:', res);
                 }
@@ -55,7 +55,8 @@ class Lessons extends Component {
 
     renderLessonContent() {
         const { lessons, selectedLessonId } = this.state;
-        const selectedLesson = lessons.find(x => x.id === selectedLessonId);
+        //const selectedLesson = lessons.find(x => x.id === selectedLessonId);
+        const selectedLesson = lessons[selectedLessonId];
 
         return (
             <div className="lesson-content">
