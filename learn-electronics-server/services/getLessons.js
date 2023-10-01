@@ -1,18 +1,15 @@
-const mongoose = require('mongoose');
-const Redis = require('ioredis');
-const redis = new Redis();
+const Lesson = require('../models/lesson');
 
-const getCachedLessons = async () => {
-    const cachedData = await redis.get('lessons');
-    if (cachedData) {
-      return JSON.parse(cachedData);
-    } else {
-      // Fetch lessons from MongoDB
-      const lessons = await fetchLessonsFromMongoDB();
-      
-      // Cache lessons with expiration
-      redis.set('lessons', JSON.stringify(lessons), 'ex', 600);
-      
-      return lessons;
+const getLessons = async (db) => {
+    console.log('Getting lessons...')
+    try {
+        const lessons = await await Lesson.find({});
+        console.log(lessons);
+        return lessons;
+    } catch(err){
+        console.error(err);
+        return [];
     }
 };
+
+module.exports = { getLessons };

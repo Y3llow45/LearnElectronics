@@ -16,7 +16,7 @@ class Lessons extends Component {
     componentDidMount() {
         LessonService.getAll()
             .then(res => {
-                if (res && res.lessons) {
+                if (res && res.lessons) {   //change this so i don't get invalid data format
                     this.setState({ lessons: res.lessons });
                 } else {
                     console.error('Invalid data format:', res);
@@ -29,7 +29,7 @@ class Lessons extends Component {
 
     handleLessonClick = (lessonId) => {
         this.setState({ selectedLessonId: lessonId });
-    };
+    }; 
 
     renderLessonList() {
         const { lessons, selectedLessonId } = this.state;

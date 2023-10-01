@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const verifyToken = require('./middleware/verifyToken');
+const { getLessons } = require('./services/getLessons');
 const generateToken = require('./services/genToken');
 const fs = require('fs');
 const app = express();
@@ -18,7 +19,11 @@ const Lesson = require("./models/lesson");
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/lessons', (req, res) => {
+const db = mongoose.connect(AtlasUri).then(() => {
+  console.log('Connected');
+})
+
+/*app.get('/lessons', (req, res) => {           Old version for json server
   fs.readFile('lessons.json', 'utf8', (err, data) => {
     if (err) {
       res.status(500).json({ error: 'Internal Server Error' });
@@ -26,6 +31,22 @@ app.get('/lessons', (req, res) => {
       res.status(200).json(JSON.parse(data));
     } 
   });
+});*/
+app.get('/lessons', async (req, res) => {
+  console.log('1');
+  try {
+    console.log('2');
+    const lessonData = await getLessons(db);
+    console.log('3');
+    if (lessonData) {
+      console.log('4');
+      res.status(200).json(lessonData);
+    } else {
+      res.status(404).json({ error: 'Data not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 app.get('/search/:category', (req, res) => {
@@ -152,19 +173,6 @@ app.post('/add', verifyToken, async (req, res) => {
     res.status(500).json({ message: error.message});
   }
 });
-
-
-/*mongoose.connect(AtlasUri).then(() => {
-  console.log('connected');
-  bob.save();
-  let firstArticle = User.findOne({});
-  console.log(firstArticle);
-})*/
-
-mongoose.connect(AtlasUri).then(() => {
-  console.log('Connected');
-})
-const db = mongoose.connection;
 
 app.use((req, res) => {
   res.status(404).send('Not Found');
