@@ -8,7 +8,7 @@ class Lessons extends Component {
         super(props);
 
         this.state = {
-            lessons: [],
+            lessons: {},
             selectedLessonId: null
         };
     }
@@ -16,7 +16,11 @@ class Lessons extends Component {
     componentDidMount() {
         LessonService.getAll()
             .then(res => {
-                if (res && res.lessons) {   //change this so i don't get invalid data format
+                if (res && Array.isArray(res)) {
+                    const lessonsObject = {};
+                        res.forEach(lesson => {
+                    lessonsObject[lesson.id] = lesson;
+                });
                     this.setState({ lessons: res.lessons });
                 } else {
                     console.error('Invalid data format:', res);
@@ -36,15 +40,14 @@ class Lessons extends Component {
 
         return (
             <div className="lesson-list">
-                {lessons.map(x => (
+                {Object.keys(lessons).map(lessonId => (
                     <div
-                        key={x.id}
-                        className={`lesson-title ${selectedLessonId === x.id ? 'selected' : ''}`}
-                        onClick={() => this.handleLessonClick(x.id)}
+                        key={lessonId}
+                        className={`lesson-title ${selectedLessonId === lessonId ? 'selected' : ''}`}
+                        onClick={() => this.handleLessonClick(lessonId)}
                     >
-                        {x.title}
+                        {lessons[lessonId].title}
                     </div>
-                    
                 ))}
             </div>
         );

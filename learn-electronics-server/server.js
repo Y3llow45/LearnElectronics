@@ -19,7 +19,7 @@ const Lesson = require("./models/lesson");
 app.use(cors());
 app.use(bodyParser.json());
 
-const db = mongoose.connect(AtlasUri).then(() => {
+mongoose.connect(AtlasUri).then(() => {
   console.log('Connected');
 })
 
@@ -36,7 +36,7 @@ app.get('/lessons', async (req, res) => {
   console.log('1');
   try {
     console.log('2');
-    const lessonData = await getLessons(db);
+    const lessonData = await getLessons();
     console.log('3');
     if (lessonData) {
       console.log('4');

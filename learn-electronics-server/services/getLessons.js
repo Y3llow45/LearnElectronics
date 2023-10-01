@@ -1,6 +1,6 @@
 const Lesson = require('../models/lesson');
 
-const getLessons = async (db) => {
+const getLessons = async () => {
     console.log('Getting lessons...')
     try {
         const lessons = await await Lesson.find({});
