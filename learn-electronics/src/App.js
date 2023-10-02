@@ -13,8 +13,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <div>
-      <div className="container">
+    <div className="app-container">
+      
         <Header />
         <ToastContainer
           className="add-toast-container"
@@ -29,14 +29,15 @@ function App() {
           pauseOnHover={false}
           theme="light"
         />
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/lessons" component={Lessons} />
-          <Route path="/add" component={Add} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/signin" component={SignIn} />
-        </Switch>
-      </div>
+        <div className='main-content'>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/lessons" component={Lessons} />
+            <Route path="/add" component={Add} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/signin" component={SignIn} />
+          </Switch>
+        </div>
     <Footer />
     </div>
   );
