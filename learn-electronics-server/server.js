@@ -33,13 +33,9 @@ mongoose.connect(AtlasUri).then(() => {
   });
 });*/
 app.get('/lessons', async (req, res) => {
-  console.log('1');
   try {
-    console.log('2');
     const lessonData = await getLessons();
-    console.log('3');
     if (lessonData) {
-      console.log('4');
       res.status(200).json(lessonData);
     } else {
       res.status(404).json({ error: 'Data not found' });

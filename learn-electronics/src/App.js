@@ -6,12 +6,14 @@ import Lessons from './components/Lessons/Lessons';
 import Add from './components/Add/Add';
 import SignUp from './components/SignUp/SignUp';
 import SignIn from './components/SignIn/SignIn';
+import Footer from './components/Footer/Footer';
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
+    <div>
       <div className="container">
         <Header />
         <ToastContainer
@@ -35,6 +37,8 @@ function App() {
           <Route path="/signin" component={SignIn} />
         </Switch>
       </div>
+    <Footer />
+    </div>
   );
 }
 
