@@ -109,7 +109,7 @@ class Add extends Component {
                 <option value='microcontrollers'>Microcontrollers</option>
               </select>
             </div>
-            <div className='bunchOfbuttons' style={{ display: 'inline-flex', width: '60%', justifyContent: 'center', marginBottom: '10px' }}>
+            <div className='bunchOfbuttons' style={{ display: 'inline-flex', width: '60%', justifyContent: 'center', marginBottom: '30px' }}>
               <ImageAdd
                 editorState={this.state.editorState}
                 onChange={this.onChange}

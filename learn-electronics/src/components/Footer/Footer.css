@@ -1,4 +1,73 @@
 .my-footer {
-    background-color: black;
-    
+    background-color: #e4fdff;
+    margin-top: 100px;
+    height: 328px;
+    text-align: center;
+    justify-content: center;
 }
+
+.username {
+    text-decoration: none;
+    color: rgb(58, 48, 255);
+    font-family: "Rubik", sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.my-footer {
+    background-color: #e4fdff;
+    margin-top: 100px;
+    height: 328px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .username {
+    text-decoration: none;
+    color: rgb(58, 48, 255);
+    font-family: "Rubik", sans-serif;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  .my-line {
+    border: none;
+    width: 90%;
+    height: 2px;
+    background-color: #000;
+    margin: 10px 0;
+    position: relative;
+    animation: line-float 5s ease-in-out infinite;
+  }
+  
+  @keyframes line-float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+  
+  .heart {
+    animation: heartbeat 1.5s infinite;
+  }
+  
+  @keyframes heartbeat {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  

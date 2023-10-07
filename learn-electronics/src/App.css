@@ -18,6 +18,9 @@ html, body {
   min-height: 100vh;
 }
 
+.lesson-text {
+  text-align: center;
+}
 /*.main-content {
   flex-grow: 1; 
 }*/
