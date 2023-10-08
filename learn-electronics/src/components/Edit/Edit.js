@@ -1,17 +1,15 @@
 import { Component } from 'react';
-
 import {edit} from '../../services/LessonServices'
-
 import Editor, { createEditorStateWithText } from '@draft-js-plugins/editor';
 import {stateToHTML} from 'draft-js-export-html';
 import createToolbarPlugin from '@draft-js-plugins/static-toolbar';
-import editorStyles from './CustomImageEditor/editorStyles.module.css';
-import buttonStyles from './buttonStyles.module.css';
+//import editorStyles from './CustomImageEditor/editorStyles.module.css';
+import editorStyles from '../Add/editorStyles.module.css';
+import buttonStyles from '../Add/buttonStyles.module.css';
 import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputChange';
-import toolbarStyles from './toolbarStyles.module.css';
+import toolbarStyles from '../Add/toolbarStyles.module.css';
 import createImagePlugin from '@draft-js-plugins/image';
-import ImageAdd from './CustomImageEditor/ImageAdd/ImageAdd';
-
+import ImageAdd from '../Add/CustomImageEditor/ImageAdd/ImageAdd';
 import './Edit.css';
 import { displayLoginError } from '../Notify/Notify';
 
@@ -65,7 +63,7 @@ class Add extends Component {
       displayLoginError(addErrors.contentLength);
     }
     else {
-      add(this.state.title, htmlContent, this.state.category)
+      edit(this.state.title, htmlContent, this.state.category)
     }
   };
 

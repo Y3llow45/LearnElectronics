@@ -24,10 +24,7 @@ const text = 'Enter lesson content';
 const addErrors = {
   errorEmpty: 'Provide title and content',
   errorTitleExist: 'Lesson with such title already exist',
-  errorTitleLength: 'Title is too short',
-  errorTitleLengthMax: 'Title is too long',
-  errorContentLength: 'Content is too short',
-  errorContentLengthMax: 'Content is too long'
+  contentLength: 'Content is too short or too long',
 }
 
 class Add extends Component {
@@ -40,17 +37,6 @@ class Add extends Component {
       editorState: createEditorStateWithText(text),
     };
   }
-  /*toast.warn('👋 Welcome to Copycat!', {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-    });*/
-
   onChange = (editorState) => {
     this.setState({
       editorState,
@@ -63,19 +49,17 @@ class Add extends Component {
 
   handleInputChange = (event) => {
     handleInputChangeComponent(event, this.setState.bind(this));
-    
   };
 
   handleAdd = (event) => {
     event.preventDefault();
     const contentState = this.state.editorState.getCurrentContent();
     const htmlContent = stateToHTML(contentState);
-    //console.log(this.state.title, this.state.content, this.state.category);
     if(this.state.title === '' || htmlContent === ''){
       console.log(this.state)
       displayLoginError(addErrors.errorEmpty);
     }else if(htmlContent.length < 120 || htmlContent.length > 5000) {
-      displayLoginError('Content is too short or too long');
+      displayLoginError(addErrors.contentLength);
     }
     else {
       add(this.state.title, htmlContent, this.state.category)

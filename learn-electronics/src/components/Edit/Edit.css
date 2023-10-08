@@ -1,0 +1,53 @@
+.add-container {
+    width: 75%;
+    text-align: center;
+    margin: auto;
+    margin-top: 7rem;
+}
+
+.add-input-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+@media (max-width: 768px) {
+    .add-input-container {
+        display: grid;
+        flex-direction: column; 
+        gap: 5px; 
+    }
+    .add-select {
+        width: 100%;
+    }
+    .addImage {
+        margin-right: 0px;
+    }
+}
+
+.input-form {
+    background-color: white;
+}
+
+.add-input-form {
+    width: 18.3% !important;
+}
+.add-select {
+    width: 22% !important;
+    height: 2.2rem;
+    margin-left: 10px;
+}
+
+.add-form-submit {
+    max-width: 200px;
+}
+.add-preview-button {
+    margin-right: 10px;
+}
+
+.add-error-span {
+    font-size: 20px;
+    color: red;
+}
