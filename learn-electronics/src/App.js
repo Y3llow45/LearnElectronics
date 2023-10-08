@@ -11,6 +11,15 @@ import Footer from './components/Footer/Footer';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import {Canvas} from '@react-three/fiber'
+import { Suspense } from 'react';
+import {useGLTF, Stage, PresentationControls} from '@react-three/drei';
+
+function Model(props) {
+  const {scene} = useGLTF('./uno.glb');
+  return <primitive object={scene} {...props} />
+} 
+
 function App() {
   return (
     <div className="app-container">
@@ -31,7 +40,21 @@ function App() {
         />
         <div className='main-content'>
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/" exact>
+              <Home></Home>
+              <Canvas dpr={[1,2]} camera={{fov:90}} style={{ height: '600px' }} shadows={false} >
+                
+                <ambientLight intensity={0.5} />
+                <directionalLight position={[1, 1, 1]} intensity={1} />
+                <PresentationControls speed={2} global>
+                  <Stage environment={null}>
+                    <Suspense fallback={null}>
+                      <Model scale={0.2} />
+                    </Suspense>
+                  </Stage>
+                </PresentationControls>
+              </Canvas>
+            </Route>
             <Route path="/lessons" component={Lessons} />
             <Route path="/add" component={Add} />
             <Route path="/signup" component={SignUp} />
@@ -44,3 +67,4 @@ function App() {
 }
 
 export default App;
+//<color attach="background" args={["#101010"]}/>
