@@ -101,6 +101,41 @@ export const add = (title, content, category) => {
         });
 };
 
+export const edit = (title, content, category) => {
+    let lesson = {
+        title,
+        content,
+        category,
+    };
+    const token = localStorage.getItem('token');
+    if(!token) {
+        console.log('Login first');
+        return;
+    }
+    
+    return fetch(`${url}add`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+        body: JSON.stringify(lesson)
+    })  
+        .then(res => {
+            res.json()
+            if(res.status === 201){
+                console.log('Created!');
+                displayLoginNotification("Add Successful");
+            }
+        })
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+};
+
 /*
 export const update = (petId, pet) => {
     return fetch(`${url}/${petId}`, {
