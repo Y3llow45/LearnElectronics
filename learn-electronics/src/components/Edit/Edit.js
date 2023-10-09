@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import {edit} from '../../services/LessonServices'
+import {edit, getMine} from '../../services/LessonServices'
 import Editor, { createEditorStateWithText } from '@draft-js-plugins/editor';
 import {stateToHTML} from 'draft-js-export-html';
 import createToolbarPlugin from '@draft-js-plugins/static-toolbar';
@@ -40,7 +40,7 @@ class Add extends Component {
   }
 
     componentDidMount() {
-        LessonService.getAll()
+        getMine()
             .then(res => {
                 if (res && Array.isArray(res)) {
                     const lessonsObject = {};
