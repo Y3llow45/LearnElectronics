@@ -33,8 +33,8 @@ const SignIn = () => {
 
   const handleSign = (event) => {
     event.preventDefault();
-    console.log(state.email, state.password);
-    signIn(state.email, state.password, setUsername)
+    console.log(state.username, state.password);
+    signIn(state.username, state.password, setUsername)
       .then((res) => {
         if (res.status === 200) {
           console.log('Logged in!');
@@ -54,7 +54,7 @@ const SignIn = () => {
         <h2 className="form-tittle">Sign In</h2>
         <form className="signup-form" onSubmit={handleSign}>
           <FormComponent
-            email={state.email}
+            username={state.username}
             password={state.password}
             handleInputChange={handleInputChange}
           />

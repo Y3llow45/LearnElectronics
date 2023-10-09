@@ -51,9 +51,9 @@ export const signUp = (username, email, password) => {
     });
 };
 
-export const signIn = (email, password, updateUsername) => {
+export const signIn = (username, password, updateUsername) => {
     let user = {
-        email,
+        username,
         password,
     };
     

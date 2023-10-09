@@ -125,10 +125,10 @@ app.post('/signup', (req, res) => {
 })
 
 app.post('/signin', async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
   try {
-    console.log(email);
-    const user = await User.findOne({ email });
+    console.log(username); 
+    const user = await User.findOne({ username });
 
     if (!user) {
         console.log('Wrong credentials. No such user');
