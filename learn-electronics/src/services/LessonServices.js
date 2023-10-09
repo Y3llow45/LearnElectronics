@@ -13,6 +13,18 @@ export const getAll = () => {
     });
 }
 
+export const getMine = () => {
+    return fetch(`${url}lessons`)
+        .then(res => res.json()) 
+        .then((data) => {
+            console.log('JSON response:', data); 
+            return data;
+        })
+        .catch((error) => {
+            console.error('Error fetching data:', error);
+    });
+}
+
 
 export const search = (category, keyword) => {
     return fetch(`${url}search/${category}/${keyword}`)

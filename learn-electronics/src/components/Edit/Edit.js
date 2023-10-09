@@ -38,6 +38,25 @@ class Add extends Component {
       editorState: createEditorStateWithText(text),
     };
   }
+
+    componentDidMount() {
+        LessonService.getAll()
+            .then(res => {
+                if (res && Array.isArray(res)) {
+                    const lessonsObject = {};
+                    res.forEach(lesson => {
+                        lessonsObject[lesson.title] = lesson;
+                    });
+                    this.setState({ lessons: lessonsObject });
+                } else {
+                    console.error('Invalid data format:', res);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching lessons:', error);
+            });
+    }
+
   onChange = (editorState) => {
     this.setState({
       editorState,
@@ -70,6 +89,7 @@ class Add extends Component {
   render() {
     return (
       <div className='add-container'>
+        <div className='edit-lesson-list'></div>
         <form>
           <div className='add-first'>
             <div className='add-first-inputs'>

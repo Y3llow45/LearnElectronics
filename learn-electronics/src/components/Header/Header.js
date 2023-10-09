@@ -33,6 +33,7 @@ function Header() {
                 {<div className='hamburger-links'><NavLink to='/' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Home</NavLink>
                 <NavLink to='/lessons' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Lessons</NavLink>
                 <NavLink to='/add' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Add lessons</NavLink>
+                <NavLink to='/edit' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Edit lessons</NavLink>
                 <NavLink to='/signup' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Sign up</NavLink>
                 <NavLink to='' className='nav-link nav-link-hamburger' onClick={logout}>Log out</NavLink></div>}
             </Menu>
