@@ -45,6 +45,20 @@ app.get('/lessons', async (req, res) => {
   }
 });
 
+app.get('/edit',verifyToken, async (req, res) => {
+  try {
+    const {username} = req.body;
+    const lessonData = await getLessons(username);
+    if (lessonData) {
+      res.status(200).json(lessonData);
+    } else {
+      res.status(404).json({ error: 'Data not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 app.get('/search/:category', (req, res) => {
   let { category } = req.params;
   if (category !== 'all' && category !== 'lessons' && category !== 'electric-components' && category !== 'microcontrollers') {
