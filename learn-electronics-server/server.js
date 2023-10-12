@@ -34,7 +34,7 @@ mongoose.connect(AtlasUri).then(() => {
 });*/
 app.get('/lessons', async (req, res) => {
   try {
-    const lessonData = await getLessons();
+    const lessonData = await getLessons("");
     if (lessonData) {
       res.status(200).json(lessonData);
     } else {
@@ -175,8 +175,10 @@ app.post('/signin', async (req, res) => {
 
 app.post('/add', verifyToken, async (req, res) => {
   const { title, content, category } = req.body;
+  const username = req.username;
+  console.log('username is: '+username)
   try{
-    let newLesson = new Lesson({title:title, content:content, category:category});
+    let newLesson = new Lesson({title:title, content:content, category:category, user: username});
     await newLesson.save();
     res.status(201).json({message: 'created!'});
   }catch(error){

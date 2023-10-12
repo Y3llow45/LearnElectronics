@@ -11,15 +11,16 @@ const verifyToken = (req, res, next) => {
     }
 
     try {
-        jwt.verify(token, SSKEY, (err) => {
+        const payload = jwt.verify(token, SSKEY, (err) => {
             if(err){
                 console.log("Error verifing token",err);
             }
-            else{
-                next()
-            }
-
         });
+        if (payload && payload.username) {
+            req.username = payload.username;                                 // test this thing
+        }
+        next();
+        
     } catch (error) {
         res.status(400).json({ error: 'Invalid token' });
     }
