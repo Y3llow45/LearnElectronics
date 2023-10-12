@@ -50,6 +50,7 @@ app.get('/edit',verifyToken, async (req, res) => {
     const {username} = req.body;
     const lessonData = await getLessons(username);
     if (lessonData) {
+      console.log('succsess')
       res.status(200).json(lessonData);
     } else {
       res.status(404).json({ error: 'Data not found' });
@@ -161,11 +162,12 @@ app.post('/signin', async (req, res) => {
     if (!isPasswordValid) {
       console.log('Wrong credentials. Wrong password');
       res.status(401).json({ error: 'Invalid credentials' });
+      return;
     }
 
     // Successful sign-in
     console.log('Logged in');
-    const token = generateToken(user._id);
+    const token = generateToken(user._id, user.username, 'user');
     res.status(200).json({ message: 'Sign in successful', token, username: user.username });
   } catch (error) {
     console.error('Error during sign-in:', error);
@@ -175,6 +177,7 @@ app.post('/signin', async (req, res) => {
 
 app.post('/add', verifyToken, async (req, res) => {
   const { title, content, category } = req.body;
+  console.log(req.username)
   const username = req.username;
   console.log('username is: '+username)
   try{

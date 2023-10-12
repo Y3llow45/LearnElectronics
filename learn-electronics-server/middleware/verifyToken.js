@@ -11,14 +11,9 @@ const verifyToken = (req, res, next) => {
     }
 
     try {
-        const payload = jwt.verify(token, SSKEY, (err) => {
-            if(err){
-                console.log("Error verifing token",err);
-            }
-        });
-        if (payload && payload.username) {
-            req.username = payload.username;                                 // test this thing
-        }
+        const payload = jwt.verify(token, SSKEY);
+        console.log(payload.username, payload.role)
+        req.username = payload.username;                                 // test this thing
         next();
         
     } catch (error) {
