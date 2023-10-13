@@ -14,7 +14,12 @@ export const getAll = () => {
 }
 
 export const getMine = () => {
-    return fetch(`${url}lessons`)
+    const token = localStorage.getItem('token');
+    if(!token) {
+        console.log('Login first');
+        return;
+    }
+    return fetch(`${url}edit`, {headers: {'Authorization': token}})
         .then(res => res.json()) 
         .then((data) => {
             console.log('JSON response:', data); 

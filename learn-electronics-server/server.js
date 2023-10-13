@@ -32,10 +32,16 @@ mongoose.connect(AtlasUri).then(() => {
     } 
   });
 });*/
-app.get('/lessons', async (req, res) => {
+
+
+app.get('/edit',verifyToken, async (req, res) => {
+  console.log('got the edit')
   try {
-    const lessonData = await getLessons("");
+    const username = req.username;
+    console.log(username);
+    const lessonData = await getLessons(username);
     if (lessonData) {
+      console.log('succsess')
       res.status(200).json(lessonData);
     } else {
       res.status(404).json({ error: 'Data not found' });
@@ -45,12 +51,11 @@ app.get('/lessons', async (req, res) => {
   }
 });
 
-app.get('/edit',verifyToken, async (req, res) => {
+app.get('/lessons', async (req, res) => {
+  console.log('/lessons')
   try {
-    const {username} = req.body;
-    const lessonData = await getLessons(username);
+    const lessonData = await getLessons("");
     if (lessonData) {
-      console.log('succsess')
       res.status(200).json(lessonData);
     } else {
       res.status(404).json({ error: 'Data not found' });
