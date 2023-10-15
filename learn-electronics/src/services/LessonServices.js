@@ -125,6 +125,7 @@ export const edit = (id, title, content, category) => {
         content,
         category,
     };
+    console.log('edit service')
     const token = localStorage.getItem('token');
     if(!token) {
         console.log('Login first');
@@ -140,6 +141,7 @@ export const edit = (id, title, content, category) => {
         body: JSON.stringify(lesson)
     })  
         .then(res => {
+            console.log('before json()');
             res.json()
             if(res.status === 200){
                 console.log('Updated!');

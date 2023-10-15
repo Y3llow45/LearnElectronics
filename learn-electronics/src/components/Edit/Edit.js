@@ -48,7 +48,7 @@ class Add extends Component {
                 if (res && Array.isArray(res)) {
                     const lessonsObject = {};
                     res.forEach(lesson => {
-                        lessonsObject[lesson.title] = lesson;
+                        lessonsObject[lesson._id] = lesson;
                     });
                     this.setState({ lessons: lessonsObject });
                 } else {
@@ -78,7 +78,7 @@ class Add extends Component {
     //this.setState({ selectedLessonId: lessonId });
     const selectedLesson = this.state.lessons[lessonId];
     const editorState = createEditorStateWithText(selectedLesson.content);
-    
+    console.log(selectedLesson);
     this.setState({
         selectedLessonId: lessonId,
         title: selectedLesson.title,
@@ -97,6 +97,7 @@ class Add extends Component {
       displayLoginError(addErrors.contentLength);
     }
     else {
+      console.log(this.state.selectedLessonId)
       edit(this.state.selectedLessonId, this.state.title, htmlContent, this.state.category)
     }
   };
@@ -156,7 +157,7 @@ class Add extends Component {
             <button
               type='submit'
               className='form-submit add-form-submit'
-              onClick={this.handleAdd}
+              onClick={this.handleEdit}
             >
               Edit
             </button>

@@ -35,13 +35,10 @@ mongoose.connect(AtlasUri).then(() => {
 
 
 app.get('/edit',verifyToken, async (req, res) => {
-  console.log('got the edit')
   try {
     const username = req.username;
-    console.log(username);
     const lessonData = await getLessons(username);
     if (lessonData) {
-      console.log('succsess')
       res.status(200).json(lessonData);
     } else {
       res.status(404).json({ error: 'Data not found' });
@@ -194,19 +191,23 @@ app.post('/add', verifyToken, async (req, res) => {
   }
 });
 
-app.post('/edit', verifyToken, async (req, res) => {
-  const { id ,title, content, category } = req.body;
-  const username = req.username;
+app.put('/edit', verifyToken, async (req, res) => {
+  console.log('edit put');
   try{
+    const { id ,title, content, category } = req.body;
+    const username = req.username;
     const lesson = await Lesson.findById(id);
     if (!lesson) {
+      console.log('not found');
       return res.status(404).json({ message: 'Lesson not found' });
     }
+    console.log('found');
     if (lesson.user === username) {
       lesson.title = title;
       lesson.content = content;
       lesson.category = category;
       await lesson.save();
+      console.log('updated!');
       res.status(200).json({ message: 'updated!' });
   }
   }catch(error){
