@@ -3,7 +3,6 @@ import './Lessons.css';
 import * as LessonService from '../../services/LessonServices';
 import SearchBar from './SearchBar/SearchBar';
 import renderLessonList from './renderLessonList/renderLessonList';
-import handleLessonClick from "./handleLessonClick/handleLessonClick";
 
 class Lessons extends Component {
     constructor(props) {
@@ -33,9 +32,9 @@ class Lessons extends Component {
             });
     }
 
-    /*handleLessonClick = (lessonId) => {
+    handleLessonClick = (lessonId) => {
         this.setState({ selectedLessonId: lessonId });
-    }; */
+    };
 
 
     renderLessonContent() {
@@ -69,7 +68,7 @@ class Lessons extends Component {
                 {renderLessonList({
                     lessons,
                     selectedLessonId,
-                    handleLessonClick: handleLessonClick,
+                    handleLessonClick: this.handleLessonClick,
                 })}
                 <SearchBar onSearchResults={this.handleSearchResults} />
                 {this.renderLessonContent()}

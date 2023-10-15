@@ -1,9 +1,14 @@
 .my-footer {
-    background-color: #e4fdff;
+    background: linear-gradient(#fff);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     margin-top: 100px;
     height: 328px;
     text-align: center;
     justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .username {
@@ -15,16 +20,6 @@
 a {
     text-decoration: none;
 }
-
-.my-footer {
-    background-color: #e4fdff;
-    margin-top: 100px;
-    height: 328px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
   
   .username {
     text-decoration: none;

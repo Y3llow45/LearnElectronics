@@ -111,7 +111,7 @@ class Add extends Component {
                 }}
               />
             </div>
-            <button
+            <button 
               type='submit'
               className='form-submit add-form-submit'
               onClick={this.handleAdd}
