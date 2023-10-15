@@ -12,6 +12,7 @@ import createImagePlugin from '@draft-js-plugins/image';
 import ImageAdd from '../Add/CustomImageEditor/ImageAdd/ImageAdd';
 import './Edit.css';
 import { displayLoginError } from '../Notify/Notify';
+import renderLessonList from '../Lessons/renderLessonList/renderLessonList'
 
 const imagePlugin = createImagePlugin();
 
@@ -36,6 +37,8 @@ class Add extends Component {
       title: '',
       category: 'lessons',
       editorState: createEditorStateWithText(text),
+      lessons: {},
+      selectedLessonId: null
     };
   }
 
@@ -87,9 +90,16 @@ class Add extends Component {
   };
 
   render() {
+    const { lessons, selectedLessonId } = this.state;
     return (
       <div className='add-container'>
-        <div className='edit-lesson-list'></div>
+        <div className='edit-lesson-list'>
+          {renderLessonList({
+            lessons,
+            selectedLessonId,
+            handleLessonClick: this.handleLessonClick,
+          })}
+        </div>
         <form>
           <div className='add-first'>
             <div className='add-first-inputs'>

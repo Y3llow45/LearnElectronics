@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import './Lessons.css';
 import * as LessonService from '../../services/LessonServices';
 import SearchBar from './SearchBar/SearchBar';
+import renderLessonList from './renderLessonList/renderLessonList';
+import handleLessonClick from "./handleLessonClick/handleLessonClick";
 
 class Lessons extends Component {
     constructor(props) {
@@ -31,27 +33,10 @@ class Lessons extends Component {
             });
     }
 
-    handleLessonClick = (lessonId) => {
+    /*handleLessonClick = (lessonId) => {
         this.setState({ selectedLessonId: lessonId });
-    }; 
+    }; */
 
-    renderLessonList() {
-        const { lessons, selectedLessonId } = this.state;
-
-        return (
-            <div className="lesson-list">
-                {Object.keys(lessons).map(lessonId => (
-                    <div
-                        key={lessonId}
-                        className={`lesson-title ${selectedLessonId === lessonId ? 'selected' : ''}`}
-                        onClick={() => this.handleLessonClick(lessonId)}
-                    >
-                        {lessons[lessonId].title}
-                    </div>
-                ))}
-            </div>
-        );
-    }
 
     renderLessonContent() {
         const { lessons, selectedLessonId } = this.state;
@@ -78,9 +63,14 @@ class Lessons extends Component {
     };
 
     render() {
+        const { lessons, selectedLessonId } = this.state;
         return (
             <div className="lessons-container">
-                {this.renderLessonList()}
+                {renderLessonList({
+                    lessons,
+                    selectedLessonId,
+                    handleLessonClick: handleLessonClick,
+                })}
                 <SearchBar onSearchResults={this.handleSearchResults} />
                 {this.renderLessonContent()}
             </div>
