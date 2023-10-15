@@ -194,6 +194,26 @@ app.post('/add', verifyToken, async (req, res) => {
   }
 });
 
+app.post('/edit', verifyToken, async (req, res) => {
+  const { id ,title, content, category } = req.body;
+  const username = req.username;
+  try{
+    const lesson = await Lesson.findById(id);
+    if (!lesson) {
+      return res.status(404).json({ message: 'Lesson not found' });
+    }
+    if (lesson.user === username) {
+      lesson.title = title;
+      lesson.content = content;
+      lesson.category = category;
+      await lesson.save();
+      res.status(200).json({ message: 'updated!' });
+  }
+  }catch(error){
+    res.status(500).json({ message: error.message});
+  }
+});
+
 app.use((req, res) => {
   res.status(404).send('Not Found');
 });

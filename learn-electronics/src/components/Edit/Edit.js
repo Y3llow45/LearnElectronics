@@ -74,34 +74,45 @@ class Add extends Component {
     handleInputChangeComponent(event, this.setState.bind(this));
   };
 
-  handleAdd = (event) => {
+  handleLessonClick = (lessonId) => {
+    //this.setState({ selectedLessonId: lessonId });
+    const selectedLesson = this.state.lessons[lessonId];
+    const editorState = createEditorStateWithText(selectedLesson.content);
+    
+    this.setState({
+        selectedLessonId: lessonId,
+        title: selectedLesson.title,
+        category: selectedLesson.category,
+        editorState: editorState,
+    });
+  };
+
+  handleEdit = (event) => {
     event.preventDefault();
     const contentState = this.state.editorState.getCurrentContent();
     const htmlContent = stateToHTML(contentState);
     if(this.state.title === '' || htmlContent === ''){
-      console.log(this.state)
       displayLoginError(addErrors.errorEmpty);
     }else if(htmlContent.length < 120 || htmlContent.length > 5000) {
       displayLoginError(addErrors.contentLength);
     }
     else {
-      edit(this.state.title, htmlContent, this.state.category)
+      edit(this.state.selectedLessonId, this.state.title, htmlContent, this.state.category)
     }
   };
 
   render() {
     const { lessons, selectedLessonId } = this.state;
     return (
-      <div className='add-container'>
-        <div className='edit-lesson-list'>
-          {renderLessonList({
+      <div>
+        {renderLessonList({
             lessons,
             selectedLessonId,
             handleLessonClick: this.handleLessonClick,
-          })}
-        </div>
+        })}      
+      <div className='add-container'>
         <form>
-          <div className='add-first'>
+          <div className='add-first edit-first'>
             <div className='add-first-inputs'>
               <input
                 type='title'
@@ -147,10 +158,11 @@ class Add extends Component {
               className='form-submit add-form-submit'
               onClick={this.handleAdd}
             >
-              Add
+              Edit
             </button>
           </div>
         </form>
+      </div>
       </div>
     );
   }

@@ -118,8 +118,9 @@ export const add = (title, content, category) => {
         });
 };
 
-export const edit = (title, content, category) => {
+export const edit = (id, title, content, category) => {
     let lesson = {
+        id,
         title,
         content,
         category,
@@ -130,8 +131,8 @@ export const edit = (title, content, category) => {
         return;
     }
     
-    return fetch(`${url}add`, {
-        method: 'POST',
+    return fetch(`${url}edit`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': token,
@@ -140,9 +141,9 @@ export const edit = (title, content, category) => {
     })  
         .then(res => {
             res.json()
-            if(res.status === 201){
-                console.log('Created!');
-                displayLoginNotification("Add Successful");
+            if(res.status === 200){
+                console.log('Updated!');
+                displayLoginNotification("Edit Successful");
             }
         })
         .then(data => {
