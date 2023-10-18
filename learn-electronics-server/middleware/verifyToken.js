@@ -15,7 +15,8 @@ const verifyToken = (req, res, next) => {
     try {
         const payload = jwt.verify(token, SSKEY);
         console.log(payload.username, payload.role)
-        req.username = payload.username;                                 // test this thing
+        req.username = payload.username;
+        req.role = payload.role;
         next();
         
     } catch (error) {

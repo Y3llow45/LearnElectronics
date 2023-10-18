@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.css';
 import userAvatar from '../../assets/userAvatar.png';
 import { useAuth } from '../../contexts/AuthContext';
@@ -17,6 +17,33 @@ function Header() {
         localStorage.removeItem('username');
         setUsername('Guest');
     }
+    const [userRole, setUserRole] = useState(null);
+
+  useEffect(() => {
+    const fetchUserRole = async () => {
+        console.log('fetching...')
+        const token = localStorage.getItem('token');
+        if (!token) return;
+        try {
+            console.log('fetching...1')
+            const response = await fetch('/api/getUserRole', {
+                method: 'GET',
+                headers: {
+                Authorization: token,
+            },
+        });
+        console.log('fetching...2')
+        const data = await response.json();
+        console.log(data.role);
+        if (data.role) {
+            setUserRole(data.role);
+        }
+        } catch (error) {
+            console.error('Error fetching user role:', error);
+        }
+    };
+    fetchUserRole();
+     }, []);
 
     return (
         <div className='nav-bar'>
@@ -35,6 +62,9 @@ function Header() {
                 <NavLink to='/add' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Add lessons</NavLink>
                 <NavLink to='/edit' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Edit lessons</NavLink>
                 <NavLink to='/signup' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Sign up</NavLink>
+                {userRole === 'moderator' || userRole === 'admin' ? (
+                    <NavLink to="/supersecretemoderatorpage">Admin Page</NavLink>
+                ) : null}
                 <NavLink to='' className='nav-link nav-link-hamburger' onClick={logout}>Log out</NavLink></div>}
             </Menu>
             <div className='right-div'>

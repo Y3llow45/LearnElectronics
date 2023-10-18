@@ -121,6 +121,20 @@ app.get('/search/:category/:keyword', (req, res) => {
   });
 });
 
+app.get('/api/getUserRole', verifyToken, (req, res) => {
+  const userRole = req.role;
+  if (userRole) {
+    res.setHeader('Content-Type', 'application/json');
+    res.json({ role: userRole });
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
+  }
+});
+
+app.get('/supersecretemoderatorpage', verifyToken, (req,res) => {
+  res.status(200).json({message: 'hello there'});
+})
+
 app.post('/signup', (req, res) => {
   try{
     let { username, email, password } = req.body;
