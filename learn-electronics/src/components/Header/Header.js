@@ -20,16 +20,16 @@ function Header() {
     }
     const [userRole, setUserRole] = useState(null);
 
-  useEffect(() => {
-    const fetchUserRole = async () => {
-        getRole()
-            .then((data) => {
-                console.log(data.role)
-                setUserRole(data.role);
-            })
-    };
+    useEffect(() => {
+        const fetchUserRole = async () => {
+            getRole()
+                .then((data) => {
+                    console.log(data.role)
+                    setUserRole(data.role);
+                })
+        };
     fetchUserRole();
-     }, []);
+    }, []);
 
     return (
         <div className='nav-bar'>
@@ -48,8 +48,8 @@ function Header() {
                 <NavLink to='/add' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Add lessons</NavLink>
                 <NavLink to='/edit' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Edit lessons</NavLink>
                 <NavLink to='/signup' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Sign up</NavLink>
-                {userRole === 'moderator' || userRole === 'admin' ? (
-                    <NavLink to="/supersecretemoderatorpage">Admin Page</NavLink>
+                {userRole === 'moderator' || userRole === 'user' ? (
+                    <NavLink to="/supersecretemoderatorpage" className='nav-link nav-link-hamburger' onClick={toggleMenu}>Admin Page</NavLink>
                 ) : null}
                 <NavLink to='' className='nav-link nav-link-hamburger' onClick={logout}>Log out</NavLink></div>}
             </Menu>
