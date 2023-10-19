@@ -123,7 +123,9 @@ app.get('/search/:category/:keyword', (req, res) => {
 
 app.get('/api/getUserRole', verifyToken, (req, res) => {
   const userRole = req.role;
+  console.log('here')
   if (userRole) {
+    console.log('user role', userRole)
     res.setHeader('Content-Type', 'application/json');
     res.json({ role: userRole });
   } else {

@@ -30,6 +30,18 @@ export const getMine = () => {
     });
 }
 
+export const getRole = () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    return fetch(`${url}api/getUserRole`, {headers: {'Authorization': token}})
+        .then((data) => {
+            console.log(data)
+            return data
+        })
+        .catch((error) => {
+            console.error('Error fetching data', error)
+        });
+}
 
 export const search = (category, keyword) => {
     return fetch(`${url}search/${category}/${keyword}`)

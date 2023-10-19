@@ -4,6 +4,7 @@ import userAvatar from '../../assets/userAvatar.png';
 import { useAuth } from '../../contexts/AuthContext';
 import { slide as Menu } from 'react-burger-menu';
 import { NavLink } from 'react-router-dom';
+import {getRole} from '../../services/LessonServices';
 
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,26 +22,11 @@ function Header() {
 
   useEffect(() => {
     const fetchUserRole = async () => {
-        console.log('fetching...')
-        const token = localStorage.getItem('token');
-        if (!token) return;
-        try {
-            console.log('fetching...1')
-            const response = await fetch('/api/getUserRole', {
-                method: 'GET',
-                headers: {
-                Authorization: token,
-            },
-        });
-        console.log('fetching...2')
-        const data = await response.json();
-        console.log(data.role);
-        if (data.role) {
-            setUserRole(data.role);
-        }
-        } catch (error) {
-            console.error('Error fetching user role:', error);
-        }
+        getRole()
+            .then((data) => {
+                console.log(data.role)
+                setUserRole(data.role);
+            })
     };
     fetchUserRole();
      }, []);
