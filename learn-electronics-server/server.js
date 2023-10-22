@@ -62,13 +62,23 @@ app.get('/lessons', async (req, res) => {
   }
 });
 
-app.get('/search/:category', (req, res) => {
+app.get('/search/:category', async (req, res) => {
   let { category } = req.params;
+
   if (category !== 'all' && category !== 'lessons' && category !== 'electric-components' && category !== 'microcontrollers') {
     category = 'all';
   }
 
-  fs.readFile('lessons.json', 'utf8', (err, data) => {
+  try {
+    const lessons = await Lesson.find(category === 'all' ? {} : { category });
+    console.log(lessons);
+    res.status(200).json({ lessons });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+  });
+
+  /*fs.readFile('lessons.json', 'utf8', (err, data) => {
     if (err) {
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
@@ -84,10 +94,9 @@ app.get('/search/:category', (req, res) => {
 
       res.status(200).json({ lessons: filteredLessons });
     }
-  });
-});
+  });*/
 
-app.get('/search/:category/:keyword', (req, res) => {
+app.get('/search/:category/:keyword', async (req, res) => {
   let { category, keyword } = req.params;
   console.log(category, keyword);
   if (category !== 'all' && category !== 'lessons' && category !== 'electric-components' && category !== 'microcontrollers') {
@@ -97,7 +106,17 @@ app.get('/search/:category/:keyword', (req, res) => {
     keyword = '';
   }
 
-  fs.readFile('lessons.json', 'utf8', (err, data) => {
+  try {
+    const lessons = await Lesson.find(
+      category === 'all'
+        ? { title: { $regex: keyword, $options: 'i' } }
+        : { category, title: { $regex: keyword, $options: 'i' }
+      });
+    res.status(200).json({ lessons });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+  /*fs.readFile('lessons.json', 'utf8', (err, data) => {
     if (err) {
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
@@ -118,7 +137,7 @@ app.get('/search/:category/:keyword', (req, res) => {
       }
       res.status(200).json({ lessons: filteredLessons });
     }
-  });
+  });*/
 });
 
 app.get('/api/getUserRole', verifyToken, (req, res) => {
