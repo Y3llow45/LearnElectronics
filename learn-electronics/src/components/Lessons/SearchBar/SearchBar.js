@@ -9,6 +9,7 @@ class SearchBar extends Component {
         this.state = {
             keyword: '',
             category: 'all',
+            page: 1
         };
     }
 
@@ -26,7 +27,6 @@ class SearchBar extends Component {
 
     handleSearch = (e) => {
         e.preventDefault();
-        console.log(this.state);
         search(this.state.category, this.state.keyword)
             .then(res => {
                 if (res && res.lessons) {

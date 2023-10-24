@@ -112,6 +112,7 @@ app.get('/search/:category/:keyword', async (req, res) => {
         ? { title: { $regex: keyword, $options: 'i' } }
         : { category, title: { $regex: keyword, $options: 'i' }
       });
+    console.log(lessons);
     res.status(200).json({ lessons });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });

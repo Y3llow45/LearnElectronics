@@ -57,8 +57,11 @@ class Lessons extends Component {
     }
 
     handleSearchResults = (searchResults) => {
+        /*console.log(searchResults)
         const uniqueSearchResults = [...new Map(searchResults.map((lesson) => [lesson.id, lesson])).values()];
-        this.setState({ lessons: uniqueSearchResults });
+        console.log(uniqueSearchResults)
+        this.setState({ lessons: uniqueSearchResults });*/
+        this.setState({ lessons: searchResults})
     };
 
     render() {
