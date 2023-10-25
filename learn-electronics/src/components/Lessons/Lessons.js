@@ -15,7 +15,8 @@ class Lessons extends Component {
     }
 
     componentDidMount() {
-        LessonService.getAll()
+        const { pageNum } = this.props.match.params;
+        LessonService.getAll(pageNum)
             .then(res => {
                 if (res && Array.isArray(res)) {
                     const lessonsObject = {};

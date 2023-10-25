@@ -55,7 +55,7 @@ function App() {
                 </PresentationControls>
               </Canvas>
             </Route>
-            <Route path="/lessons" component={Lessons} />
+            <Route path="/lessons/:pageNum" component={Lessons} />
             <Route path="/add" component={Add} />
             <Route path="/edit" component={Edit} />
             <Route path="/signup" component={SignUp} />
