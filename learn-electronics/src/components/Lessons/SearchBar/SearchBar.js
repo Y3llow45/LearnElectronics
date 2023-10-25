@@ -14,15 +14,11 @@ class SearchBar extends Component {
     }
 
     onInputChangeHandler = (event) => {
-        this.setState({ keyword: event.target.value }, () => {
-            console.log(this.state.keyword);
-        });
+        this.setState({ keyword: event.target.value });
     };
 
     onCategoryChangeHandler = (event) => {
-        this.setState({ category: event.target.value }, () => {
-            console.log(this.state.category);
-        });
+        this.setState({ category: event.target.value });
     };
 
     handleSearch = (e) => {

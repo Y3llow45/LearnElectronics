@@ -3,10 +3,10 @@ const Lesson = require('../models/lesson');
 const getLessons = async (username) => {
     try {
         if(username !== ''){
-            lessons = await await Lesson.find({user: username});
+            lessons = await Lesson.find({user: username});
             return lessons;
         }else {
-            return lessons = await await Lesson.find({});
+            return lessons = await Lesson.find({});
         }
     } catch(err){
         console.error(err);

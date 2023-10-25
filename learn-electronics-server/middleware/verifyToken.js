@@ -7,14 +7,12 @@ const verifyToken = (req, res, next) => {
     const token = req.header('Authorization');
 
     if (!token) {
-        console.log('no access boi')
         res.status(401).json({ error: 'Access denied' });
         return;
     }
 
     try {
         const payload = jwt.verify(token, SSKEY);
-        console.log(payload.username, payload.role)
         req.username = payload.username;
         req.role = payload.role;
         next();

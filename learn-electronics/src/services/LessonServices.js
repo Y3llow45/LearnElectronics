@@ -1,8 +1,8 @@
 import { displayLoginNotification } from '../components/Notify/Notify';
 const url = 'http://localhost:5000/';
 
-export const getAll = () => {
-    return fetch(`${url}lessons`)
+export const getAll = (pageNum) => {
+    return fetch(`${url}lessons/${pageNum}`)
         .then(res => res.json()) 
         .then((data) => {
             console.log('JSON response:', data); 

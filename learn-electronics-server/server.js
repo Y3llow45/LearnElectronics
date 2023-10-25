@@ -49,7 +49,6 @@ app.get('/edit',verifyToken, async (req, res) => {
 });
 
 app.get('/lessons', async (req, res) => {
-  console.log('/lessons')
   try {
     const lessonData = await getLessons("");
     if (lessonData) {
@@ -58,6 +57,25 @@ app.get('/lessons', async (req, res) => {
       res.status(404).json({ error: 'Data not found' });
     }
   } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/lessons/:page', async (req, res) => {
+  try {
+    const page = parseInt(req.params.page);
+    const pageSize = 2;
+    const skip = page * pageSize;
+
+    const lessons = await Lesson.find({})
+      .sort({ $natural: -1 })
+      .skip(skip)
+      .limit(pageSize)
+      .exec();
+    
+    console.log(lessons);
+    res.status(200).json(lessons);
+  } catch (err) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
@@ -71,7 +89,6 @@ app.get('/search/:category', async (req, res) => {
 
   try {
     const lessons = await Lesson.find(category === 'all' ? {} : { category });
-    console.log(lessons);
     res.status(200).json({ lessons });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
@@ -98,7 +115,6 @@ app.get('/search/:category', async (req, res) => {
 
 app.get('/search/:category/:keyword', async (req, res) => {
   let { category, keyword } = req.params;
-  console.log(category, keyword);
   if (category !== 'all' && category !== 'lessons' && category !== 'electric-components' && category !== 'microcontrollers') {
     category = 'all';
   }
@@ -112,7 +128,6 @@ app.get('/search/:category/:keyword', async (req, res) => {
         ? { title: { $regex: keyword, $options: 'i' } }
         : { category, title: { $regex: keyword, $options: 'i' }
       });
-    console.log(lessons);
     res.status(200).json({ lessons });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
@@ -144,7 +159,6 @@ app.get('/search/:category/:keyword', async (req, res) => {
 app.get('/api/getUserRole', verifyToken, (req, res) => {
   const userRole = req.role;
   if (userRole) {
-    console.log('user role', userRole)
     res.setHeader('Content-Type', 'application/json');
     res.json({ role: userRole });
   } else {
