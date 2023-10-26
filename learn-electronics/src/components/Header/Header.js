@@ -24,7 +24,6 @@ function Header() {
         const fetchUserRole = async () => {
             getRole()
                 .then((data) => {
-                    console.log(data.role)
                     setUserRole(data.role);
                 })
         };
@@ -69,6 +68,11 @@ function Header() {
 }
 
 export default Header;
+
+
+
+
+
 /*<div className='nav-link-menu'>
                 <NavLink to='/' className='nav-link'>Home</NavLink>
                 <NavLink to='/lessons' className='nav-link'>Lessons</NavLink>

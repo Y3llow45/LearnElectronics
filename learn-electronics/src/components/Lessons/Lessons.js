@@ -3,7 +3,7 @@ import './Lessons.css';
 import * as LessonService from '../../services/LessonServices';
 import SearchBar from './SearchBar/SearchBar';
 import renderLessonList from './renderLessonList/renderLessonList';
-import { displaySuccess } from '../Notify/Notify';
+import { displayError } from '../Notify/Notify';
 
 class Lessons extends Component {
     constructor(props) {
@@ -26,13 +26,10 @@ class Lessons extends Component {
                     });
                     this.setState({ lessons: lessonsObject });
                 } else {
-                    console.error('Invalid data format:', res);
-                    
+                    displayError("Server error")
                 }
             })
-            .catch(error => {
-                console.error('Error fetching lessons:', error);
-            });
+            .catch(displayError("Server error"));
     }
 
     handleLessonClick = (lessonId) => {
@@ -42,7 +39,6 @@ class Lessons extends Component {
 
     renderLessonContent() {
         const { lessons, selectedLessonId } = this.state;
-        //const selectedLesson = lessons.find(x => x.id === selectedLessonId);
         const selectedLesson = lessons[selectedLessonId];
 
         return (
@@ -60,10 +56,6 @@ class Lessons extends Component {
     }
 
     handleSearchResults = (searchResults) => {
-        /*console.log(searchResults)
-        const uniqueSearchResults = [...new Map(searchResults.map((lesson) => [lesson.id, lesson])).values()];
-        console.log(uniqueSearchResults)
-        this.setState({ lessons: uniqueSearchResults });*/
         this.setState({ lessons: searchResults})
     };
 

@@ -4,7 +4,7 @@ export const handleInputChangeComponent = (event, setStateCallback) => {
     const { name, value } = event.target;
     if(name === 'password'){
         if(!passwordPattern.test(value)){
-            console.log('weak pass bro', value);
+            console.log('weak password');
         }
     }
     setStateCallback({ [name]: value });

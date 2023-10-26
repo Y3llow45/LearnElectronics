@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './SearchBar.css';
 import { search } from '../../../services/LessonServices';
+import {displayError} from '../../Notify/Notify' 
 
 class SearchBar extends Component {
     constructor(props) {
@@ -28,12 +29,10 @@ class SearchBar extends Component {
                 if (res && res.lessons) {
                     this.props.onSearchResults(res.lessons);
                 } else {
-                    console.error('Invalid data format:', res);
+                    displayError("Server error")
                 }
             })
-            .catch(error => {
-                console.error('Error fetching lessons:', error);
-            })
+            .catch(displayError("Server error"))
     };
 
     render() {

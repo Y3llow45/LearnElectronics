@@ -4,7 +4,7 @@ import './SignIn.css';
 import { signIn } from '../../services/LessonServices';
 import FormComponent from '../Form/FormComponent/FormComponent';
 import { useAuth } from '../../contexts/AuthContext';
-//import { handleInputChangeComponent } from '../Form/handleInputChange/handleInputChange';
+import { displayError } from '../Notify/Notify';
 
 const SignIn = () => {
   const [state, setState] = useState({
@@ -17,35 +17,21 @@ const SignIn = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    
-    // Use the spread operator to copy the current state
     const updatedState = { ...state, [name]: value };
-    
-    // Update the state with the new values
     setState(updatedState);
   };
 
-  /*const handleUsernameUpdate = (newUsername) => {
-    // Update only the username property in the state
-    setState({ ...state, username: newUsername });
-  };*/
-  
-
   const handleSign = (event) => {
     event.preventDefault();
-    console.log(state.username, state.password);
     signIn(state.username, state.password, setUsername)
       .then((res) => {
         if (res.status === 200) {
-          console.log('Logged in!');
           setUsername(res.username);
         } else {
-          console.error(`Error: ${res.statusText}`);
+          displayError("Server error")
         }
       })
-      .catch((err) => {
-        console.error(`Error: ${err}`);
-      });
+      .catch(displayError("Server error"));
   };
 
   return (

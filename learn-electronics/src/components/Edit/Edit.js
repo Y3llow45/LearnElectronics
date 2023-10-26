@@ -3,7 +3,6 @@ import {edit, getMine} from '../../services/LessonServices'
 import Editor, { createEditorStateWithText } from '@draft-js-plugins/editor';
 import {stateToHTML} from 'draft-js-export-html';
 import createToolbarPlugin from '@draft-js-plugins/static-toolbar';
-//import editorStyles from './CustomImageEditor/editorStyles.module.css';
 import editorStyles from '../Add/editorStyles.module.css';
 import buttonStyles from '../Add/buttonStyles.module.css';
 import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputChange';
@@ -42,23 +41,21 @@ class Add extends Component {
     };
   }
 
-    componentDidMount() {
-        getMine()
-            .then(res => {
-                if (res && Array.isArray(res)) {
-                    const lessonsObject = {};
-                    res.forEach(lesson => {
-                        lessonsObject[lesson._id] = lesson;
-                    });
-                    this.setState({ lessons: lessonsObject });
-                } else {
-                    console.error('Invalid data format:', res);
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching lessons:', error);
+  componentDidMount() {
+    getMine()
+      .then(res => {
+        if (res && Array.isArray(res)) {
+        const lessonsObject = {};
+        res.forEach(lesson => {
+            lessonsObject[lesson._id] = lesson;
             });
-    }
+            this.setState({ lessons: lessonsObject });
+        } else {
+          displayError('Server error');
+        }
+      })
+      .catch(displayError('Server error'));
+  }
 
   onChange = (editorState) => {
     this.setState({
@@ -75,10 +72,8 @@ class Add extends Component {
   };
 
   handleLessonClick = (lessonId) => {
-    //this.setState({ selectedLessonId: lessonId });
     const selectedLesson = this.state.lessons[lessonId];
     const editorState = createEditorStateWithText(selectedLesson.content);
-    console.log(selectedLesson);
     this.setState({
         selectedLessonId: lessonId,
         title: selectedLesson.title,
@@ -97,7 +92,7 @@ class Add extends Component {
       displayError(addErrors.contentLength);
     }
     else {
-      console.log(this.state.selectedLessonId)
+
       edit(this.state.selectedLessonId, this.state.title, htmlContent, this.state.category)
     }
   };

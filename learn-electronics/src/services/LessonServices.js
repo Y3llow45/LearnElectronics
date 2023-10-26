@@ -5,29 +5,23 @@ export const getAll = (pageNum) => {
     return fetch(`${url}lessons/${pageNum}`)
         .then(res => res.json()) 
         .then((data) => {
-            console.log('JSON response:', data); 
             return data;
         })
-        .catch((error) => {
-            console.error('Error fetching data:', error);
-    });
+        .catch(displayError('Server error'));
 }
 
 export const getMine = () => {
     const token = localStorage.getItem('token');
     if(!token) {
-        console.log('Login first');
+        displayInfo("You need to login first")
         return;
     }
     return fetch(`${url}edit`, {headers: {'Authorization': token}})
         .then(res => res.json()) 
         .then((data) => {
-            console.log('JSON response:', data); 
             return data;
         })
-        .catch((error) => {
-            console.error('Error fetching data:', error);
-    });
+        .catch(displayError('Server error'));
 }
 
 export const getRole = () => {
@@ -36,12 +30,11 @@ export const getRole = () => {
     return fetch(`${url}api/getUserRole`, {headers: {'Authorization': token}})
         .then(res => res.json()) 
         .then((data) => {
-            console.log(data)
             return data
         })
-        .catch((error) => {
-            console.error('Error fetching data', error)
-        });
+        .catch(
+            displayError('Server error')
+        );
 }
 
 export const search = (category, keyword) => {
@@ -50,7 +43,7 @@ export const search = (category, keyword) => {
         .then((data) => {
             return data;
         })
-        .catch(error => console.log(error));
+        .catch(displayError('Server error'));
 };
 
 export const signUp = (username, email, password) => {
@@ -88,12 +81,13 @@ export const signIn = (username, password, updateUsername) => {
                 localStorage.setItem('token', data.token)
                 localStorage.setItem('username', data.username)
                 updateUsername(data.username);
-                console.log('Logged in!')
+                displaySuccess('Logged in')
             }
         })
-        .catch(error => {
-            console.error('Error signing in:', error);
-        });
+        .catch(
+            //console.error('Error signing in:', error);
+            displayError('Server error')
+        );
 };
 
 export const add = (title, content, category) => {
@@ -125,10 +119,10 @@ export const add = (title, content, category) => {
         .then(data => {
             console.log(data);
         })
-        .catch(error => {
+        .catch(
             //console.error('Error:', error);
             displayError('Server error')
-        });
+        );
 };
 
 export const edit = (id, title, content, category) => {
@@ -161,10 +155,10 @@ export const edit = (id, title, content, category) => {
         .then(data => {
             console.log(data);
         })
-        .catch(error => {
+        .catch(
             //console.error('Error:', error);
             displayError('Server error')
-        });
+        );
 };
 
 /*

@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 import { signUp } from '../../services/LessonServices';
 import FormComponent from '../Form/FormComponent/FormComponent';
 import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputChange';
+import { displayError, displaySuccess } from '../Notify/Notify';
 
 class SignUp extends Component {
     constructor(props) {
@@ -22,18 +23,15 @@ class SignUp extends Component {
 
     handleSignUp = (event) => {
         event.preventDefault();
-        console.log(this.state.username, this.state.email, this.state.password);
         signUp(this.state.username, this.state.email, this.state.password)
             .then(res => {
                 if(res.status === 201){
-                    console.log('created!');
+                    displaySuccess("Account created")
                 }else {
-                    console.error(`Error: ${res.statusText}`)
+                    displayError("Server error")
                 }
             })
-            .catch(err => {
-                console.error(`Error: ${err}`)
-            })
+            .catch(displayError("Server error"))
     };
 
     render() {
