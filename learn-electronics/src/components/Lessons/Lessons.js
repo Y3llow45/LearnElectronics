@@ -3,6 +3,7 @@ import './Lessons.css';
 import * as LessonService from '../../services/LessonServices';
 import SearchBar from './SearchBar/SearchBar';
 import renderLessonList from './renderLessonList/renderLessonList';
+import { displaySuccess } from '../Notify/Notify';
 
 class Lessons extends Component {
     constructor(props) {
@@ -26,6 +27,7 @@ class Lessons extends Component {
                     this.setState({ lessons: lessonsObject });
                 } else {
                     console.error('Invalid data format:', res);
+                    
                 }
             })
             .catch(error => {

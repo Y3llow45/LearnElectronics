@@ -10,7 +10,7 @@ import toolbarStyles from './toolbarStyles.module.css';
 import createImagePlugin from '@draft-js-plugins/image';
 import ImageAdd from './CustomImageEditor/ImageAdd/ImageAdd';
 import './Add.css';
-import { displayLoginError } from '../Notify/Notify';
+import { displayError } from '../Notify/Notify';
 
 const imagePlugin = createImagePlugin();
 
@@ -56,10 +56,9 @@ class Add extends Component {
     const contentState = this.state.editorState.getCurrentContent();
     const htmlContent = stateToHTML(contentState);
     if(this.state.title === '' || htmlContent === ''){
-      console.log(this.state)
-      displayLoginError(addErrors.errorEmpty);
+      displayError(addErrors.errorEmpty);
     }else if(htmlContent.length < 120 || htmlContent.length > 5000) {
-      displayLoginError(addErrors.contentLength);
+      displayError(addErrors.contentLength);
     }
     else {
       add(this.state.title, htmlContent, this.state.category)

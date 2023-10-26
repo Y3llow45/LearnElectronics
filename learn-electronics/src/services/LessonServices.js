@@ -1,4 +1,4 @@
-import { displayLoginNotification } from '../components/Notify/Notify';
+import { displayError, displayInfo, displaySuccess } from '../components/Notify/Notify';
 const url = 'http://localhost:5000/';
 
 export const getAll = (pageNum) => {
@@ -104,7 +104,7 @@ export const add = (title, content, category) => {
     };
     const token = localStorage.getItem('token');
     if(!token) {
-        console.log('Login first');
+        displayInfo("You need to login first")
         return;
     }
     
@@ -119,15 +119,15 @@ export const add = (title, content, category) => {
         .then(res => {
             res.json()
             if(res.status === 201){
-                console.log('Created!');
-                displayLoginNotification("Add Successful");
+                displaySuccess("Add Successful");
             }
         })
         .then(data => {
             console.log(data);
         })
         .catch(error => {
-            console.error('Error:', error);
+            //console.error('Error:', error);
+            displayError('Server error')
         });
 };
 
@@ -138,10 +138,9 @@ export const edit = (id, title, content, category) => {
         content,
         category,
     };
-    console.log('edit service')
     const token = localStorage.getItem('token');
     if(!token) {
-        console.log('Login first');
+        displayInfo("You need to login first")
         return;
     }
     
@@ -154,18 +153,17 @@ export const edit = (id, title, content, category) => {
         body: JSON.stringify(lesson)
     })  
         .then(res => {
-            console.log('before json()');
             res.json()
             if(res.status === 200){
-                console.log('Updated!');
-                displayLoginNotification("Edit Successful");
+                displaySuccess("Edit Successful");
             }
         })
         .then(data => {
             console.log(data);
         })
         .catch(error => {
-            console.error('Error:', error);
+            //console.error('Error:', error);
+            displayError('Server error')
         });
 };
 
