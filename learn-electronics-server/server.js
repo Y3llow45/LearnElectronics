@@ -73,7 +73,6 @@ app.get('/lessons/:page', async (req, res) => {
       .limit(pageSize)
       .exec();
     
-    console.log(lessons);
     res.status(200).json(lessons);
   } catch (err) {
     res.status(500).json({ error: 'Internal Server Error' });

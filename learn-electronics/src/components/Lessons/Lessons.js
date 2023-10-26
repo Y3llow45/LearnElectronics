@@ -4,6 +4,7 @@ import * as LessonService from '../../services/LessonServices';
 import SearchBar from './SearchBar/SearchBar';
 import renderLessonList from './renderLessonList/renderLessonList';
 import { displayError } from '../Notify/Notify';
+import { NavLink } from 'react-router-dom';
 
 class Lessons extends Component {
     constructor(props) {
@@ -16,26 +17,58 @@ class Lessons extends Component {
     }
 
     componentDidMount() {
-        const { pageNum } = this.props.match.params;
-        LessonService.getAll(pageNum)
-            .then(res => {
-                if (res && Array.isArray(res)) {
-                    const lessonsObject = {};
-                    res.forEach(lesson => {
-                        lessonsObject[lesson.title] = lesson;
-                    });
-                    this.setState({ lessons: lessonsObject });
-                } else {
-                    displayError("Server error")
-                }
-            })
-            .catch(displayError("Server error"));
-    }
+        const { page } = this.props.match.params;
+        this.loadLessons(page);
+      }
+    
+      componentDidUpdate(prevProps) {
+        if (this.props.match.params.page !== prevProps.match.params.page) {
+          const { page } = this.props.match.params;
+          this.loadLessons(page);
+        }
+      }
+    
+      loadLessons(page) {
+        LessonService.getAll(page)
+          .then((res) => {
+            if (res && Array.isArray(res.lessons)) {
+              this.setState({
+                lessons: res.lessons,
+                totalPages: res.totalPages,
+              });
+            } else {
+              // Handle error
+            }
+          })
+          .catch(() => {
+            // Handle error
+          });
+      }
 
     handleLessonClick = (lessonId) => {
         this.setState({ selectedLessonId: lessonId });
     };
 
+    renderLessonList() {
+        const { lessons } = this.state;
+    
+        return (
+          <div className="lesson-list">
+            {lessons.map((lesson) => (
+              <NavLink
+                key={lesson._id}
+                to={`/lessons/${lesson.title}`}
+                className="lesson-title"
+              >
+                <div className="lesson-title">
+                  <h2>{lesson.title}</h2>
+                  <p>{lesson.content.slice(0, 100)}...</p>
+                </div>
+              </NavLink>
+            ))}
+          </div>
+        );
+      }
 
     renderLessonContent() {
         const { lessons, selectedLessonId } = this.state;
@@ -58,11 +91,56 @@ class Lessons extends Component {
     handleSearchResults = (searchResults) => {
         this.setState({ lessons: searchResults})
     };
+    renderPagination() {
+        const { page, totalPages } = this.state;
+        const currentPage = parseInt(page, 10);
+    
+        return (
+          <div className="lesson-pagination">
+            <NavLink to={`/lessons/${currentPage - 1}`} disabled={currentPage === 0}>
+              Previous
+            </NavLink>
+            <span>Page {currentPage + 1}</span>
+            <NavLink to={`/lessons/${currentPage + 1}`} disabled={currentPage === totalPages}>
+              Next
+            </NavLink>
+          </div>
+        );
+      }
 
     render() {
         const { lessons, selectedLessonId } = this.state;
         return (
             <div className="lessons-container">
+                {this.renderLessonList()}
+                {this.renderPagination()}
+            </div>
+            
+        );
+    }
+}
+
+export default Lessons;
+
+
+/*componentDidMount() {
+        const { pageNum } = this.props.match.params;
+        LessonService.getAll(pageNum)
+            .then(res => {
+                if (res && Array.isArray(res)) {
+                    const lessonsObject = {};
+                    res.forEach(lesson => {
+                        lessonsObject[lesson.title] = lesson;
+                    });
+                    this.setState({ lessons: lessonsObject });
+                } else {
+                    displayError("Server error")
+                }
+            })
+            .catch(displayError("Server error"));
+    } */
+
+/*<div className="lessons-container">
                 {renderLessonList({
                     lessons,
                     selectedLessonId,
@@ -70,9 +148,4 @@ class Lessons extends Component {
                 })}
                 <SearchBar onSearchResults={this.handleSearchResults} />
                 {this.renderLessonContent()}
-            </div>
-        );
-    }
-}
-
-export default Lessons;
+            </div>*/
