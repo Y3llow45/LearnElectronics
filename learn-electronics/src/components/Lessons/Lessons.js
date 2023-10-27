@@ -37,11 +37,11 @@ class Lessons extends Component {
                 totalPages: res.totalPages,
               });
             } else {
-              // Handle error
+              console.log('operation failed')
             }
           })
-          .catch(() => {
-            // Handle error
+          .catch((error) => {
+            console.log(error)
           });
       }
 
@@ -49,26 +49,7 @@ class Lessons extends Component {
         this.setState({ selectedLessonId: lessonId });
     };
 
-    renderLessonList() {
-        const { lessons } = this.state;
     
-        return (
-          <div className="lesson-list">
-            {lessons.map((lesson) => (
-              <NavLink
-                key={lesson._id}
-                to={`/lessons/${lesson.title}`}
-                className="lesson-title"
-              >
-                <div className="lesson-title">
-                  <h2>{lesson.title}</h2>
-                  <p>{lesson.content.slice(0, 100)}...</p>
-                </div>
-              </NavLink>
-            ))}
-          </div>
-        );
-      }
 
     renderLessonContent() {
         const { lessons, selectedLessonId } = this.state;
@@ -110,12 +91,12 @@ class Lessons extends Component {
 
     render() {
         const { lessons, selectedLessonId } = this.state;
+        
         return (
             <div className="lessons-container">
-                {this.renderLessonList()}
+                {renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
                 {this.renderPagination()}
             </div>
-            
         );
     }
 }

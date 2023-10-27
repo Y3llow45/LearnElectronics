@@ -7,7 +7,7 @@ export const getAll = (pageNum) => {
         .then((data) => {
             return data;
         })
-        .catch(displayError('Server error'));
+        .catch((error) => console.log(error));//displayError('Server error')
 }
 
 export const getMine = () => {

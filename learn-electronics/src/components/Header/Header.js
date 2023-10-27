@@ -5,6 +5,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { slide as Menu } from 'react-burger-menu';
 import { NavLink } from 'react-router-dom';
 import {getRole} from '../../services/LessonServices';
+import { displaySuccess } from '../Notify/Notify';
 
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,6 +18,7 @@ function Header() {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
         setUsername('Guest');
+        displaySuccess('Logged out')
     }
     const [userRole, setUserRole] = useState(null);
 
@@ -43,7 +45,7 @@ function Header() {
                 right
             >
                 {<div className='hamburger-links'><NavLink to='/' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Home</NavLink>
-                <NavLink to='/lessons' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Lessons</NavLink>
+                <NavLink to='/lessons/0' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Lessons</NavLink>
                 <NavLink to='/add' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Add lessons</NavLink>
                 <NavLink to='/edit' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Edit lessons</NavLink>
                 <NavLink to='/signup' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Sign up</NavLink>
