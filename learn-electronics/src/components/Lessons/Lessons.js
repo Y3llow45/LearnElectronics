@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import './Lessons.css';
 import * as LessonService from '../../services/LessonServices';
 import SearchBar from './SearchBar/SearchBar';
-import renderLessonList from './renderLessonList/renderLessonList';
 import { displayError } from '../Notify/Notify';
 import { NavLink } from 'react-router-dom';
 
@@ -11,70 +10,62 @@ class Lessons extends Component {
         super(props);
 
         this.state = {
-            lessons: {},
+            lessons: [],
             selectedLessonId: null
         };
     }
 
     componentDidMount() {
-        const { page } = this.props.match.params;
-        this.loadLessons(page);
+      const { pageNum } = this.props.match.params;
+      this.loadLessons(pageNum);
+    }
+
+    componentDidUpdate(prevProps) {
+      if (this.props.match.params.pageNum !== prevProps.match.params.pageNum) {
+        const { pageNum } = this.props.match.params;
+        this.loadLessons(pageNum);
       }
-    
-      componentDidUpdate(prevProps) {
-        if (this.props.match.params.page !== prevProps.match.params.page) {
-          const { page } = this.props.match.params;
-          this.loadLessons(page);
-        }
-      }
-    
-      loadLessons(page) {
-        LessonService.getAll(page)
-          .then((res) => {
-            if (res && Array.isArray(res.lessons)) {
-              this.setState({
-                lessons: res.lessons,
-                totalPages: res.totalPages,
-              });
-            } else {
-              console.log('operation failed')
-            }
-          })
-          .catch((error) => {
-            console.log(error)
-          });
-      }
+    }
+
+    loadLessons(page) {
+      LessonService.getAll(page)
+        .then((res) => {
+          if (res && Array.isArray(res)) {
+            this.setState({
+              lessons: res,
+            });
+          } else {
+            console.log('Operation failed');
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
 
     handleLessonClick = (lessonId) => {
         this.setState({ selectedLessonId: lessonId });
     };
 
-    
-
-    renderLessonContent() {
-        const { lessons, selectedLessonId } = this.state;
-        const selectedLesson = lessons[selectedLessonId];
-
-        return (
-            <div className="lesson-content">
-                {selectedLesson && (
-                    <div>
-                        <p className="content-lesson-title">{selectedLesson.title}</p>
-                        <div>
-                            <p  className="lesson-text" dangerouslySetInnerHTML={{ __html: selectedLesson.content }}></p>
-                        </div>
-                    </div>
-                )}
-            </div>
-        );
+    renderLessonList(lessons, selectedLessonId, handleLessonClick) {
+      return (
+        <div className="my-list">
+            {lessons.map(lesson => (
+                <div
+                    key={lesson._id}
+                    className={`lesson-title ${selectedLessonId === lesson._id ? 'selected' : ''}`}
+                    onClick={() => handleLessonClick(lesson._id)}
+                >
+                    {lesson.title}
+                </div>
+            ))}
+        </div>
+      );
     }
 
-    handleSearchResults = (searchResults) => {
-        this.setState({ lessons: searchResults})
-    };
     renderPagination() {
-        const { page, totalPages } = this.state;
-        const currentPage = parseInt(page, 10);
+        const { pageNum, totalPages } = this.state;
+        const currentPage = parseInt(pageNum, 10);
     
         return (
           <div className="lesson-pagination">
@@ -87,14 +78,13 @@ class Lessons extends Component {
             </NavLink>
           </div>
         );
-      }
+    }
 
     render() {
         const { lessons, selectedLessonId } = this.state;
-        
         return (
             <div className="lessons-container">
-                {renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
+                {lessons.length === 0 ? <p>Loading</p> : this.renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
                 {this.renderPagination()}
             </div>
         );
@@ -103,6 +93,7 @@ class Lessons extends Component {
 
 export default Lessons;
 
+/*{renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}*/
 
 /*componentDidMount() {
         const { pageNum } = this.props.match.params;

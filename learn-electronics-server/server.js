@@ -62,10 +62,9 @@ app.get('/lessons', async (req, res) => {
 });
 
 app.get('/lessons/:page', async (req, res) => {
-  console.log('here')
   try {
     const page = parseInt(req.params.page);
-    const pageSize = 2;
+    const pageSize = 6;
     const skip = page * pageSize;
 
     const lessons = await Lesson.find({})
@@ -74,7 +73,6 @@ app.get('/lessons/:page', async (req, res) => {
       .limit(pageSize)
       .exec();
     
-    console.log(lessons)
     res.status(200).json(lessons);
   } catch (err) {
     res.status(500).json({ error: 'Internal Server Error' });

@@ -11,7 +11,6 @@ import createImagePlugin from '@draft-js-plugins/image';
 import ImageAdd from '../Add/CustomImageEditor/ImageAdd/ImageAdd';
 import './Edit.css';
 import { displayError } from '../Notify/Notify';
-import renderLessonList from '../Lessons/renderLessonList/renderLessonList'
 
 const imagePlugin = createImagePlugin();
 
@@ -28,7 +27,7 @@ const addErrors = {
   contentLength: 'Content is too short or too long',
 }
 
-class Add extends Component {
+class Edit extends Component {
   constructor(props) {
     super(props);
 
@@ -97,11 +96,27 @@ class Add extends Component {
     }
   };
 
+  renderLessonList = (lessons, selectedLessonId, handleLessonClick) => {
+    return (
+      <div className="lesson-list">
+          {Object.keys(lessons).map(lessonId => (
+              <div
+                  key={lessonId}
+                  className={`lesson-title ${selectedLessonId === lessonId ? 'selected' : ''}`}
+                  onClick={() => handleLessonClick(lessonId)}
+              >
+                  {lessons[lessonId].title}
+              </div>
+          ))}
+      </div>
+    );
+  }
+
   render() {
     const { lessons, selectedLessonId } = this.state;
     return (
       <div>
-        {renderLessonList({
+        {this.renderLessonList({
             lessons,
             selectedLessonId,
             handleLessonClick: this.handleLessonClick,
@@ -164,4 +179,4 @@ class Add extends Component {
   }
 }
 
-export default Add;
+export default Edit;
