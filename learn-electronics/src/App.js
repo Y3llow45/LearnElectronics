@@ -9,6 +9,7 @@ import SignIn from './components/SignIn/SignIn';
 import Footer from './components/Footer/Footer';
 import Edit from './components/Edit/Edit';
 import ModPage from './components/ModPage/ModPage';
+import LessonDetail from './components/LessonDetail/LessonDetail';
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -55,7 +56,8 @@ function App() {
                 </PresentationControls>
               </Canvas>
             </Route>
-            <Route path="/lessons/:pageNum" component={Lessons} />
+            <Route path="/lesson/:title" component={LessonDetail} />
+            <Route path="/lessons/:pageNum" component={Lessons} /> 
             <Route path="/add" component={Add} />
             <Route path="/edit" component={Edit} />
             <Route path="/signup" component={SignUp} />

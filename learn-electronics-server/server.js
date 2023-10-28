@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const verifyToken = require('./middleware/verifyToken');
 const { getLessons } = require('./services/getLessons');
 const generateToken = require('./services/genToken');
-const fs = require('fs');
+const getLessonDetail = require('./services/getLessonDetail');
 const app = express();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -38,6 +38,23 @@ app.get('/edit',verifyToken, async (req, res) => {
   try {
     const username = req.username;
     const lessonData = await getLessons(username);
+    if (lessonData) {
+      res.status(200).json(lessonData);
+    } else {
+      res.status(404).json({ error: 'Data not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/lesson/:title', async (req, res) => {
+  console.log('/lesson/title')
+  try {
+    const title = req.params.title;
+    console.log(`My title is: ${title}`)
+    const lessonData = await getLessonDetail(title);
+    console.log('after lesson')
     if (lessonData) {
       res.status(200).json(lessonData);
     } else {
@@ -92,7 +109,7 @@ app.get('/search/:category', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
-  });
+});
 
   /*fs.readFile('lessons.json', 'utf8', (err, data) => {
     if (err) {
