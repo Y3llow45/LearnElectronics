@@ -7,7 +7,7 @@
 }
 
 .lessons-container {
-    display: flexbox;
+    margin-top: 50px;
 }
 .content-lesson-title {
     font-size: 20px;
@@ -16,9 +16,21 @@
 }
 .lesson-title {
     padding: 10px;
+    justify-content: center;
+    display: grid;
     font-size: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
+}
+
+.lesson-pagination{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.current-page {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .lesson-title.selected {

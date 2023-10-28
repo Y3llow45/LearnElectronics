@@ -1,6 +1,17 @@
 import { displayError, displayInfo, displaySuccess } from '../components/Notify/Notify';
 const url = 'http://localhost:5000/';
 
+export const getLessonDetail = (title) => {
+    return fetch(`${url}lesson/${title}`)
+        .then(res => res.json()) 
+        .then((data) => {
+            console.log(data);
+            return data;
+        })
+        .catch((error) => console.log(error));//displayError('Server error')
+}
+
+
 export const getAll = (pageNum) => {
     console.log(pageNum)
     return fetch(`${url}lessons/${pageNum}`)

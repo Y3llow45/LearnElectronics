@@ -51,41 +51,47 @@ class Lessons extends Component {
       return (
         <div className="my-list">
             {lessons.map(lesson => (
-                <div
+                <NavLink
                     key={lesson._id}
+                    to={`/lesson/${lesson.title}`}
                     className={`lesson-title ${selectedLessonId === lesson._id ? 'selected' : ''}`}
                     onClick={() => handleLessonClick(lesson._id)}
                 >
                     {lesson.title}
-                </div>
+                </NavLink>
             ))}
         </div>
       );
     }
 
-    renderPagination() {
-        const { pageNum, totalPages } = this.state;
-        const currentPage = parseInt(pageNum, 10);
-    
-        return (
-          <div className="lesson-pagination">
-            <NavLink to={`/lessons/${currentPage - 1}`} disabled={currentPage === 0}>
-              Previous
-            </NavLink>
-            <span>Page {currentPage + 1}</span>
-            <NavLink to={`/lessons/${currentPage + 1}`} disabled={currentPage === totalPages}>
+    renderPagination(totalPages) {
+      const currentPage = parseInt(this.props.match.params.pageNum, 10);
+      const previousPage = currentPage - 1;
+      const nextPage = currentPage + 1;
+  
+      return (
+        <div className="lesson-pagination">
+          {currentPage > 0 ? (
+            <NavLink to={`/lessons/${previousPage}`}>
+            Previous
+          </NavLink>    
+          ) : <span>Previous</span>}
+          <span className="current-page">Page {currentPage + 1}</span>
+          {currentPage < totalPages - 1 ? (
+            <NavLink to={`/lessons/${nextPage}`}>
               Next
             </NavLink>
-          </div>
-        );
-    }
+          ) : <span>Next</span>}
+        </div>
+      );
+  }
 
     render() {
         const { lessons, selectedLessonId } = this.state;
         return (
             <div className="lessons-container">
                 {lessons.length === 0 ? <p>Loading</p> : this.renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
-                {this.renderPagination()}
+                {this.renderPagination(2)}
             </div>
         );
     }
