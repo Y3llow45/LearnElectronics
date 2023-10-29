@@ -1,0 +1,10 @@
+.lesson-detail-center {
+    text-align: justify;
+    margin: 100px;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

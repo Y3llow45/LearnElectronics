@@ -49,12 +49,10 @@ app.get('/edit',verifyToken, async (req, res) => {
 });
 
 app.get('/lesson/:title', async (req, res) => {
-  console.log('/lesson/title')
   try {
     const title = req.params.title;
-    console.log(`My title is: ${title}`)
-    const lessonData = await getLessonDetail(title);
-    console.log('after lesson')
+    //const lessonData = await getLessonDetail(title);
+    const lessonData = await Lesson.find({title: title});
     if (lessonData) {
       res.status(200).json(lessonData);
     } else {
