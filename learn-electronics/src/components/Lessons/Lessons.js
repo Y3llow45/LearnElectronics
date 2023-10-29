@@ -50,7 +50,9 @@ class Lessons extends Component {
     renderLessonList(lessons, selectedLessonId, handleLessonClick) {
       return (
         <div className="my-list">
-            {lessons.map(lesson => (
+            {lessons.map((lesson,index) => (
+                <div className="center-div">
+                <span className="lesson-number lesson-title">{index + 1}</span>
                 <NavLink
                     key={lesson._id}
                     to={`/lesson/${lesson.title}`}
@@ -59,6 +61,9 @@ class Lessons extends Component {
                 >
                     {lesson.title}
                 </NavLink>
+                <span className="lesson-author lesson-title">{lesson.user}</span>
+                <span className="lesson-likes lesson-title">{lesson.likes}</span>
+                </div>
             ))}
         </div>
       );
@@ -72,16 +77,16 @@ class Lessons extends Component {
       return (
         <div className="lesson-pagination">
           {currentPage > 0 ? (
-            <NavLink to={`/lessons/${previousPage}`}>
+            <NavLink className={'special-navlink'} to={`/lessons/${previousPage}`}>
             Previous
           </NavLink>    
-          ) : <span>Previous</span>}
-          <span className="current-page">Page {currentPage + 1}</span>
+          ) : <span className="grey-span">Previous</span>}
+          <span className="current-page">{currentPage + 1}</span>
           {currentPage < totalPages - 1 ? (
-            <NavLink to={`/lessons/${nextPage}`}>
+            <NavLink className={'special-navlink'} to={`/lessons/${nextPage}`}>
               Next
             </NavLink>
-          ) : <span>Next</span>}
+          ) : <span className="grey-span">Next</span>}
         </div>
       );
   }
@@ -89,10 +94,13 @@ class Lessons extends Component {
     render() {
         const { lessons, selectedLessonId } = this.state;
         return (
+          <fragment>
+          <SearchBar />
             <div className="lessons-container">
                 {lessons.length === 0 ? <p>Loading</p> : this.renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
                 {this.renderPagination(2)}
             </div>
+          </fragment>
         );
     }
 }

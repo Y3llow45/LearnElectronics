@@ -18,22 +18,37 @@
     padding: 10px;
     justify-content: center;
     display: grid;
-    font-size: 15px;
+    font-size: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
 }
 
 .lesson-pagination{
-    margin-top: 20px;
+    margin-top: 60px;
     text-align: center;
+}
+.center-div {
+    display: flex;
+    text-align: center;
+    justify-content: center;
 }
 
 .current-page {
     margin-left: 10px;
     margin-right: 10px;
+    font-weight: bold;
 }
 
-.lesson-title.selected {
+.grey-span {
+    color: grey;
+}
+
+.special-navlink {
+    text-decoration: none;
+    color: #0077cc;
+}
+
+.lesson-title:hover {
     background-color: rgb(58, 184, 146); /* Change to your desired background color */
     color: white; /* Change to your desired text color */
 }
