@@ -49,25 +49,32 @@ class Lessons extends Component {
 
     renderLessonList(lessons, selectedLessonId, handleLessonClick) {
       return (
-        <div className="my-list">
-            {lessons.map((lesson,index) => (
-                <div className="center-div">
-                <span className="lesson-number lesson-title">{index + 1}</span>
+        <div className="lesson-list">
+        <div className="lesson-table-header">
+            <div className="lesson-number">N</div>
+            <div className="lesson-title">Lesson Title</div>
+            <div className="lesson-author">Author</div>
+            <div className="lesson-likes">Likes</div>
+        </div>
+        {lessons.map((lesson, index) => (
+            <div className="lesson-row" key={lesson._id}>
+                <div className="lesson-number">{index + 1}</div>
                 <NavLink
-                    key={lesson._id}
                     to={`/lesson/${lesson.title}`}
-                    className={`lesson-title ${selectedLessonId === lesson._id ? 'selected' : ''}`}
+                    className={`special-navlink lesson-title ${selectedLessonId === lesson._id ? 'selected' : ''}`}
                     onClick={() => handleLessonClick(lesson._id)}
                 >
                     {lesson.title}
                 </NavLink>
-                <span className="lesson-author lesson-title">{lesson.user}</span>
-                <span className="lesson-likes lesson-title">{lesson.likes}</span>
-                </div>
-            ))}
-        </div>
+                <div className="lesson-author">{lesson.user}</div>
+                <div className="lesson-likes">{lesson.likes}</div>
+            </div>
+        ))}
+    </div>
+        
       );
-    }
+  }
+  
 
     renderPagination(totalPages) {
       const currentPage = parseInt(this.props.match.params.pageNum, 10);

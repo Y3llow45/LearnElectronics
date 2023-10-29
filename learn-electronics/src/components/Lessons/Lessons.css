@@ -1,10 +1,54 @@
 .lesson-list {
-    width: 20%;
-    height: 620px;
-    overflow-y: scroll;
     background-color: #ffffff;
-    float: left;
 }
+
+.lessons-container {
+    margin-top: 50px;
+    display: grid;
+    justify-content: center;
+}
+
+.lesson-table {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+}
+
+.lesson-table-header {
+    display: table-row;
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.lesson-table-header > div {
+    display: table-cell;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.lesson-row {
+    display: table-row;
+}
+
+.lesson-row > div {
+    display: table-cell;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.selected {
+    background-color: rgb(58, 184, 146);
+    color: white;
+}
+
+
+
+
+
+
 
 .lessons-container {
     margin-top: 50px;
@@ -31,6 +75,8 @@
     display: flex;
     text-align: center;
     justify-content: center;
+    width: 70%;
+    margin: auto;
 }
 
 .current-page {
@@ -43,12 +89,7 @@
     color: grey;
 }
 
-.special-navlink {
-    text-decoration: none;
-    color: #0077cc;
-}
-
-.lesson-title:hover {
+.special-navlink:hover {
     background-color: rgb(58, 184, 146); /* Change to your desired background color */
     color: white; /* Change to your desired text color */
 }
