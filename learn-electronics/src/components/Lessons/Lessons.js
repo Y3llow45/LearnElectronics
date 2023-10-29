@@ -51,10 +51,10 @@ class Lessons extends Component {
       return (
         <div className="lesson-list">
         <div className="lesson-table-header">
-            <div className="lesson-number">N</div>
-            <div className="lesson-title">Lesson Title</div>
-            <div className="lesson-author">Author</div>
-            <div className="lesson-likes">Likes</div>
+            <div className="lesson-number element-header">N</div>
+            <div className="lesson-title element-header element-header-title">Lesson Title</div>
+            <div className="lesson-author element-header">Author</div>
+            <div className="lesson-likes element-header">Likes</div>
         </div>
         {lessons.map((lesson, index) => (
             <div className="lesson-row" key={lesson._id}>

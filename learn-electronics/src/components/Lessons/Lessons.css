@@ -1,5 +1,14 @@
 .lesson-list {
     background-color: #ffffff;
+    display: table;
+}
+
+.element-header {
+    text-align: center !important;
+}
+
+.element-header-title {
+    width: 1000px;
 }
 
 .lessons-container {
@@ -10,7 +19,7 @@
 
 .lesson-table {
     display: table;
-    width: 100%;
+    width: 70% !important;
     border-collapse: collapse;
     background-color: #ffffff;
 }
@@ -49,10 +58,6 @@
 
 
 
-
-.lessons-container {
-    margin-top: 50px;
-}
 .content-lesson-title {
     font-size: 20px;
     padding-left: 30px
@@ -60,7 +65,7 @@
 }
 .lesson-title {
     padding: 10px;
-    justify-content: center;
+    justify-content: left;
     display: grid;
     font-size: 25px;
     cursor: pointer;
