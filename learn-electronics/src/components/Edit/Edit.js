@@ -73,11 +73,11 @@ class Edit extends Component {
     handleInputChangeComponent(event, this.setState.bind(this));
   };
 
-  handleLessonClick = (lessonId) => {
-    const selectedLesson = this.state.lessons[lessonId];
+  handleLessonClick = (index, _id) => {
+    const selectedLesson = this.state.lessons[index];
     const editorState = createEditorStateWithText(selectedLesson.content);
     this.setState({
-        selectedLessonId: lessonId,
+        selectedLessonId: _id,
         title: selectedLesson.title,
         category: selectedLesson.category,
         editorState: editorState,
@@ -99,16 +99,16 @@ class Edit extends Component {
     }
   };
 
-  renderLessonList = (lessons, selectedLessonId, handleLessonClick) => {
+  renderLessonList = (lessons, selectedLessonId) => {
     return (
       <div className="lesson-list">
-          {lessons.map(lessonId => (
+          {lessons.lessons.map((_id,index) => (
               <div 
-                  key={lessonId}
-                  className={`lesson-title ${selectedLessonId === lessonId ? 'selected' : ''}`}
-                  onClick={() => handleLessonClick(lessonId)}
+                  key={_id}
+                  className={`lesson-title ${selectedLessonId === _id ? 'selected' : ''}`}
+                  onClick={() => this.handleLessonClick(index, _id)}
               >
-                  {lessons[lessonId].title}
+                  {lessons.lessons[index].title}
               </div>
           ))}
       </div>
@@ -122,7 +122,6 @@ class Edit extends Component {
         {lessons.length === 0 ? <p>Loading</p> : this.renderLessonList({
             lessons,
             selectedLessonId,
-            handleLessonClick: this.handleLessonClick,
         })}      
       <div className='add-container'>
         <form>

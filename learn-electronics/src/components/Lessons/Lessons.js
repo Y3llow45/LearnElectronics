@@ -46,6 +46,9 @@ class Lessons extends Component {
     handleLessonClick = (lessonId) => {
         this.setState({ selectedLessonId: lessonId });
     };
+    handleSearchResults = (searchResults) => {
+      this.setState({ lessons: searchResults });
+    };
 
     renderLessonList(lessons, selectedLessonId, handleLessonClick) {
       return (
@@ -102,7 +105,7 @@ class Lessons extends Component {
         const { lessons, selectedLessonId } = this.state;
         return (
           <fragment>
-          <SearchBar />
+          <SearchBar onSearchResults={this.handleSearchResults}/>
             <div className="lessons-container">
                 {lessons.length === 0 ? <p>Loading</p> : this.renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
                 {this.renderPagination(2)}
