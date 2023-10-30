@@ -55,7 +55,7 @@ class Lessons extends Component {
             <div className="lesson-title element-header element-header-title">Lesson Title</div>
             <div className="lesson-author element-header">Author</div>
             <div className="lesson-likes element-header">Likes</div>
-        </div>
+        </div> 
         {lessons.map((lesson, index) => (
             <div className="lesson-row" key={lesson._id}>
                 <div className="lesson-number">{index + 1}</div>

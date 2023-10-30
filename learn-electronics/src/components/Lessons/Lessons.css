@@ -94,9 +94,14 @@
     color: grey;
 }
 
+.special-navlink {
+    color: black;
+}
+
 .special-navlink:hover {
-    background-color: rgb(58, 184, 146); /* Change to your desired background color */
-    color: white; /* Change to your desired text color */
+    background-color: rgb(58, 184, 146);
+    color: white;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .lesson-content {

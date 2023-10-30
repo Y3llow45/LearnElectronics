@@ -37,6 +37,7 @@ mongoose.connect(AtlasUri).then(() => {
 app.get('/edit',verifyToken, async (req, res) => {
   try {
     const username = req.username;
+    console.log('here')
     const lessonData = await getLessons(username);
     if (lessonData) {
       res.status(200).json(lessonData);
@@ -79,7 +80,7 @@ app.get('/lessons', async (req, res) => {
 app.get('/lessons/:page', async (req, res) => {
   try {
     const page = parseInt(req.params.page);
-    const pageSize = 6;
+    const pageSize = 10;
     const skip = page * pageSize;
 
     const lessons = await Lesson.find({})

@@ -32,9 +32,10 @@ export const getMine = () => {
     return fetch(`${url}edit`, {headers: {'Authorization': token}})
         .then(res => res.json()) 
         .then((data) => {
+            console.log(data)
             return data;
         })
-        .catch(displayError('Server error'));
+        .catch((error) => console.log(error));
 }
 
 export const getRole = () => {

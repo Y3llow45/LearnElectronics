@@ -35,7 +35,7 @@ class Edit extends Component {
       title: '',
       category: 'lessons',
       editorState: createEditorStateWithText(text),
-      lessons: {},
+      lessons: [],
       selectedLessonId: null
     };
   }
@@ -44,11 +44,14 @@ class Edit extends Component {
     getMine()
       .then(res => {
         if (res && Array.isArray(res)) {
-        const lessonsObject = {};
+        /*const lessonsObject = {};
         res.forEach(lesson => {
             lessonsObject[lesson._id] = lesson;
             });
             this.setState({ lessons: lessonsObject });
+            console.log(this.state.lessons)*/
+          this.setState({lessons: res})
+          console.log(this.state.lessons)
         } else {
           displayError('Server error');
         }
@@ -99,8 +102,8 @@ class Edit extends Component {
   renderLessonList = (lessons, selectedLessonId, handleLessonClick) => {
     return (
       <div className="lesson-list">
-          {Object.keys(lessons).map(lessonId => (
-              <div
+          {lessons.map(lessonId => (
+              <div 
                   key={lessonId}
                   className={`lesson-title ${selectedLessonId === lessonId ? 'selected' : ''}`}
                   onClick={() => handleLessonClick(lessonId)}
@@ -116,7 +119,7 @@ class Edit extends Component {
     const { lessons, selectedLessonId } = this.state;
     return (
       <div>
-        {this.renderLessonList({
+        {lessons.length === 0 ? <p>Loading</p> : this.renderLessonList({
             lessons,
             selectedLessonId,
             handleLessonClick: this.handleLessonClick,
@@ -180,3 +183,14 @@ class Edit extends Component {
 }
 
 export default Edit;
+
+
+/*{Object.keys(lessons).map(lessonId => (
+              <div 
+                  key={lessonId}
+                  className={`lesson-title ${selectedLessonId === lessonId ? 'selected' : ''}`}
+                  onClick={() => handleLessonClick(lessonId)}
+              >
+                  {lessons[lessonId].title}
+              </div>
+          ))}*/
