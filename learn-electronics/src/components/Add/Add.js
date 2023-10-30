@@ -25,6 +25,7 @@ const addErrors = {
   errorEmpty: 'Provide title and content',
   errorTitleExist: 'Lesson with such title already exist',
   contentLength: 'Content is too short or too long',
+  titleLength: 'Title is too long'
 }
 
 class Add extends Component {
@@ -57,7 +58,9 @@ class Add extends Component {
     const htmlContent = stateToHTML(contentState);
     if(this.state.title === '' || htmlContent === ''){
       displayError(addErrors.errorEmpty);
-    }else if(htmlContent.length < 120 || htmlContent.length > 5000) {
+    }else if(this.state.title.length > 40){
+      displayError(addErrors.titleLength);
+    }else if(htmlContent.length < 120 || htmlContent.length > 10000) {
       displayError(addErrors.contentLength);
     }
     else {

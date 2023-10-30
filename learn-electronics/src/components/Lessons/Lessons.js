@@ -52,7 +52,7 @@ class Lessons extends Component {
         <div className="lesson-list">
         <div className="lesson-table-header">
             <div className="lesson-number element-header">N</div>
-            <div className="lesson-title element-header element-header-title">Lesson Title</div>
+            <div className="lesson-title element-header element-header-title">Lesson title</div>
             <div className="lesson-author element-header">Author</div>
             <div className="lesson-likes element-header">Likes</div>
         </div> 
