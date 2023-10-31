@@ -11,7 +11,6 @@ export const getLessonDetail = (title) => {
         .catch((error) => console.log(error));//displayError('Server error')
 }
 
-
 export const getAll = (pageNum) => {
     console.log(pageNum)
     return fetch(`${url}lessons/${pageNum}`)
@@ -47,7 +46,7 @@ export const getRole = () => {
             return data
         })
         .catch(
-            displayError('Server error')
+            (error) => console.log(error)
         );
 }
 
@@ -57,7 +56,7 @@ export const search = (category, keyword) => {
         .then((data) => {
             return data;
         })
-        .catch(displayError('Server error'));
+        .catch((error) => console.log(error));
 };
 
 export const signUp = (username, email, password) => {
@@ -100,7 +99,7 @@ export const signIn = (username, password, updateUsername) => {
         })
         .catch(
             //console.error('Error signing in:', error);
-            displayError('Server error')
+            (error) => console.log(error)
         );
 };
 
@@ -135,7 +134,7 @@ export const add = (title, content, category) => {
         })
         .catch(
             //console.error('Error:', error);
-            displayError('Server error')
+            (error) => console.log(error)
         );
 };
 
@@ -171,7 +170,7 @@ export const edit = (id, title, content, category) => {
         })
         .catch(
             //console.error('Error:', error);
-            displayError('Server error')
+            (error) => console.log(error)
         );
 };
 

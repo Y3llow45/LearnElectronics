@@ -1,4 +1,4 @@
-.add-container {
+/*.add-container {
     width: 75%;
     text-align: center;
     margin: auto;
@@ -11,7 +11,7 @@
     justify-content: center;
     gap: 15px;
     margin-bottom: 25px;
-}
+}*/
 
 @media (max-width: 768px) {
     .add-input-container {
@@ -27,31 +27,35 @@
     }
 }
 
-.input-form {
+/*.input-form {
     background-color: white;
 }
 
 .add-input-form {
     width: 18.3% !important;
-}
+}*/
 .add-select {
     width: 22% !important;
     height: 2.2rem;
     margin-left: 10px;
 }
 
-.add-form-submit {
-    max-width: 200px;
-}
-.add-preview-button {
-    margin-right: 10px;
-}
-
-.add-error-span {
-    font-size: 20px;
-    color: red;
-}
-
 .edit-lesson-list {
-    background-color: black;
+    width: 18%;
+    height: 620px;
+    overflow-y: scroll;
+    background-color: #ffffff;
+    float: left;
+    margin-right: 25px;
+}
+
+.edit-lesson-title {
+    font-size: 20px;
+    padding: 10px;
+}
+
+.edit-lesson-title:hover {
+    background-color: rgb(58, 184, 146);
+    color: white;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }

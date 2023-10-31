@@ -44,12 +44,6 @@ class Edit extends Component {
     getMine()
       .then(res => {
         if (res && Array.isArray(res)) {
-        /*const lessonsObject = {};
-        res.forEach(lesson => {
-            lessonsObject[lesson._id] = lesson;
-            });
-            this.setState({ lessons: lessonsObject });
-            console.log(this.state.lessons)*/
           this.setState({lessons: res})
           console.log(this.state.lessons)
         } else {
@@ -101,11 +95,11 @@ class Edit extends Component {
 
   renderLessonList = (lessons, selectedLessonId) => {
     return (
-      <div className="lesson-list">
+      <div className="edit-lesson-list">
           {lessons.lessons.map((_id,index) => (
               <div 
                   key={_id}
-                  className={`lesson-title ${selectedLessonId === _id ? 'selected' : ''}`}
+                  className={`edit-lesson-title ${selectedLessonId === _id ? 'selected' : ''}`}
                   onClick={() => this.handleLessonClick(index, _id)}
               >
                   {lessons.lessons[index].title}
