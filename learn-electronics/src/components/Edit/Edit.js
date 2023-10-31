@@ -11,6 +11,8 @@ import createImagePlugin from '@draft-js-plugins/image';
 import ImageAdd from '../Add/CustomImageEditor/ImageAdd/ImageAdd';
 import './Edit.css';
 import { displayError } from '../Notify/Notify';
+import convertFromHTML from 'html-to-draftjs';
+import { ContentState, EditorState } from 'draft-js';
 
 const imagePlugin = createImagePlugin();
 
@@ -25,6 +27,14 @@ const addErrors = {
   errorEmpty: 'Provide title and content',
   errorTitleExist: 'Lesson with such title already exist',
   contentLength: 'Content is too short or too long',
+}
+
+const convertHTMLToEditorContent = (html) => {
+  const blocksFromHTML = convertFromHTML(html);
+  const contentBlocks = blocksFromHTML.contentBlocks;
+  const contentState = ContentState.createFromBlockArray(contentBlocks);
+
+  return EditorState.createWithContent(contentState);
 }
 
 class Edit extends Component {
@@ -69,7 +79,7 @@ class Edit extends Component {
 
   handleLessonClick = (index, _id) => {
     const selectedLesson = this.state.lessons[index];
-    const editorState = createEditorStateWithText(selectedLesson.content);
+    const editorState = convertHTMLToEditorContent(selectedLesson.content);
     this.setState({
         selectedLessonId: _id,
         title: selectedLesson.title,
@@ -110,14 +120,14 @@ class Edit extends Component {
   }
 
   render() {
-    const { lessons, selectedLessonId } = this.state;
+    const { lessons, selectedLessonId, editorState } = this.state;
     return (
       <div>
         {lessons.length === 0 ? <p>Loading</p> : this.renderLessonList({
             lessons,
             selectedLessonId,
         })}      
-      <div className='add-container'>
+      <div className='add-container edit-container'>
         <form>
           <div className='add-first edit-first'>
             <div className='add-first-inputs'>
@@ -144,7 +154,7 @@ class Edit extends Component {
             </div>
             <div className='bunchOfbuttons' style={{ display: 'inline-flex', width: '60%', justifyContent: 'center', marginBottom: '30px' }}>
               <ImageAdd
-                editorState={this.state.editorState}
+                editorState={editorState}
                 onChange={this.onChange}
                 modifier={imagePlugin.addImage}
               />
@@ -152,7 +162,7 @@ class Edit extends Component {
             </div>
             <div className={editorStyles.editor} onClick={this.focus}>
               <Editor
-                editorState={this.state.editorState}
+                editorState={editorState}
                 onChange={this.onChange}
                 plugins={plugins}
                 ref={(element) => {
