@@ -41,16 +41,16 @@
 }
 
 .edit-lesson-list {
-    width: 18%;
+    width: 16%;
     height: 620px;
-    overflow-y: scroll;
+    overflow-y: auto;
     background-color: #ffffff;
     float: left;
     margin-right: 25px;
 }
 
 .edit-lesson-title {
-    font-size: 20px;
+    font-size: 17px;
     padding: 10px;
 }
 
@@ -61,5 +61,6 @@
 }
 
 .edit-container{
-    margin-left: 4%;
+    margin-left: 16.5% !important;
+    width: 70% !important;
 }
