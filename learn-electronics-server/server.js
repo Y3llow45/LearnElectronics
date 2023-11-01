@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 const verifyToken = require('./middleware/verifyToken');
 const { getLessons } = require('./services/getLessons');
 const generateToken = require('./services/genToken');
-const getLessonDetail = require('./services/getLessonDetail');
 const app = express();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -37,7 +36,6 @@ mongoose.connect(AtlasUri).then(() => {
 app.get('/edit',verifyToken, async (req, res) => {
   try {
     const username = req.username;
-    console.log('here')
     const lessonData = await getLessons(username);
     if (lessonData) {
       res.status(200).json(lessonData);
@@ -52,7 +50,6 @@ app.get('/edit',verifyToken, async (req, res) => {
 app.get('/lesson/:title', async (req, res) => {
   try {
     const title = req.params.title;
-    //const lessonData = await getLessonDetail(title);
     const lessonData = await Lesson.find({title: title});
     if (lessonData) {
       res.status(200).json(lessonData);
@@ -256,7 +253,6 @@ app.post('/add', verifyToken, async (req, res) => {
 });
 
 app.put('/edit', verifyToken, async (req, res) => {
-  console.log('edit put');
   try{
     const { id ,title, content, category } = req.body;
     const username = req.username;
@@ -278,6 +274,27 @@ app.put('/edit', verifyToken, async (req, res) => {
     res.status(500).json({ message: error.message});
   }
 });
+
+app.delete('/delete', verifyToken, async (req, res) => {
+  try{
+    const { id } = req.body;
+    console.log(id);
+    const username = req.username;
+    const lesson = await Lesson.findById(id);
+    if (!lesson) {
+      return res.status(404).json({ message: 'Lesson not found' });
+    }
+    if (lesson.user === username) {
+      await lesson.deleteOne();
+      console.log('del');
+      res.status(200).json({ message: 'deleted!' });
+  }
+  }catch(error){
+    res.status(500).json({ message: error.message});
+  }
+});
+
+
 
 app.use((req, res) => {
   res.status(404).send('Not Found');

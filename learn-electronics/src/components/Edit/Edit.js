@@ -14,6 +14,7 @@ import { displayError } from '../Notify/Notify';
 import convertFromHTML from 'html-to-draftjs';
 import { ContentState, EditorState } from 'draft-js';
 import DeleteConfirmationDialog from './DeleteConfirmationDialog/DeleteConfirmationDialog';
+import {deleteLesson} from '../../services/LessonServices';
 
 const imagePlugin = createImagePlugin();
 
@@ -80,11 +81,12 @@ class Edit extends Component {
     handleInputChangeComponent(event, this.setState.bind(this));
   };
 
-  handleLessonClick = (index, _id) => {
+  handleLessonClick = (index, id) => {
     const selectedLesson = this.state.lessons[index];
     const editorState = convertHTMLToEditorContent(selectedLesson.content);
+    console.log(id)
     this.setState({
-        selectedLessonId: _id,
+        selectedLessonId: id,
         title: selectedLesson.title,
         category: selectedLesson.category,
         editorState: editorState,
@@ -112,9 +114,7 @@ class Edit extends Component {
   handleDeleteConfirmation = (confirmed) => {
     this.setState({ showDeleteConfirmation: false, isDeleteConfirmed: confirmed }, () => {
       if (confirmed) {
-        console.log('Delete confirmed. Calling LessonServices...');
-      } else {
-        console.log('Delete canceled');
+        deleteLesson(this.state.selectedLessonId)
       }
     });
   };
@@ -123,11 +123,11 @@ class Edit extends Component {
   renderLessonList = (lessons, selectedLessonId) => {
     return (
       <div className="edit-lesson-list">
-          {lessons.lessons.map((_id,index) => (
+          {lessons.lessons.map((lesson,index) => (
               <div 
-                  key={_id}
-                  className={`edit-lesson-title ${selectedLessonId === _id ? 'selected' : ''}`}
-                  onClick={() => this.handleLessonClick(index, _id)}
+                  key={lesson._id}
+                  className={`edit-lesson-title ${selectedLessonId === lesson._id ? 'selected' : ''}`}
+                  onClick={() => this.handleLessonClick(index, lesson._id)}
               >
                   {lessons.lessons[index].title}
               </div>

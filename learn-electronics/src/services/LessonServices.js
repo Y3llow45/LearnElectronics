@@ -174,6 +174,34 @@ export const edit = (id, title, content, category) => {
         );
 };
 
+export const deleteLesson = (id) => {
+    console.log(JSON.stringify(id))
+    const token = localStorage.getItem('token');
+    if(!token) {
+        displayInfo("You need to login first")
+        return;
+    }
+    
+    return fetch(`${url}delete/`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+        body: id
+    })  
+        .then(res => {
+            res.json()
+            if(res.status === 200){
+                displaySuccess("Delete Successful");
+            }
+        })
+        .catch(
+            //console.error('Error:', error);
+            (error) => console.log(error)
+        );
+};
+
 /*
 export const update = (petId, pet) => {
     return fetch(`${url}/${petId}`, {
