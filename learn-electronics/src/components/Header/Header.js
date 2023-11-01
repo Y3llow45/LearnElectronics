@@ -24,10 +24,14 @@ function Header() {
 
     useEffect(() => {
         const fetchUserRole = async () => {
+            try{
             getRole()
                 .then((data) => {
                     setUserRole(data.role);
                 })
+            }catch(error) {
+                console.log(error)
+            }
         };
     fetchUserRole();
     }, []);
@@ -44,15 +48,22 @@ function Header() {
                 menuClassName="slide-menu"
                 right
             >
-                {<div className='hamburger-links'><NavLink to='/' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Home</NavLink>
+                <div className='hamburger-links'><NavLink to='/' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Home</NavLink>
                 <NavLink to='/lessons/0' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Lessons</NavLink>
-                <NavLink to='/add' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Add lessons</NavLink>
-                <NavLink to='/edit' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Edit lessons</NavLink>
+                {username !== 'Guest' ? (
+                    <NavLink to='/add' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Add lessons</NavLink>
+                ): null}
+                {username !== 'Guest' ? (
+                    <NavLink to='/edit' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Edit lessons</NavLink>
+                ): null}
                 <NavLink to='/signup' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Sign up</NavLink>
-                {userRole === 'moderator' || userRole === 'user' ? (
+                {userRole === 'moderator' || userRole === 'admin' ? (
                     <NavLink to="/supersecretemoderatorpage" className='nav-link nav-link-hamburger' onClick={toggleMenu}>Admin Page</NavLink>
                 ) : null}
-                <NavLink to='' className='nav-link nav-link-hamburger' onClick={logout}>Log out</NavLink></div>}
+                {username !== 'Guest' ? (
+                    <NavLink to='' className='nav-link nav-link-hamburger' onClick={logout}>Log out</NavLink>
+                ): null}
+                </div>
             </Menu>
             <div className='right-div'>
                 <div className='nav-user'>

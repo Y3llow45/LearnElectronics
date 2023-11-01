@@ -88,7 +88,6 @@ export const signIn = (username, password, updateUsername) => {
         },
         body: JSON.stringify(user)
     })  
-        .then(res => res.json())
         .then(data => {
             if(data.token){
                 localStorage.setItem('token', data.token)

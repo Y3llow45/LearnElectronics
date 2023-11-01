@@ -276,6 +276,7 @@ app.put('/edit', verifyToken, async (req, res) => {
 });
 
 app.delete('/delete', verifyToken, async (req, res) => {
+  console.log('At the delete oapge')
   try{
     const { id } = req.body;
     console.log(id);

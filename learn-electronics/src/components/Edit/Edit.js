@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import {edit, getMine} from '../../services/LessonServices'
+import {edit, getMine} from '../../services/LessonServices';
 import Editor, { createEditorStateWithText } from '@draft-js-plugins/editor';
 import {stateToHTML} from 'draft-js-export-html';
 import createToolbarPlugin from '@draft-js-plugins/static-toolbar';
@@ -55,16 +55,16 @@ class Edit extends Component {
   }
 
   componentDidMount() {
-    getMine()
-      .then(res => {
-        if (res && Array.isArray(res)) {
-          this.setState({lessons: res})
-          console.log(this.state.lessons)
-        } else {
-          displayError('Server error');
-        }
-      })
-      .catch(displayError('Server error'));
+    try{
+      getMine()
+        .then(res => {
+          if (res && Array.isArray(res)) {
+            this.setState({lessons: res})
+          }
+        })
+    }catch(error) {
+      console.log(error);
+    }
   }
 
   onChange = (editorState) => {
@@ -140,7 +140,7 @@ class Edit extends Component {
     const { lessons, selectedLessonId, editorState } = this.state;
     return (
       <div>
-        {lessons.length === 0 ? <p>Loading</p> : this.renderLessonList({
+        {lessons.length === 0 ? <p>Loading...</p> : this.renderLessonList({
             lessons,
             selectedLessonId,
         })}      
