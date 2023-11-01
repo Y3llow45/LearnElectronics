@@ -6,9 +6,15 @@
 .home-wlc-text-div {
     margin-left: 10%;
     margin-right: 10%;
+    margin-top: 3%;
 }
 
 .canvas-div {
+    width: 600px;
+    height: 400px;
+}
+
+.electronics-div {
     
 }
 
