@@ -195,14 +195,14 @@ class Edit extends Component {
             </button>
             <button
               type='submit'
-              className='form-submit add-form-submit delete-button'
+              className='red-button space-left'
               onClick={this.handleDelete}
             >Delete
             </button>
           </div>
         </form>
       </div>
-      {showDeleteConfirmation && (
+      {this.state.showDeleteConfirmation && (
           <DeleteConfirmationDialog
             onConfirm={this.handleDeleteConfirmation}
           />

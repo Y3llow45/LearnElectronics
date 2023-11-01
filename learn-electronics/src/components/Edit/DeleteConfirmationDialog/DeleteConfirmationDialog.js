@@ -1,3 +1,5 @@
+import React from 'react';
+
 class DeleteConfirmationDialog extends React.Component {
   handleConfirm = (confirmed) => {
     this.props.onConfirm(confirmed);
@@ -8,8 +10,8 @@ class DeleteConfirmationDialog extends React.Component {
       <div>
         <div className="delete-confirmation-dialog">
           <p>Are you sure you want to delete this lesson?</p>
-          <button onClick={() => this.handleConfirm(true)}>Confirm</button>
-          <button onClick={() => this.handleConfirm(false)}>Cancel</button>
+          <button className='form-submit add-form-submit' onClick={() => this.handleConfirm(false)}>Cancel</button>
+          <button className='red-button space-left' onClick={() => this.handleConfirm(true)}>Delete</button>
         </div>
       </div>
     );
