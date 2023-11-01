@@ -13,6 +13,7 @@ import './Edit.css';
 import { displayError } from '../Notify/Notify';
 import convertFromHTML from 'html-to-draftjs';
 import { ContentState, EditorState } from 'draft-js';
+import DeleteConfirmationDialog from './DeleteConfirmationDialog/DeleteConfirmationDialog';
 
 const imagePlugin = createImagePlugin();
 
@@ -46,7 +47,9 @@ class Edit extends Component {
       category: 'lessons',
       editorState: createEditorStateWithText(text),
       lessons: [],
-      selectedLessonId: null
+      selectedLessonId: null,
+      showDeleteConfirmation: false,
+      isDeleteConfirmed: false,
     };
   }
 
@@ -98,10 +101,24 @@ class Edit extends Component {
       displayError(addErrors.contentLength);
     }
     else {
-
       edit(this.state.selectedLessonId, this.state.title, htmlContent, this.state.category)
     }
   };
+
+  handleDelete = (event) => {
+    event.preventDefault();
+    this.setState({ showDeleteConfirmation: true });
+  };
+  handleDeleteConfirmation = (confirmed) => {
+    this.setState({ showDeleteConfirmation: false, isDeleteConfirmed: confirmed }, () => {
+      if (confirmed) {
+        console.log('Delete confirmed. Calling LessonServices...');
+      } else {
+        console.log('Delete canceled');
+      }
+    });
+  };
+
 
   renderLessonList = (lessons, selectedLessonId) => {
     return (
@@ -174,12 +191,22 @@ class Edit extends Component {
               type='submit'
               className='form-submit add-form-submit'
               onClick={this.handleEdit}
-            >
-              Edit
+            >Edit
+            </button>
+            <button
+              type='submit'
+              className='form-submit add-form-submit delete-button'
+              onClick={this.handleDelete}
+            >Delete
             </button>
           </div>
         </form>
       </div>
+      {showDeleteConfirmation && (
+          <DeleteConfirmationDialog
+            onConfirm={this.handleDeleteConfirmation}
+          />
+        )}
       </div>
     );
   }

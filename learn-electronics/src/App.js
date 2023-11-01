@@ -10,6 +10,8 @@ import Footer from './components/Footer/Footer';
 import Edit from './components/Edit/Edit';
 import ModPage from './components/ModPage/ModPage';
 import LessonDetail from './components/LessonDetail/LessonDetail';
+import { Modal } from 'react-bootstrap'; // Import the Modal component
+import { useState } from 'react';
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,6 +26,19 @@ function Model(props) {
 } 
 
 function App() {
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+
+  const openDeleteConfirmationDialog = () => {
+    setShowDeleteConfirmation(true);
+  };
+
+  const closeDeleteConfirmationDialog = () => {
+    setShowDeleteConfirmation(false);
+  };
+
+  const handleConfirmDelete = () => {
+    setShowDeleteConfirmation(false);
+  };
   return (
     <div className="app-container">
         <Header />
@@ -65,6 +80,26 @@ function App() {
             <Route path="/supersecretemoderatorpage" component={ModPage} />
           </Switch>
         </div>
+        {showDeleteConfirmation && (
+        <div className="overlay">
+          <Modal show={true} onHide={closeDeleteConfirmationDialog}>
+          <Modal.Header closeButton>
+    <Modal.Title>Confirm Deletion</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    Are you sure you want to delete this lesson?
+  </Modal.Body>
+  <Modal.Footer>
+    <button className="btn btn-secondary" onClick={closeDeleteConfirmationDialog}>
+      Cancel
+    </button>
+    <button className="btn btn-danger" onClick={handleConfirmDelete}>
+      Delete
+    </button>
+  </Modal.Footer>
+          </Modal>
+        </div>
+      )}
     <Footer />
     </div>
   );
