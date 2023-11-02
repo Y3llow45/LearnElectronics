@@ -66,3 +66,28 @@ a {
     }
   }
   
+.footer-div {
+  display: flex;
+  justify-content: center;
+}
+
+.footer-link {
+  width: 200px;
+  height: 50px;
+  color: black;
+}
+
+.footer-link:hover {
+  color: blue;
+}
+
+.tiny-div {
+  display: grid;
+}
+#backToTopBtn {
+  color: black;
+  width: 200px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}

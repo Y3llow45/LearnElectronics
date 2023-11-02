@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import './Lessons.css';
 import * as LessonService from '../../services/LessonServices';
 import SearchBar from './SearchBar/SearchBar';
-import { displayError } from '../Notify/Notify';
 import { NavLink } from 'react-router-dom';
 
 class Lessons extends Component {
