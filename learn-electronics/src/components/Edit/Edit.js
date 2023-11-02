@@ -58,7 +58,7 @@ class Edit extends Component {
     try{
       getMine()
         .then(res => {
-          if (res && Array.isArray(res)) {
+          if (res && Array.isArray(res)) { 
             this.setState({lessons: res})
           }
         })

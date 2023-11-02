@@ -87,14 +87,15 @@ export const signIn = (username, password, updateUsername) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(user)
-    })  
+    })
+        .then(res => res.json())
         .then(data => {
-            if(data.token){
-                localStorage.setItem('token', data.token)
-                localStorage.setItem('username', data.username)
-                updateUsername(data.username);
-                displaySuccess('Logged in')
-            }
+            console.log(data)
+            localStorage.setItem('token', data.token)
+            localStorage.setItem('username', data.username)
+            updateUsername(data.username);
+            displaySuccess('Logged in')
+            return data
         })
         .catch(
             //console.error('Error signing in:', error);
@@ -174,20 +175,18 @@ export const edit = (id, title, content, category) => {
 };
 
 export const deleteLesson = (id) => {
-    console.log(JSON.stringify(id))
     const token = localStorage.getItem('token');
     if(!token) {
         displayInfo("You need to login first")
         return;
     }
     
-    return fetch(`${url}delete/`, {
+    return fetch(`${url}delete/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': token,
         },
-        body: id
     })  
         .then(res => {
             res.json()

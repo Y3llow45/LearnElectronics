@@ -38,6 +38,7 @@ app.get('/edit',verifyToken, async (req, res) => {
     const username = req.username;
     const lessonData = await getLessons(username);
     if (lessonData) {
+      console.log('got lessons')
       res.status(200).json(lessonData);
     } else {
       res.status(404).json({ error: 'Data not found' });
@@ -275,10 +276,10 @@ app.put('/edit', verifyToken, async (req, res) => {
   }
 });
 
-app.delete('/delete', verifyToken, async (req, res) => {
+app.delete('/delete/:id', verifyToken, async (req, res) => {
   console.log('At the delete oapge')
   try{
-    const { id } = req.body;
+    let { id } = req.params;
     console.log(id);
     const username = req.username;
     const lesson = await Lesson.findById(id);

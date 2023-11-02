@@ -24,14 +24,15 @@ const SignIn = () => {
   const handleSign = (event) => {
     event.preventDefault();
     signIn(state.username, state.password, setUsername)
-      .then((res) => {
-        if (res.status === 200) {
-          setUsername(res.username);
+      .then((data) => {
+        console.log(data)
+        if (data.token && data.username) { //data is undefined
+          setUsername(data.username);
         } else {
-          displayError("Server error")
+          displayError("Status error")
         }
       })
-      .catch(displayError("Server error"));
+      .catch((error) => console.log(error));
   };
 
   return (
