@@ -1,6 +1,6 @@
 .home-wlc-text {
     font-size: 1.3rem;
-    text-align:justify;
+    text-align: justify;
 }
 
 .home-wlc-text-div {
@@ -10,12 +10,46 @@
 }
 
 .canvas-div {
-    width: 600px;
     height: 400px;
+    display: flex;
+    justify-content: center;
 }
 
 .electronics-div {
-    
+    margin-top: 40px;
+}
+
+.microcontroller-text {
+    width: 150%;
+    margin: auto;
+    text-align: justify;
+    margin-right: 125px;
+}
+
+.big-text {
+    width: 78%;
+    margin: auto;
+}
+
+.el-components-div {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.el-components-text {
+    width: 40%;
+    margin-right: 70px;
+}
+
+.img-bottom {
+    height: 363px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.img-bottom-div {
+    justify-content: center;
+    display: flex;
 }
 
 /*@media (max-width: 1130px) {
