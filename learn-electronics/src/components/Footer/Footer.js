@@ -22,8 +22,8 @@ function Footer() {
                     id="backToTopBtn"
                     onClick={() => {
                         console.log('clicked')
-                        window.scroll({
-                            top: 0
+                        window.scrollTo({
+                            top: 0, behavior: 'smooth'
                           });
                     }}
                 >
