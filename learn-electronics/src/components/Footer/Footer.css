@@ -69,6 +69,7 @@ a {
 .footer-div {
   display: flex;
   justify-content: center;
+  margin-left: 60px;
 }
 
 .footer-link {
@@ -84,10 +85,13 @@ a {
 .tiny-div {
   display: grid;
 }
-#backToTopBtn {
-  color: black;
-  width: 200px;
-  border: none;
-  border-radius: 2px;
-  cursor: pointer;
+
+.to-the-top {
+  height: 60px;
+  width: 60px;
+  float: right;
+}
+
+.big-div {
+  display: flex;
 }
