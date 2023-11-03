@@ -169,13 +169,15 @@ app.get('/search/:category/:keyword', async (req, res) => {
   });*/
 });
 
-app.get('/api/getUserRole', verifyToken, (req, res) => {
-  const userRole = req.role;
-  if (userRole) {
-    res.setHeader('Content-Type', 'application/json');
-    res.json({ role: userRole });
-  } else {
-    res.status(401).json({ message: 'Unauthorized' });
+app.get('/api/getUserRole', verifyToken, async (req, res) => {
+  try{
+    const username = req.username;
+    const user = await User.findOne({ username });
+    res.status(200).json({ role: user._doc.role });
+  }
+  catch(error) {
+    console.log(error);
+    res.status(401).json({ message: 'server error' });
   }
 });
 
@@ -227,7 +229,6 @@ app.post('/signin', async (req, res) => {
       res.status(401).json({ error: 'Invalid credentials' });
       return;
     }
-
     const token = generateToken(user._id, user.username, user.role);
     res.status(200).json({ message: 'Sign in successful', token, username: user.username });
   } catch (error) {
@@ -292,8 +293,6 @@ app.delete('/delete/:id', verifyToken, async (req, res) => {
     res.status(500).json({ message: error.message});
   }
 });
-
-
 
 app.use((req, res) => {
   res.status(404).send('Not Found');
