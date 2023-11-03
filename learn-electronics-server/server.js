@@ -205,14 +205,15 @@ app.post('/signup', (req, res) => {
 
 app.post('/signin', async (req, res) => {
   const { username, password } = req.body;
+
   try {
-    console.log(username); 
     const user = await User.findOne({ username });
 
     if (!user) {
         console.log('Wrong credentials. No such user');
         return res.status(401).json({ error: 'Invalid credentials' });
     }
+
     bcrypt
       .hash(user.password, saltRounds)
       .then(hash => {
@@ -221,17 +222,13 @@ app.post('/signin', async (req, res) => {
       .catch((err) => {throw err})
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log(password, user.password);
 
     if (!isPasswordValid) {
-      console.log('Wrong credentials. Wrong password');
       res.status(401).json({ error: 'Invalid credentials' });
       return;
     }
 
-    // Successful sign-in
-    console.log('Logged in');
-    const token = generateToken(user._id, user.username, 'user');
+    const token = generateToken(user._id, user.username, user.role);
     res.status(200).json({ message: 'Sign in successful', token, username: user.username });
   } catch (error) {
     console.error('Error during sign-in:', error);

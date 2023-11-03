@@ -25,8 +25,7 @@ const SignIn = () => {
     event.preventDefault();
     signIn(state.username, state.password, setUsername)
       .then((data) => {
-        console.log(data)
-        if (data.token && data.username) { //data is undefined
+        if (data.token && data.username) {
           setUsername(data.username);
         } else {
           displayError("Status error")

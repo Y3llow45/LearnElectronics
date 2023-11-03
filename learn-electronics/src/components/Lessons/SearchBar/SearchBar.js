@@ -29,10 +29,10 @@ class SearchBar extends Component {
                 if (res && res.lessons) {
                     this.props.onSearchResults(res.lessons);
                 } else {
-                    displayError("Server error")
+                    displayError("No response from server")
                 }
             })
-            .catch(displayError("Server error"))
+            .catch(displayError("Server error while searching"))
     };
 
     render() {

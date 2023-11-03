@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import {getLessonDetail} from '../../services/LessonServices';
+import {getRole} from '../../services/LessonServices';
 import './LessonDetail.css'
 
 class LessonDetail extends Component {
@@ -7,7 +8,8 @@ class LessonDetail extends Component {
     super(props);
 
     this.state = {
-      lesson: null
+      lesson: null,
+      userRole: 'user',
     };
   }
 
@@ -16,11 +18,18 @@ class LessonDetail extends Component {
     getLessonDetail(title)
       .then(lesson => {
         this.setState({ lesson });
-        console.log(this.state.lesson)
       })
       .catch(error => {
         console.log(error);
     });
+    getRole()
+      .then((data) => {
+        this.setState({ userRole: data.role });
+        console.log(data.role)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render() {
@@ -35,6 +44,14 @@ class LessonDetail extends Component {
         ) : (
           <p>Loading...</p>
         )}
+        {this.state.userRole === 'moderator' || this.state.userRole === 'admin' ? (
+          <button
+            type='submit'
+            className='red-button space-left'
+            onClick={this.handleDelete}
+            >Delete
+          </button>
+        ) : null}
       </div>
     );
   }

@@ -4,7 +4,8 @@ import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 import { signUp } from '../../services/LessonServices';
 import FormComponent from '../Form/FormComponent/FormComponent';
 import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputChange';
-import { displayError, displaySuccess } from '../Notify/Notify';
+import { displayError, displayInfo, displaySuccess } from '../Notify/Notify';
+const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$/;
 
 class SignUp extends Component {
     constructor(props) {
@@ -23,15 +24,19 @@ class SignUp extends Component {
 
     handleSignUp = (event) => {
         event.preventDefault();
-        signUp(this.state.username, this.state.email, this.state.password)
-            .then(res => {
-                if(res.status === 201){
-                    displaySuccess("Account created")
-                }else {
-                    displayError("Server error")
-                }
-            })
-            .catch(displayError("Server error"))
+        if(!passwordPattern.test(this.state.password)){
+            displayInfo("Weak password")
+        }else {
+            signUp(this.state.username, this.state.email, this.state.password)
+                .then(res => {
+                    if(res.status === 201){
+                        displaySuccess("Account created")
+                    }else {
+                        displayError("No response from server")
+                    }
+                })
+                .catch((error) => console.log(error))
+        }
     };
 
     render() {

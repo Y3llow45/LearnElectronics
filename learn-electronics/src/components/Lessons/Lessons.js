@@ -3,6 +3,7 @@ import './Lessons.css';
 import * as LessonService from '../../services/LessonServices';
 import SearchBar from './SearchBar/SearchBar';
 import { NavLink } from 'react-router-dom';
+import {displayError} from '../Notify/Notify' 
 
 class Lessons extends Component {
     constructor(props) {
@@ -34,12 +35,10 @@ class Lessons extends Component {
               lessons: res,
             });
           } else {
-            console.log('Operation failed');
+            displayError('No response from server')
           }
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch((error) => console.log(error));
     }
 
     handleLessonClick = (lessonId) => {

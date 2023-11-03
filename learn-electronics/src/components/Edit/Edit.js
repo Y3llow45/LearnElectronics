@@ -10,7 +10,7 @@ import toolbarStyles from '../Add/toolbarStyles.module.css';
 import createImagePlugin from '@draft-js-plugins/image';
 import ImageAdd from '../Add/CustomImageEditor/ImageAdd/ImageAdd';
 import './Edit.css';
-import { displayError } from '../Notify/Notify';
+import { displayError, displayInfo } from '../Notify/Notify';
 import convertFromHTML from 'html-to-draftjs';
 import { ContentState, EditorState } from 'draft-js';
 import DeleteConfirmationDialog from './DeleteConfirmationDialog/DeleteConfirmationDialog';
@@ -140,7 +140,7 @@ class Edit extends Component {
     const { lessons, selectedLessonId, editorState } = this.state;
     return (
       <div>
-        {lessons.length === 0 ? <p>Loading...</p> : this.renderLessonList({
+        {lessons.length === 0 ? <p></p> : this.renderLessonList({
             lessons,
             selectedLessonId,
         })}      

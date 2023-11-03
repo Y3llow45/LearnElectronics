@@ -5,21 +5,18 @@ export const getLessonDetail = (title) => {
     return fetch(`${url}lesson/${title}`)
         .then(res => res.json()) 
         .then((data) => {
-            console.log(data);
             return data;
         })
         .catch((error) => console.log(error));//displayError('Server error')
 }
 
 export const getAll = (pageNum) => {
-    console.log(pageNum)
     return fetch(`${url}lessons/${pageNum}`)
         .then(res => res.json()) 
         .then((data) => {
-            console.log(data);
             return data;
         })
-        .catch((error) => console.log(error));//displayError('Server error')
+        .catch((error) => console.log(error));
 }
 
 export const getMine = () => {
@@ -31,7 +28,6 @@ export const getMine = () => {
     return fetch(`${url}edit`, {headers: {'Authorization': token}})
         .then(res => res.json()) 
         .then((data) => {
-            console.log(data)
             return data;
         })
         .catch((error) => console.log(error));
@@ -90,17 +86,13 @@ export const signIn = (username, password, updateUsername) => {
     })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             localStorage.setItem('token', data.token)
             localStorage.setItem('username', data.username)
             updateUsername(data.username);
             displaySuccess('Logged in')
             return data
         })
-        .catch(
-            //console.error('Error signing in:', error);
-            (error) => console.log(error)
-        );
+        .catch((error) => console.log(error));
 };
 
 export const add = (title, content, category) => {
@@ -129,11 +121,7 @@ export const add = (title, content, category) => {
                 displaySuccess("Add Successful");
             }
         })
-        .then(data => {
-            console.log(data);
-        })
         .catch(
-            //console.error('Error:', error);
             (error) => console.log(error)
         );
 };

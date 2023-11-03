@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 import userAvatar from '../../assets/userAvatar.png';
 import { useAuth } from '../../contexts/AuthContext';
 import { slide as Menu } from 'react-burger-menu';
 import { NavLink } from 'react-router-dom';
-import {getRole} from '../../services/LessonServices';
 import { displaySuccess } from '../Notify/Notify';
 
 function Header() {
@@ -20,21 +19,6 @@ function Header() {
         setUsername('Guest');
         displaySuccess('Logged out')
     }
-    const [userRole, setUserRole] = useState(null);
-
-    useEffect(() => {
-        const fetchUserRole = async () => {
-            try{
-            getRole()
-                .then((data) => {
-                    setUserRole(data.role);
-                })
-            }catch(error) {
-                console.log(error)
-            }
-        };
-    fetchUserRole();
-    }, []);
 
     return (
         <div className='nav-bar'>
@@ -57,9 +41,6 @@ function Header() {
                     <NavLink to='/edit' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Edit lessons</NavLink>
                 ): null}
                 <NavLink to='/signup' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Sign up</NavLink>
-                {userRole === 'moderator' || userRole === 'admin' ? (
-                    <NavLink to="/supersecretemoderatorpage" className='nav-link nav-link-hamburger' onClick={toggleMenu}>Admin Page</NavLink>
-                ) : null}
                 {username !== 'Guest' ? (
                     <NavLink to='' className='nav-link nav-link-hamburger' onClick={logout}>Log out</NavLink>
                 ): null}
