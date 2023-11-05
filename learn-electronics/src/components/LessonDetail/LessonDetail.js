@@ -1,6 +1,7 @@
 import { Component } from "react";
 import {getLessonDetail} from '../../services/LessonServices';
-import {getRole} from '../../services/LessonServices';
+import {getRole, deleteLesson} from '../../services/LessonServices';
+import DeleteConfirmationDialog from "../Edit/DeleteConfirmationDialog/DeleteConfirmationDialog";
 import './LessonDetail.css'
 
 class LessonDetail extends Component {
@@ -10,8 +11,22 @@ class LessonDetail extends Component {
     this.state = {
       lesson: null,
       userRole: 'user',
+      showDeleteConfirmation: false,
+      isDeleteConfirmed: false,
     };
   }
+  handleDelete = (event) => {
+    event.preventDefault();
+    this.setState({ showDeleteConfirmation: true });
+  };
+  
+  handleDeleteConfirmation = (confirmed) => {
+    this.setState({ showDeleteConfirmation: false, isDeleteConfirmed: confirmed }, () => {
+      if (confirmed) {
+        deleteLesson(this.state.selectedLessonId)
+      }
+    });
+  };
 
   componentDidMount() {
     const { title } = this.props.match.params;
@@ -52,6 +67,11 @@ class LessonDetail extends Component {
             >Delete
           </button>
         ) : null}
+        {this.state.showDeleteConfirmation && (
+          <DeleteConfirmationDialog
+            onConfirm={this.handleDeleteConfirmation}
+          />
+        )}
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import { displayError, displayInfo, displaySuccess } from '../components/Notify/Notify';
+import { displayInfo, displaySuccess } from '../components/Notify/Notify';
 const url = 'http://localhost:5000/';
 
 export const getLessonDetail = (title) => {

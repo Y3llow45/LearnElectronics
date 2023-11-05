@@ -111,6 +111,7 @@ class Edit extends Component {
     event.preventDefault();
     this.setState({ showDeleteConfirmation: true });
   };
+  
   handleDeleteConfirmation = (confirmed) => {
     this.setState({ showDeleteConfirmation: false, isDeleteConfirmed: confirmed }, () => {
       if (confirmed) {

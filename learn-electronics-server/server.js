@@ -275,20 +275,19 @@ app.put('/edit', verifyToken, async (req, res) => {
 });
 
 app.delete('/delete/:id', verifyToken, async (req, res) => {
-  console.log('At the delete oapge')
   try{
     let { id } = req.params;
-    console.log(id);
     const username = req.username;
+    const role = req.role;
     const lesson = await Lesson.findById(id);
     if (!lesson) {
       return res.status(404).json({ message: 'Lesson not found' });
     }
-    if (lesson.user === username) {
+    if (lesson.user === username || role == 'admin' || role == 'moderator') {
       await lesson.deleteOne();
       console.log('del');
       res.status(200).json({ message: 'deleted!' });
-  }
+    }
   }catch(error){
     res.status(500).json({ message: error.message});
   }
