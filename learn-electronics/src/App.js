@@ -8,7 +8,6 @@ import SignUp from './components/SignUp/SignUp';
 import SignIn from './components/SignIn/SignIn';
 import Footer from './components/Footer/Footer';
 import Edit from './components/Edit/Edit';
-import ModPage from './components/ModPage/ModPage';
 import LessonDetail from './components/LessonDetail/LessonDetail';
 
 import { ToastContainer } from "react-toastify";
@@ -41,7 +40,6 @@ function App() {
             <Route path="/edit" component={Edit} />
             <Route path="/signup" component={SignUp} />
             <Route path="/signin" component={SignIn} />
-            <Route path="/supersecretemoderatorpage" component={ModPage} />
           </Switch>
         </div>
     <Footer />

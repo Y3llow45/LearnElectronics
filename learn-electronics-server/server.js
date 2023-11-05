@@ -181,10 +181,6 @@ app.get('/api/getUserRole', verifyToken, async (req, res) => {
   }
 });
 
-app.get('/supersecretemoderatorpage', (req,res) => {
-  res.status(200).json({message: 'hello there'});
-})
-
 app.post('/signup', (req, res) => {
   try{
     let { username, email, password } = req.body;

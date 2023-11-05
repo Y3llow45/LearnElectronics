@@ -62,7 +62,7 @@ class Add extends Component {
       displayError(addErrors.titleLength);
     }else if(htmlContent.length < 120 || htmlContent.length > 10000) {
       displayError(addErrors.contentLength);
-    }
+    } 
     else {
       add(this.state.title, htmlContent, this.state.category)
     }
