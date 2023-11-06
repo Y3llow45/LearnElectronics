@@ -38,7 +38,6 @@ app.get('/edit',verifyToken, async (req, res) => {
     const username = req.username;
     const lessonData = await getLessons(username);
     if (lessonData) {
-      console.log('got lessons')
       res.status(200).json(lessonData);
     } else {
       res.status(404).json({ error: 'Data not found' });
@@ -184,11 +183,9 @@ app.get('/api/getUserRole', verifyToken, async (req, res) => {
 app.post('/signup', (req, res) => {
   try{
     let { username, email, password } = req.body;
-    console.log(username, email, password);
     bcrypt
       .hash(password, saltRounds)
       .then(hash => {
-        console.log(hash)
         let newUser = new User({username: username, email: email, password: hash})
         newUser.save();
       })
@@ -208,7 +205,6 @@ app.post('/signin', async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-        console.log('Wrong credentials. No such user');
         return res.status(401).json({ error: 'Invalid credentials' });
     }
 
@@ -235,9 +231,7 @@ app.post('/signin', async (req, res) => {
 
 app.post('/add', verifyToken, async (req, res) => {
   const { title, content, category } = req.body;
-  console.log(req.username)
   const username = req.username;
-  console.log('username is: '+username)
   try{
     let newLesson = new Lesson({title:title, content:content, category:category, user: username});
     await newLesson.save();
@@ -253,16 +247,13 @@ app.put('/edit', verifyToken, async (req, res) => {
     const username = req.username;
     const lesson = await Lesson.findById(id);
     if (!lesson) {
-      console.log('not found');
       return res.status(404).json({ message: 'Lesson not found' });
     }
-    console.log('found');
     if (lesson.user === username) {
       lesson.title = title;
       lesson.content = content;
       lesson.category = category;
       await lesson.save();
-      console.log('updated!');
       res.status(200).json({ message: 'updated!' });
   }
   }catch(error){
@@ -281,7 +272,6 @@ app.delete('/delete/:id', verifyToken, async (req, res) => {
     }
     if (lesson.user === username || role == 'admin' || role == 'moderator') {
       await lesson.deleteOne();
-      console.log('del');
       res.status(200).json({ message: 'deleted!' });
     }
   }catch(error){

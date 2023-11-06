@@ -493,3 +493,123 @@ If user don't have an acount they can go to sing up page
 ```
 
 ## Sign up component
+This component creates user accounts.
+
+After client side validations are made, the form is send to LessonServices which handles the request to the server.
+```javascript
+handleSignUp = (event) => {
+  event.preventDefault();
+  if(!passwordPattern.test(this.state.password)){
+    displayInfo("Weak password")
+  }else {
+    signUp(this.state.username, this.state.email, this.state.password)
+      .then(res => {
+        if(res.status === 201){
+          displaySuccess("Account created")
+        }else {
+          displayError("No response from server")
+        }
+        })
+        .catch((error) => console.log(error))
+    }
+};
+```
+
+Reuse of Form component and button to sign up
+```javascript
+<form className="signup-form" onSubmit={this.handleSignUp}>
+  <input
+    type="email"
+    name="email"
+    placeholder="Email"
+    value={this.state.email}
+    onChange={this.handleInputChange}
+    className='input-form'
+    required
+  />
+  <FormComponent username={this.state.username}
+    password={this.state.password}
+    handleInputChange={this.handleInputChange}/>
+  <br></br>
+  <button type="submit" className='form-submit'>Sign Up</button>
+</form>
+```
+
+If user have an acount they can go to sing in page
+```javascript
+<div className="signin-link">
+  <p>Already have an account? <NavLink to="/signin">Sign In</NavLink></p>
+</div>
+```
+
+## AuthContext component
+This component keeps user's username in global context.
+
+Sets user'username in global context
+```javascript
+const [username, setUsername] = useState(localStorage.getItem('username') || 'Guest');
+  const isAuthenticated = username !== 'Guest';
+
+  return (
+    <AuthContext.Provider value={{ username, setUsername, isAuthenticated }}>
+      {children}
+    </AuthContext.Provider>
+  );
+```
+
+## LessonServices component
+This component handles all request to the server.
+
+gets specific lesson
+```javascript
+return fetch(`${url}lesson/${title}`)
+  .then(res => res.json()) 
+  .then((data) => {
+    return data;
+  })
+  .catch((error) => console.log(error));
+```
+
+gets all lessons
+```javascript
+return fetch(`${url}lessons/${pageNum}`)
+  .then(res => res.json()) 
+  .then((data) => {
+      return data;
+  })
+  .catch((error) => console.log(error));
+```
+
+gets all lessons created by the user. If user is not logged in, a notification is shown
+```javascript
+const token = localStorage.getItem('token');
+  if(!token) {
+    displayInfo("You need to login first")
+    return;
+  }
+  return fetch(`${url}edit`, {headers: {'Authorization': token}})
+    .then(res => res.json()) 
+    .then((data) => {
+        return data;
+    })
+    .catch((error) => console.log(error));
+```
+
+Creates accounts
+```javascript
+let user = {
+  username,
+  email,
+  password,
+};
+
+return fetch(`${url}signup`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(user)
+});
+```
+
+Other functions work in similar way
