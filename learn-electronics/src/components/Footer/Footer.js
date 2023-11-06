@@ -21,7 +21,6 @@ function Footer() {
                 </div>
             </div>
             <div><img className='to-the-top' src='../arrow.png' onClick={() => {
-                        console.log('clicked')
                         window.scrollTo({
                             top: 0, behavior: 'smooth'
                           });

@@ -40,7 +40,6 @@ class LessonDetail extends Component {
     getRole()
       .then((data) => {
         this.setState({ userRole: data.role });
-        console.log(data, data.role)
       })
       .catch((error) => {
         console.log(error);
