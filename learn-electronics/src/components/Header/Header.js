@@ -1,18 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.css';
 import userAvatar from '../../assets/userAvatar.png';
+import adminAvatar from '../../assets/userAvatar_admin.png';
 import { useAuth } from '../../contexts/AuthContext';
 import { slide as Menu } from 'react-burger-menu';
+import { getRole } from '../../services/LessonServices';
 import { NavLink } from 'react-router-dom';
 import { displaySuccess } from '../Notify/Notify';
 
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { username, setUsername } = useAuth();
+    const [ userRole, setUserRole ] = useState('user')
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    useEffect(() => {
+        try {
+            getRole()
+                .then((data) => {
+                    if (data.role) {
+                        setUserRole(data.role);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+    
+
     const logout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
@@ -54,7 +75,10 @@ function Header() {
                         <h3 className='nav-user-wellcome'>Welcome, Guest</h3>
                     )}
                 </div>
-                <img className='nav-user-avatar' src={userAvatar} alt='UA' height='35px' /> 
+                {userRole === 'admin' ? 
+                (<img className='nav-user-avatar' src={adminAvatar} alt='UA' height='35px' /> ) : 
+                (<img className='nav-user-avatar' src={userAvatar} alt='UA' height='35px' /> )
+                }
                 <button onClick={toggleMenu} className="menu-icon">&#9776;</button>
             </div>
         </div>

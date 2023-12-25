@@ -23,7 +23,8 @@ class LessonDetail extends Component {
   handleDeleteConfirmation = (confirmed) => {
     this.setState({ showDeleteConfirmation: false, isDeleteConfirmed: confirmed }, () => {
       if (confirmed) {
-        deleteLesson(this.state.selectedLessonId)
+        //console.log(this.state.lesson[0]._id);
+        deleteLesson(this.state.lesson[0]._id)
       }
     });
   };
