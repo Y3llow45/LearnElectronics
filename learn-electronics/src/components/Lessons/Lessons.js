@@ -105,7 +105,7 @@ class Lessons extends Component {
           <fragment>
           <SearchBar onSearchResults={this.handleSearchResults}/>
             <div className="lessons-container">
-                {lessons.length === 0 ? <p>Loading</p> : this.renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
+                {lessons.length === 0 ? <p style={{"text-align": "center"}}>No results</p> : this.renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
                 {this.renderPagination(2)}
             </div>
           </fragment>

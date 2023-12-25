@@ -38,13 +38,20 @@ class LessonDetail extends Component {
       .catch(error => {
         console.log(error);
     });
-    getRole()
-      .then((data) => {
-        this.setState({ userRole: data.role });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      getRole()
+        .then((data) => {
+          if (data) {
+            this.setState({ userRole: data.role });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch {
+      //console.log(error);
+      this.setState({ userRole: 'user' });
+    }
   }
 
   render() {
@@ -63,6 +70,7 @@ class LessonDetail extends Component {
           <button
             type='submit'
             className='red-button space-left'
+            style={{'margin-left':'6.5%'}}
             onClick={this.handleDelete}
             >Delete
           </button>

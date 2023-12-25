@@ -22,18 +22,21 @@ class SearchBar extends Component {
         this.setState({ category: event.target.value });
     };
 
-    handleSearch = (e) => {
+    handleSearch = async (e) => {
         e.preventDefault();
-        search(this.state.category, this.state.keyword)
-            .then(res => {
-                if (res && res.lessons) {
-                    this.props.onSearchResults(res.lessons);
-                } else {
-                    displayError("No response from server")
-                }
-            })
-            .catch(displayError("Server error while searching"))
-    };
+        try {
+            const res = await search(this.state.category, this.state.keyword);
+    
+            if (res && res.lessons) {
+                this.props.onSearchResults(res.lessons);
+            } else {
+                displayError("No response from server");
+            }
+        } catch (error) {
+            console.error("Error while searching:", error);
+            displayError("Server error while searching");
+        }
+    };    
 
     render() {
         return (

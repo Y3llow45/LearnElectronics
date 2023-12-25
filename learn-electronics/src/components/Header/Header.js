@@ -28,8 +28,8 @@ function Header() {
                 .catch((error) => {
                     console.log(error);
                 });
-        } catch (error) {
-            console.log(error);
+        } catch {
+            setUserRole('user');
         }
     }, []);
     
