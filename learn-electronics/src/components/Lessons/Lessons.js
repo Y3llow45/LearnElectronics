@@ -102,13 +102,13 @@ class Lessons extends Component {
     render() {
         const { lessons, selectedLessonId } = this.state;
         return (
-          <fragment>
+          <div>
           <SearchBar onSearchResults={this.handleSearchResults}/>
             <div className="lessons-container">
-                {lessons.length === 0 ? <p style={{"text-align": "center"}}>No results</p> : this.renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
+                {lessons.length === 0 ? <p style={{"textAlign": "center"}}>No results</p> : this.renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
                 {this.renderPagination(2)}
             </div>
-          </fragment>
+          </div>
         );
     }
 }

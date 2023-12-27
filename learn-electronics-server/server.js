@@ -302,7 +302,7 @@ app.put('/like/:id', verifyToken, async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
     if (!user.liked.includes(id)) {
-      await Lesson.findByIdAndUpdate(id, { $inc: { like: 1 } });
+      await Lesson.findByIdAndUpdate(id, { $inc: { likes: 1 } });
       res.status(200).json({ message: 'liked!' });
     }
   }catch(error){

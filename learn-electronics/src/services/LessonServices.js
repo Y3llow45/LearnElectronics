@@ -39,7 +39,6 @@ export const getRole = () => {
     return fetch(`${url}api/getUserRole`, {headers: {'Authorization': token}})
         .then(res => res.json()) 
         .then((data) => {
-            console.log(data)
             return data
         })
         .catch(
