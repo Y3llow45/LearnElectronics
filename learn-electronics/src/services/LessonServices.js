@@ -190,6 +190,32 @@ export const deleteLesson = (id) => {
         );
 };
 
+export const like = (id) => {
+    const token = localStorage.getItem('token');
+    if(!token) {
+        displayInfo("You need to login first")
+        return;
+    }
+    
+    return fetch(`${url}like/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+    })  
+        .then(res => {
+            res.json()
+            if(res.status === 200){
+                displaySuccess("Liked");
+            }
+        })
+        .catch(
+            //console.error('Error:', error);
+            (error) => console.log(error)
+        );
+};
+
 /*
 export const update = (petId, pet) => {
     return fetch(`${url}/${petId}`, {

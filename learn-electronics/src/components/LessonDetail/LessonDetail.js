@@ -1,6 +1,6 @@
 import { Component } from "react";
 import {getLessonDetail} from '../../services/LessonServices';
-import {getRole, deleteLesson} from '../../services/LessonServices';
+import {getRole, deleteLesson, like} from '../../services/LessonServices';
 import DeleteConfirmationDialog from "../Edit/DeleteConfirmationDialog/DeleteConfirmationDialog";
 import './LessonDetail.css'
 
@@ -19,6 +19,18 @@ class LessonDetail extends Component {
     event.preventDefault();
     this.setState({ showDeleteConfirmation: true });
   };
+
+  handleLike = (event) => {
+    event.preventDefault();
+    try {
+      like(this.state.lesson[0]._id)
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch(error) {
+      console.log(error);
+    }
+  }
   
   handleDeleteConfirmation = (confirmed) => {
     this.setState({ showDeleteConfirmation: false, isDeleteConfirmed: confirmed }, () => {
@@ -69,8 +81,8 @@ class LessonDetail extends Component {
         {<button
             type='submit'
             className='red-button space-left green-button'
-            style={{'margin-left':'6.5%'}}
-            onClick={this.handleDelete}
+            style={{'marginLeft':'6.5%'}}
+            onClick={this.handleLike}
             >Like
           </button>}
         {(lesson && lesson[0].user === localStorage.getItem('username')) || this.state.userRole === 'moderator' || this.state.userRole === 'admin' ? (

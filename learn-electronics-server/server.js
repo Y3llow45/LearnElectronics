@@ -293,6 +293,24 @@ app.delete('/delete/:id', verifyToken, async (req, res) => {
   }
 });
 
+app.put('/like/:id', verifyToken, async (req, res) => {
+  try{
+    let { id } = req.params;
+    const username = req.username;
+    const user = await User.findOne({ username: username });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    if (!user.liked.includes(id)) {
+      await Lesson.findByIdAndUpdate(id, { $inc: { like: 1 } });
+      res.status(200).json({ message: 'liked!' });
+    }
+  }catch(error){
+    console.log(error)
+    res.status(500).json({ message: error.message});
+  }
+});
+
 app.use((req, res) => {
   res.status(404).send('Not Found');
 });
