@@ -66,6 +66,13 @@ class LessonDetail extends Component {
         ) : (
           <p>Loading...</p>
         )}
+        {<button
+            type='submit'
+            className='red-button space-left green-button'
+            style={{'margin-left':'6.5%'}}
+            onClick={this.handleDelete}
+            >Like
+          </button>}
         {(lesson && lesson[0].user === localStorage.getItem('username')) || this.state.userRole === 'moderator' || this.state.userRole === 'admin' ? (
           <button
             type='submit'

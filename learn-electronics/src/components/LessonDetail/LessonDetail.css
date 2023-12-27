@@ -9,3 +9,6 @@
     margin-right: auto;
 }
 
+.green-button {
+    background-color: rgb(41, 203, 41) !important;
+}

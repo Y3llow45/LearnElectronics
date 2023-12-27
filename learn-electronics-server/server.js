@@ -180,6 +180,18 @@ app.get('/api/getUserRole', verifyToken, async (req, res) => {
   }
 });
 
+app.get('/api/getUserLiked', verifyToken, async (req, res) => {
+  try{
+    const username = req.username;
+    const user = await User.findOne({ username });
+    res.status(200).json({ role: user._doc.liked });
+  }
+  catch(error) {
+    console.log(error);
+    res.status(401).json({ message: 'server error' });
+  }
+});
+
 app.post('/signup', (req, res) => {
   try{
     let { username, email, password } = req.body;
@@ -222,7 +234,9 @@ app.post('/signin', async (req, res) => {
       return;
     }
     const token = generateToken(user._id, user.username, user.role);
-    res.status(200).json({ message: 'Sign in successful', token, username: user.username });
+    console.log(user.liked)
+    res.status(200).json({ message: 'Sign in successful', token, username: user.username, liked: user.liked });
+
   } catch (error) {
     console.error('Error during sign-in:', error);
     res.status(500).json({ error: 'Internal Server Error' });
