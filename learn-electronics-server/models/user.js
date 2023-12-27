@@ -4,8 +4,8 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
-    role: 'user',
-    liked: []
-})
+    role: String,
+    liked: Array
+}) 
 
 module.exports = mongoose.model("User", userSchema)

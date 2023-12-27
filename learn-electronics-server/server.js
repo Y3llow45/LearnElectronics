@@ -186,7 +186,7 @@ app.post('/signup', (req, res) => {
     bcrypt
       .hash(password, saltRounds)
       .then(hash => {
-        let newUser = new User({username: username, email: email, password: hash})
+        let newUser = new User({username: username, email: email, password: hash, role: 'user', liked: []})
         newUser.save();
       })
       .catch((err) => {throw err})

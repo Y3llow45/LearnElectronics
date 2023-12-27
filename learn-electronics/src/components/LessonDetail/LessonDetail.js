@@ -66,7 +66,7 @@ class LessonDetail extends Component {
         ) : (
           <p>Loading...</p>
         )}
-        {this.state.userRole === 'moderator' || this.state.userRole === 'admin' ? (
+        {(lesson && lesson[0].user === localStorage.getItem('username')) || this.state.userRole === 'moderator' || this.state.userRole === 'admin' ? (
           <button
             type='submit'
             className='red-button space-left'
