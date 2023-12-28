@@ -204,9 +204,10 @@ export const like = (id) => {
         },
     })  
         .then(res => {
-            res.json()
+            res.json();
+            console.log(res.json())
             if(res.status === 200){
-                displaySuccess("Liked");
+                displaySuccess("Added to liked");
             }
         })
         .catch(
@@ -215,6 +216,31 @@ export const like = (id) => {
         );
 };
 
+export const unLike = (id) => {
+    const token = localStorage.getItem('token');
+    if(!token) {
+        displayInfo("You need to login first")
+        return;
+    }
+    
+    return fetch(`${url}unlike/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+    })  
+        .then(res => {
+            res.json()
+            if(res.status === 200){
+                displaySuccess("Removed from liked");;
+            }
+        })
+        .catch(
+            //console.error('Error:', error);
+            (error) => console.log(error)
+        );
+};
 /*
 export const update = (petId, pet) => {
     return fetch(`${url}/${petId}`, {

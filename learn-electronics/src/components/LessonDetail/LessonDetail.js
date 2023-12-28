@@ -1,5 +1,5 @@
 import { Component } from "react";
-import {getLessonDetail} from '../../services/LessonServices';
+import {getLessonDetail, unLike} from '../../services/LessonServices';
 import {getRole, deleteLesson, like} from '../../services/LessonServices';
 import DeleteConfirmationDialog from "../Edit/DeleteConfirmationDialog/DeleteConfirmationDialog";
 import './LessonDetail.css'
@@ -22,13 +22,33 @@ class LessonDetail extends Component {
 
   handleLike = (event) => {
     event.preventDefault();
-    try {
-      like(this.state.lesson[0]._id)
-        .catch((error) => {
+    const likedData = localStorage.getItem('liked');
+    const likedIds = likedData ? JSON.parse(likedData) : [];
+    if (!likedIds.includes(this.state.lesson[0]._id)) {
+        console.log(likedIds);
+        console.log(this.state.lesson[0]._id);
+        likedIds.push(this.state.lesson[0]._id);
+        localStorage.setItem('liked', JSON.stringify(likedIds));
+        try {
+          like(this.state.lesson[0]._id)
+            .catch((error) => {
+              console.log(error);
+            });
+        } catch(error) {
           console.log(error);
-        });
-    } catch(error) {
-      console.log(error);
+        }
+    }else {
+      console.log('unlike')
+        const updatedLikedIds = likedIds.filter(existingId => existingId !== this.state.lesson[0]._id);
+        localStorage.setItem('liked', JSON.stringify(updatedLikedIds));
+        try {
+          unLike(this.state.lesson[0]._id)
+            .catch((error) => {
+              console.log(error);
+            });
+        } catch(error) {
+          console.log(error);
+        }
     }
   }
   
@@ -89,7 +109,7 @@ class LessonDetail extends Component {
           <button
             type='submit'
             className='red-button space-left'
-            style={{'margin-left':'6.5%'}}
+            style={{'marginLeft':'6.5%'}}
             onClick={this.handleDelete}
             >Delete
           </button>
