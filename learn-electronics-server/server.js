@@ -302,8 +302,28 @@ app.put('/like/:id', verifyToken, async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
     if (!user.liked.includes(id)) {
+      await user.updateOne({ $addToSet: { liked: id } });
       await Lesson.findByIdAndUpdate(id, { $inc: { likes: 1 } });
       res.status(200).json({ message: 'liked!' });
+    }
+  }catch(error){
+    console.log(error)
+    res.status(500).json({ message: error.message});
+  }
+});
+
+app.put('/unlike/:id', verifyToken, async (req, res) => {
+  try{
+    let { id } = req.params;
+    const username = req.username;
+    const user = await User.findOne({ username: username });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    if (user.liked.includes(id)) {
+      await user.updateOne({ $pull: { liked: id } });
+      await Lesson.findByIdAndUpdate(id, { $inc: { likes: -1 } });
+      res.status(200).json({ message: 'unliked!' });
     }
   }catch(error){
     console.log(error)

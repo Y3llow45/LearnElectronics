@@ -25,8 +25,7 @@ class LessonDetail extends Component {
     const likedData = localStorage.getItem('liked');
     const likedIds = likedData ? JSON.parse(likedData) : [];
     if (!likedIds.includes(this.state.lesson[0]._id)) {
-        console.log(likedIds);
-        console.log(this.state.lesson[0]._id);
+      console.log('like')
         likedIds.push(this.state.lesson[0]._id);
         localStorage.setItem('liked', JSON.stringify(likedIds));
         try {
@@ -38,7 +37,6 @@ class LessonDetail extends Component {
           console.log(error);
         }
     }else {
-      console.log('unlike')
         const updatedLikedIds = likedIds.filter(existingId => existingId !== this.state.lesson[0]._id);
         localStorage.setItem('liked', JSON.stringify(updatedLikedIds));
         try {

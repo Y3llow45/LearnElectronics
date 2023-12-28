@@ -205,7 +205,6 @@ export const like = (id) => {
     })  
         .then(res => {
             res.json();
-            console.log(res.json())
             if(res.status === 200){
                 displaySuccess("Added to liked");
             }
