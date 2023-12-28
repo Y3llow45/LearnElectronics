@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './SignUp.css';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
-import { signUp } from '../../services/LessonServices';
+import { signUp, checkEmail, checkUsername } from '../../services/LessonServices';
 import FormComponent from '../Form/FormComponent/FormComponent';
 import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputChange';
 import { displayError, displayInfo, displaySuccess } from '../Notify/Notify';
@@ -22,8 +22,22 @@ class SignUp extends Component {
         handleInputChangeComponent(event, this.setState.bind(this));
     }
 
+    checkEmail = () => {
+        checkEmail(this.state.email)
+    }
+
+    checkUsername = () => {
+        checkUsername(this.state.username);
+    }
+
     handleSignUp = (event) => {
         event.preventDefault();
+        if(this.checkEmail()) {
+            displayInfo("Email already exists")
+        }
+        if(this.checkUsername()) {
+            displayInfo("Username already exists")
+        }
         if(!passwordPattern.test(this.state.password)){
             displayInfo("Weak password")
         }else {
@@ -52,11 +66,15 @@ class SignUp extends Component {
                             value={this.state.email}
                             onChange={this.handleInputChange}
                             className='input-form'
+                            onBlur={this.checkEmail}
                             required
                         />
-                        <FormComponent username={this.state.username}
+                        <FormComponent 
+                            username={this.state.username}
                             password={this.state.password}
-                            handleInputChange={this.handleInputChange}/>
+                            handleInputChange={this.handleInputChange}
+                            checkFunc={this.checkUsername}
+                        />
                         <br></br>
                         <button type="submit" className='form-submit'>Sign Up</button>
                     </form>

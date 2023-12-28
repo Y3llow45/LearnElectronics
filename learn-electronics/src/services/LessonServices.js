@@ -240,6 +240,41 @@ export const unLike = (id) => {
             (error) => console.log(error)
         );
 };
+
+export const checkEmail = (email) => {    
+    return fetch(`${url}checkEmail/${email}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })  
+        .then(res => {
+            res.json();
+            return res.message;
+        })
+        .catch(
+            (error) => console.log(error)
+        );
+};
+
+export const checkUsername = (username) => {    
+    return fetch(`${url}checkUsername/${username}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })  
+        .then(res => {
+            res.json();
+            if(res.message === 'true'){
+                return true;
+            }
+        })
+        .catch(
+            (error) => console.log(error)
+        );
+};
+
 /*
 export const update = (petId, pet) => {
     return fetch(`${url}/${petId}`, {

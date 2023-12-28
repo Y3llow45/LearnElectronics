@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FormComponent = ({ username, password, handleInputChange }) => {
+const FormComponent = ({ username, password, handleInputChange, checkFunc }) => {
     return (
         <div>
             <input
@@ -9,6 +9,7 @@ const FormComponent = ({ username, password, handleInputChange }) => {
                 placeholder="Username"
                 value={username}
                 onChange={handleInputChange}
+                onBlur={checkFunc}
                 className='input-form'
                 required
             />
