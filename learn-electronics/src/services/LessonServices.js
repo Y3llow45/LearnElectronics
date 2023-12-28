@@ -248,9 +248,13 @@ export const checkEmail = (email) => {
             'Content-Type': 'application/json'
         },
     })  
-        .then(res => {
-            res.json();
-            return res.message;
+        .then(res => res.json())
+        .then(data => {
+            if(data.message === 'true'){
+                displayInfo("Email already exists")
+                return true;
+            }
+            return false;
         })
         .catch(
             (error) => console.log(error)
@@ -264,11 +268,13 @@ export const checkUsername = (username) => {
             'Content-Type': 'application/json'
         },
     })  
-        .then(res => {
-            res.json();
-            if(res.message === 'true'){
+        .then(res => res.json())
+        .then(data => {
+            if(data.message === 'true'){
+                displayInfo("Username already exists")
                 return true;
             }
+            return false;
         })
         .catch(
             (error) => console.log(error)

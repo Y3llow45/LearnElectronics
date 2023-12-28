@@ -34,11 +34,9 @@ class SignUp extends Component {
         event.preventDefault();
         if(this.checkEmail()) {
             displayInfo("Email already exists")
-        }
-        if(this.checkUsername()) {
+        }else if(this.checkUsername()) {
             displayInfo("Username already exists")
-        }
-        if(!passwordPattern.test(this.state.password)){
+        }else if(!passwordPattern.test(this.state.password)){
             displayInfo("Weak password")
         }else {
             signUp(this.state.username, this.state.email, this.state.password)
