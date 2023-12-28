@@ -22,17 +22,6 @@ mongoose.connect(AtlasUri).then(() => {
   console.log('Connected');
 })
 
-/*app.get('/lessons', (req, res) => {           Old version for json server
-  fs.readFile('lessons.json', 'utf8', (err, data) => {
-    if (err) {
-      res.status(500).json({ error: 'Internal Server Error' });
-    } else {
-      res.status(200).json(JSON.parse(data));
-    } 
-  });
-});*/
-
-
 app.get('/edit',verifyToken, async (req, res) => {
   try {
     const username = req.username;
@@ -106,24 +95,6 @@ app.get('/search/:category', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-  /*fs.readFile('lessons.json', 'utf8', (err, data) => {
-    if (err) {
-      res.status(500).json({ error: 'Internal Server Error' });
-    } else {
-      let lessons = JSON.parse(data).lessons;
-
-      let filteredLessons = lessons;
-
-      if (category != 'all') {
-        filteredLessons = lessons.filter(lesson => lesson.category === category);
-      } else {
-        filteredLessons = lessons;
-      }
-
-      res.status(200).json({ lessons: filteredLessons });
-    }
-  });*/
 
 app.get('/search/:category/:keyword', async (req, res) => {
   let { category, keyword } = req.params;
@@ -307,7 +278,6 @@ app.put('/like/:id', verifyToken, async (req, res) => {
       res.status(200).json({ message: 'liked!' });
     }
   }catch(error){
-    console.log(error)
     res.status(500).json({ message: error.message});
   }
 });
@@ -326,7 +296,32 @@ app.put('/unlike/:id', verifyToken, async (req, res) => {
       res.status(200).json({ message: 'unliked!' });
     }
   }catch(error){
-    console.log(error)
+    res.status(500).json({ message: error.message});
+  }
+});
+
+app.get('/checkEmail/:email', async (req, res) => {
+  try{
+    let { email } = req.params;
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.status(200).json({ message: 'false' });
+    }
+      return res.status(200).json({ message: 'true' });
+  }catch(error){
+    res.status(500).json({ message: error.message});
+  }
+});
+
+app.get('/checkUsername/:username', async (req, res) => {
+  try{
+    let { username } = req.params;
+    const user = await User.findOne({ username: username });
+    if (!user) {
+      return res.status(200).json({ message: 'false' });
+    }
+      return res.status(200).json({ message: 'true' });
+  }catch(error){
     res.status(500).json({ message: error.message});
   }
 });
@@ -338,56 +333,3 @@ app.use((req, res) => {
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
-
-/*app.get('/search/:category/:keyword', (req, res) => {
-  const { category, keyword } = req.params;
-  if(keyword)
-  fs.readFile('lessons.json', 'utf8', (err, data) => {
-    if (err) {
-      res.status(500).json({ error: 'Internal Server Error' });
-    } else {
-      const lessons = JSON.parse(data).lessons;
-      const filteredLessons = lessons.filter(lesson => {
-        const lowercaseTitle = lesson.title.toLowerCase();
-        const lowercaseKeyword = keyword.toLowerCase();
-        return (
-          (category === 'all' || category === lesson.category) &&
-          lowercaseTitle.includes(lowercaseKeyword)
-        );
-        });
-        res.status(200).json({ lessons: filteredLessons });
-      }
-  });
-}); */
-
-/*const http = require('http');
-const fs = require('fs');
-const port = 5000;
-
-const server = http.createServer((req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (req.method === 'GET' && req.url === '/lessons') {
-    fs.readFile('lessons.json', 'utf8', (err, data) => {
-      if (err) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: 'Internal Server Error' }));
-
-      } else {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(data);
-      }
-    });
-
-  } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not Found');
-  }
-});
-
-server.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
-});
- */
