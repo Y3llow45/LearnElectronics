@@ -84,6 +84,23 @@ app.get('/lessons/:page', async (req, res) => {
   }
 });
 
+app.get('/search/liked', verifyToken, async (req, res) => {
+  console.log('liked')
+  try {
+    const username = req.username;
+    const user = await User.findOne({ username: username });
+    let lessons = [];
+    for(let i = 0; i< user.liked.length; i++){
+      lesson = await Lesson.findOne({_id: user.liked[i]});
+      lessons.push(lesson);
+    }
+    console.log(lessons)
+    res.status(200).json({ lessons });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 app.get('/search/:category', async (req, res) => {
   let { category } = req.params;
 
@@ -93,22 +110,6 @@ app.get('/search/:category', async (req, res) => {
 
   try {
     const lessons = await Lesson.find(category === 'all' ? {} : { category });
-    res.status(200).json({ lessons });
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-app.get('/search/liked', verifyToken, async (req, res) => {
-  try {
-    const username = req.username;
-    const user = await User.findOne({ username: username });
-    const lessons = []
-    for(let i = 0; i<= user.liked.length; i++){
-      lesson = await Lesson.findOne({_id: user.liked[i]});
-      lessons.push(lesson);
-    }
-    console.log(lessons)
     res.status(200).json({ lessons });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
