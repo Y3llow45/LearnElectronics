@@ -4,14 +4,14 @@ import * as LessonService from '../../services/LessonServices';
 import SearchBar from './SearchBar/SearchBar';
 import { NavLink } from 'react-router-dom';
 import {displayError} from '../Notify/Notify' 
-import {renderLessonList} from './LessonList/LessonList';
 
 class Lessons extends Component {
   constructor(props) {
     super(props);
     this.state = {
       lessons: [],
-      selectedLessonId: null
+      selectedLessonId: null,
+      totalPages: 1
     };
   }
 
@@ -30,9 +30,10 @@ class Lessons extends Component {
   loadLessons(page) {
       LessonService.getAll(page)
         .then((res) => {
-          if (res && Array.isArray(res)) {
+          if (res.lessons && Array.isArray(res.lessons)) {
             this.setState({
-              lessons: res,
+              lessons: res.lessons,
+              totalPages: res.totalPages
             });
           } else {
             displayError('No response from server')
@@ -47,6 +48,33 @@ class Lessons extends Component {
   handleSearchResults = (searchResults) => {
     this.setState({ lessons: searchResults });
   };
+
+  renderLessonList = (lessons, selectedLessonId, handleLessonClick) => {
+    return (
+      <div className="lesson-list">
+      <div className="lesson-table-header">
+          <div className="lesson-number element-header">N</div>
+          <div className="lesson-title element-header element-header-title">Lesson title</div>
+          <div className="lesson-author element-header">Author</div>
+          <div className="lesson-likes element-header">Likes</div>
+      </div> 
+      {lessons.map((lesson, index) => (
+          <div className="lesson-row" key={lesson._id}>
+            <div className="lesson-number">{index + 1}</div>
+            <NavLink
+              to={`/lesson/${lesson.title}`}
+              className={`special-navlink lesson-title ${selectedLessonId === lesson._id ? 'selected' : ''}`}
+              onClick={() => handleLessonClick(lesson._id)}
+            >
+              {lesson.title}
+            </NavLink>
+            <div className="lesson-author">{lesson.user}</div>
+            <div className="lesson-likes">{lesson.likes}</div>
+          </div>
+      ))}
+      </div>
+    );
+  }
   
   renderPagination(totalPages) {
     const currentPage = parseInt(this.props.match.params.pageNum, 10);
@@ -70,18 +98,48 @@ class Lessons extends Component {
     );
   }
 
-  render() {
-    const { lessons, selectedLessonId } = this.state;
-    return (
-      <div>
-      <SearchBar onSearchResults={this.handleSearchResults}/>
-        <div className="lessons-container">
-          {lessons.length === 0 ? <p style={{"textAlign": "center"}}>No results</p> : renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
-          {this.renderPagination(2)}
+    render() {
+      const { lessons, selectedLessonId } = this.state;
+      return (
+        <div>
+        <SearchBar onSearchResults={this.handleSearchResults}/>
+          <div className="lessons-container">
+            {lessons.length === 0 ? <p style={{"textAlign": "center"}}>No results</p> : this.renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
+            {console.log(lessons)}
+            {this.renderPagination(this.state.totalPages)}
+          </div>
         </div>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 export default Lessons;
+
+/*{renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}*/
+
+/*componentDidMount() {
+        const { pageNum } = this.props.match.params;
+        LessonService.getAll(pageNum)
+            .then(res => {
+                if (res && Array.isArray(res)) {
+                    const lessonsObject = {};
+                    res.forEach(lesson => {
+                        lessonsObject[lesson.title] = lesson;
+                    });
+                    this.setState({ lessons: lessonsObject });
+                } else {
+                    displayError("Server error")
+                }
+            })
+            .catch(displayError("Server error"));
+    } */
+
+/*<div className="lessons-container">
+                {renderLessonList({
+                    lessons,
+                    selectedLessonId,
+                    handleLessonClick: this.handleLessonClick,
+                })}
+                <SearchBar onSearchResults={this.handleSearchResults} />
+                {this.renderLessonContent()}
+            </div>*/

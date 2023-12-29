@@ -68,14 +68,17 @@ app.get('/lessons/:page', async (req, res) => {
     const page = parseInt(req.params.page);
     const pageSize = 10;
     const skip = page * pageSize;
-
+    const lessonCount = await Lesson.count();
     const lessons = await Lesson.find({})
       .sort({ $natural: -1 })
       .skip(skip)
       .limit(pageSize)
       .exec();
     
-    res.status(200).json(lessons);
+    res.status(200).json({
+      lessons: lessons,
+      totalPages: Math.ceil(lessonCount / pageSize)
+    });
   } catch (err) {
     res.status(500).json({ error: 'Internal Server Error' });
   }

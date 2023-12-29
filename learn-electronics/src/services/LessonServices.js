@@ -14,6 +14,7 @@ export const getAll = (pageNum) => {
     return fetch(`${url}lessons/${pageNum}`)
         .then(res => res.json()) 
         .then((data) => {
+            console.log(data.totalPages)
             return data;
         })
         .catch((error) => console.log(error));
