@@ -14,7 +14,6 @@ export const getAll = (pageNum) => {
     return fetch(`${url}lessons/${pageNum}`)
         .then(res => res.json()) 
         .then((data) => {
-            console.log(data.totalPages)
             return data;
         })
         .catch((error) => console.log(error));
@@ -55,6 +54,26 @@ export const search = (category, keyword) => {
         })
         .catch((error) => console.log(error));
 };
+
+export const getLiked = () => {
+    const token = localStorage.getItem('token');
+    if(!token) {
+        displayInfo("You need to login first")
+        return;
+    }
+
+    return fetch(`${url}search/liked`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        }})
+        .then(res => res.json())
+        .then((data) => {
+            return data;
+        })
+        .catch((error) => console.log(error));
+}
 
 export const signUp = (username, email, password) => {
     let user = {

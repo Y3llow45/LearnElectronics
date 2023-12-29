@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './SearchBar.css';
-import { search } from '../../../services/LessonServices';
+import { search, getLiked } from '../../../services/LessonServices';
 import {displayError} from '../../Notify/Notify' 
 
 class SearchBar extends Component {
@@ -25,12 +25,20 @@ class SearchBar extends Component {
     handleSearch = async (e) => {
         e.preventDefault();
         try {
-            const res = await search(this.state.category, this.state.keyword);
-    
-            if (res && res.lessons) {
-                this.props.onSearchResults(res.lessons);
-            } else {
-                displayError("No response from server");
+            if(this.state.category === 'liked'){
+                const res = await getLiked()
+                if (res && res.lessons) {
+                    this.props.onSearchResults(res.lessons);
+                } else {
+                    displayError("No response from server");
+                }    
+            }else{
+                const res = await search(this.state.category, this.state.keyword);
+                if (res && res.lessons) {
+                    this.props.onSearchResults(res.lessons);
+                } else {
+                    displayError("No response from server");
+                }
             }
         } catch (error) {
             console.error("Error while searching:", error);
@@ -52,6 +60,7 @@ class SearchBar extends Component {
                     <option value="lessons">Lessons</option>
                     <option value="electric-components">Electric Components</option>
                     <option value="microcontrollers">Microcontrollers</option>
+                    <option value="liked">Liked</option>
                 </select>
                 <button onClick={this.handleSearch.bind(this)}>Search</button>
             </div>

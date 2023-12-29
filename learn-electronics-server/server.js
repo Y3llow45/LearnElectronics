@@ -99,6 +99,22 @@ app.get('/search/:category', async (req, res) => {
   }
 });
 
+app.get('/search/liked', verifyToken, async (req, res) => {
+  try {
+    const username = req.username;
+    const user = await User.findOne({ username: username });
+    const lessons = []
+    for(let i = 0; i<= user.liked.length; i++){
+      lesson = await Lesson.findOne({_id: user.liked[i]});
+      lessons.push(lesson);
+    }
+    console.log(lessons)
+    res.status(200).json({ lessons });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 app.get('/search/:category/:keyword', async (req, res) => {
   let { category, keyword } = req.params;
   if (category !== 'all' && category !== 'lessons' && category !== 'electric-components' && category !== 'microcontrollers') {

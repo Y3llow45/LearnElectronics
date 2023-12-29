@@ -105,7 +105,6 @@ class Lessons extends Component {
         <SearchBar onSearchResults={this.handleSearchResults}/>
           <div className="lessons-container">
             {lessons.length === 0 ? <p style={{"textAlign": "center"}}>No results</p> : this.renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
-            {console.log(lessons)}
             {this.renderPagination(this.state.totalPages)}
           </div>
         </div>
