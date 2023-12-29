@@ -3,6 +3,7 @@ import {getLessonDetail, unLike} from '../../services/LessonServices';
 import {getRole, deleteLesson, like} from '../../services/LessonServices';
 import DeleteConfirmationDialog from "../Edit/DeleteConfirmationDialog/DeleteConfirmationDialog";
 import './LessonDetail.css'
+import { displayInfo } from "../Notify/Notify";
 
 class LessonDetail extends Component {
   constructor(props) {
@@ -22,6 +23,10 @@ class LessonDetail extends Component {
 
   handleLike = (event) => {
     event.preventDefault();
+    if(localStorage.getItem('token') === undefined) {
+      displayInfo('You need to login first');
+      return
+    }
     const likedData = localStorage.getItem('liked');
     const likedIds = likedData ? JSON.parse(likedData) : [];
     if (!likedIds.includes(this.state.lesson[0]._id)) {

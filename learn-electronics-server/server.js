@@ -205,7 +205,6 @@ app.post('/signin', async (req, res) => {
       return;
     }
     const token = generateToken(user._id, user.username, user.role);
-    console.log(user.liked)
     res.status(200).json({ message: 'Sign in successful', token, username: user.username, liked: user.liked });
 
   } catch (error) {
