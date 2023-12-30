@@ -5,6 +5,8 @@ import SearchBar from './SearchBar/SearchBar';
 import { NavLink } from 'react-router-dom';
 import {displayError} from '../Notify/Notify' 
 
+const formatter = Intl.NumberFormat('en', {notation: 'compact'})
+
 class Lessons extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +21,10 @@ class Lessons extends Component {
       const { pageNum } = this.props.match.params;
       this.loadLessons(pageNum);
   }
+  formatLikes(likes) {
+    return formatter.format(likes)
+  }
+  
 
   componentDidUpdate(prevProps) {
       if (this.props.match.params.pageNum !== prevProps.match.params.pageNum) {
@@ -69,7 +75,7 @@ class Lessons extends Component {
               {lesson.title}
             </NavLink>
             <div className="lesson-author">{lesson.user}</div>
-            <div className="lesson-likes">{lesson.likes}</div>
+            <div className="lesson-likes">{this.formatLikes(lesson.likes)}</div>
           </div>
       ))}
       </div>

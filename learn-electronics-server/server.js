@@ -85,7 +85,6 @@ app.get('/lessons/:page', async (req, res) => {
 });
 
 app.get('/search/liked', verifyToken, async (req, res) => {
-  console.log('liked')
   try {
     const username = req.username;
     const user = await User.findOne({ username: username });
@@ -94,7 +93,6 @@ app.get('/search/liked', verifyToken, async (req, res) => {
       lesson = await Lesson.findOne({_id: user.liked[i]});
       lessons.push(lesson);
     }
-    console.log(lessons)
     res.status(200).json({ lessons });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
