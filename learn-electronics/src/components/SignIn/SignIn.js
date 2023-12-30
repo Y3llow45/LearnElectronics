@@ -27,6 +27,7 @@ const SignIn = () => {
       .then((data) => {
         if (data.token && data.username) {
           setUsername(data.username);
+          //this.props.history.push('/lessons/0')
         } else {
           displayError("Status error")
         }

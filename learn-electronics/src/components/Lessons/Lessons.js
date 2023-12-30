@@ -25,7 +25,6 @@ class Lessons extends Component {
     return formatter.format(likes)
   }
   
-
   componentDidUpdate(prevProps) {
       if (this.props.match.params.pageNum !== prevProps.match.params.pageNum) {
         const { pageNum } = this.props.match.params;

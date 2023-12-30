@@ -84,7 +84,6 @@ class Edit extends Component {
   handleLessonClick = (index, id) => {
     const selectedLesson = this.state.lessons[index];
     const editorState = convertHTMLToEditorContent(selectedLesson.content);
-    console.log(id)
     this.setState({
         selectedLessonId: id,
         title: selectedLesson.title,
@@ -104,6 +103,7 @@ class Edit extends Component {
     }
     else {
       edit(this.state.selectedLessonId, this.state.title, htmlContent, this.state.category)
+      this.props.history.push('/lessons/0')
     }
   };
 

@@ -43,6 +43,7 @@ class SignUp extends Component {
                 .then(res => {
                     if(res.status === 201){
                         displaySuccess("Account created")
+                        this.props.history.push('/signin')
                     }else {
                         displayError("No response from server")
                     }

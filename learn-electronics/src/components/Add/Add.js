@@ -65,6 +65,7 @@ class Add extends Component {
     } 
     else {
       add(this.state.title, htmlContent, this.state.category)
+      this.props.history.push('/lessons/0')
     }
   };
 
