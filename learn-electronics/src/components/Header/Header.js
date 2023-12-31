@@ -67,7 +67,7 @@ function Header() {
                 ): null}
                 <NavLink to='/signup' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Sign up</NavLink>
                 {username !== 'Guest' ? (
-                    <NavLink to='' className='nav-link nav-link-hamburger' onClick={logout}>Log out</NavLink>
+                    <NavLink to='/signin' className='nav-link nav-link-hamburger' onClick={logout}>Log out</NavLink>
                 ): null}
                 </div>
             </Menu>
