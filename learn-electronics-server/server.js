@@ -223,7 +223,7 @@ app.post('/signin', async (req, res) => {
       return;
     }
     const token = generateToken(user._id, user.username, user.role);
-    res.status(200).json({ message: 'Sign in successful', token, username: user.username, liked: user.liked });
+    res.status(200).json({ message: 'Sign in successful', token, username: user.username, liked: user.liked, role: user.role });
 
   } catch (error) {
     console.error('Error during sign-in:', error);

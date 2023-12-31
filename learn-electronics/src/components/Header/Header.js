@@ -7,11 +7,13 @@ import { slide as Menu } from 'react-burger-menu';
 import { getRole } from '../../services/LessonServices';
 import { NavLink } from 'react-router-dom';
 import { displaySuccess } from '../Notify/Notify';
+import {useUser} from '../../contexts/UserContext';
 
 function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { username, setUsername } = useAuth();
-    const [ userRole, setUserRole ] = useState('user')
+    //const [ userRole, setUserRole ] = useState('user')
+    const { userRole, setUserRole } = useUser();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -22,6 +24,7 @@ function Header() {
             getRole()
                 .then((data) => {
                     if (data.role) {
+                        //setUserRole(data.role);
                         setUserRole(data.role);
                     }
                 })
@@ -38,6 +41,7 @@ function Header() {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
         setUsername('Guest');
+        setUserRole('guest')
         displaySuccess('Logged out')
     }
 

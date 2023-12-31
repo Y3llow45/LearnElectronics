@@ -23,7 +23,7 @@ class LessonDetail extends Component {
 
   handleLike = (event) => {
     event.preventDefault();
-    if(localStorage.getItem('token') === undefined) {
+    if(localStorage.getItem('token') === null) {
       displayInfo('You need to login first');
       return
     }

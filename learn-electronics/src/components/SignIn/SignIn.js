@@ -5,6 +5,8 @@ import { signIn } from '../../services/LessonServices';
 import FormComponent from '../Form/FormComponent/FormComponent';
 import { useAuth } from '../../contexts/AuthContext';
 import { displayError } from '../Notify/Notify';
+import {useUser} from '../../contexts/UserContext';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const SignIn = () => {
   const [state, setState] = useState({
@@ -13,7 +15,10 @@ const SignIn = () => {
     username: '',
   });
 
+  const history = useHistory();
+
   const {setUsername} = useAuth();
+  const { setUserRole } = useUser();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -27,7 +32,8 @@ const SignIn = () => {
       .then((data) => {
         if (data.token && data.username) {
           setUsername(data.username);
-          //this.props.history.push('/lessons/0')
+          setUserRole(data.role);
+          history.push('/lessons/0')
         } else {
           displayError("Status error")
         }

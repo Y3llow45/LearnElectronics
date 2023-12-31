@@ -9,6 +9,7 @@ import SignIn from './components/SignIn/SignIn';
 import Footer from './components/Footer/Footer';
 import Edit from './components/Edit/Edit';
 import LessonDetail from './components/LessonDetail/LessonDetail';
+import {UserProvider} from './contexts/UserContext';
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <div className="app-container">
+      <UserProvider>
         <Header />
         <ToastContainer
           className="add-toast-container"
@@ -42,7 +44,8 @@ function App() {
             <Route path="/signin" component={SignIn} />
           </Switch>
         </div>
-    <Footer />
+      <Footer />
+    </UserProvider>
     </div>
   );
 }
