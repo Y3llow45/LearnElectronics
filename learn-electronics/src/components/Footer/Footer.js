@@ -20,7 +20,7 @@ function Footer() {
                     <a className='footer-link' href='/signup'>Visit Sign Up</a>
                 </div>
             </div>
-            <div><img className='to-the-top' src='../arrow.png' onClick={() => {
+            <div><img alt="Top" className='to-the-top' src='../arrow.png' onClick={() => {
                         window.scrollTo({
                             top: 0, behavior: 'smooth'
                           });

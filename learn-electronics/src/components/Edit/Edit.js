@@ -10,7 +10,7 @@ import toolbarStyles from '../Add/toolbarStyles.module.css';
 import createImagePlugin from '@draft-js-plugins/image';
 import ImageAdd from '../Add/CustomImageEditor/ImageAdd/ImageAdd';
 import './Edit.css';
-import { displayError, displayInfo } from '../Notify/Notify';
+import { displayError } from '../Notify/Notify';
 import convertFromHTML from 'html-to-draftjs';
 import { ContentState, EditorState } from 'draft-js';
 import DeleteConfirmationDialog from './DeleteConfirmationDialog/DeleteConfirmationDialog';

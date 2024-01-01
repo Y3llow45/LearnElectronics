@@ -1,5 +1,4 @@
 import './Home.css';
-import CanvasComponent from './Canvas/Canvas';
 
 function Home() {
   return (
@@ -12,7 +11,7 @@ function Home() {
         </div>
 
         <div className='canvas-div'>
-          <CanvasComponent />
+        <img src="./arduino.png" alt="arduino" id="arduino"></img>
           <p className="microcontroller-text home-wlc-text">Microcontrollers are tiny computers. They can control lights, thermostats, motors and many more.
             In our "Microcontrollers" category, you'll discover how these little devices can automate everyday tasks.
             </p>

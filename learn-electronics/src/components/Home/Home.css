@@ -68,4 +68,10 @@
 .arduino-canvas {
     touch-action: none;
     /* Add other styles as needed */
-  }
+}
+
+#arduino {
+    width: 455px !important;
+    max-width: 455px !important;
+    height: 315px;
+}

@@ -34,7 +34,7 @@ function Header() {
         } catch {
             setUserRole('user');
         }
-    }, []);
+    }, [setUserRole]);
     
 
     const logout = () => {
