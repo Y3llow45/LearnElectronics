@@ -50,7 +50,7 @@ app.get('/lesson/:title', async (req, res) => {
   }
 });
 
-app.get('/lessons', async (req, res) => {
+/*app.get('/lessons', async (req, res) => {
   try {
     const lessonData = await getLessons("");
     if (lessonData) {
@@ -61,7 +61,7 @@ app.get('/lessons', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
-});
+});*/
 
 app.get('/lessons/:page', async (req, res) => {
   try {

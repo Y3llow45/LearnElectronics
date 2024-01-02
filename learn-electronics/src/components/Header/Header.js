@@ -32,7 +32,7 @@ function Header() {
                     console.log(error);
                 });
         } catch {
-            setUserRole('user');
+            setUserRole('guest');
         }
     }, [setUserRole]);
     
@@ -64,6 +64,9 @@ function Header() {
                 ): null}
                 {username !== 'Guest' ? (
                     <NavLink to='/edit' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Edit lessons</NavLink>
+                ): null}
+                {username !== 'Guest' ? (
+                    <NavLink to='/blog' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Visit Blog</NavLink>
                 ): null}
                 <NavLink to='/signup' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Sign up</NavLink>
                 {username !== 'Guest' ? (

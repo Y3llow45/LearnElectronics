@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import './Lessons.css';
 import * as LessonService from '../../services/LessonServices';
 import SearchBar from './SearchBar/SearchBar';
-import { NavLink } from 'react-router-dom';
+import { renderLessonList } from "./RenderLessonList/RenderLessonList";
 import {displayError} from '../Notify/Notify' 
-
-const formatter = Intl.NumberFormat('en', {notation: 'compact'})
+import { renderPagination } from "./RenderPagination/RenderPagination";
 
 class Lessons extends Component {
   constructor(props) {
@@ -20,9 +19,6 @@ class Lessons extends Component {
   componentDidMount() {
       const { pageNum } = this.props.match.params;
       this.loadLessons(pageNum);
-  }
-  formatLikes(likes) {
-    return formatter.format(likes)
   }
   
   componentDidUpdate(prevProps) {
@@ -54,63 +50,14 @@ class Lessons extends Component {
     this.setState({ lessons: searchResults });
   };
 
-  renderLessonList = (lessons, selectedLessonId, handleLessonClick) => {
-    return (
-      <div className="lesson-list">
-      <div className="lesson-table-header">
-          <div className="lesson-number element-header">N</div>
-          <div className="lesson-title element-header element-header-title">Lesson title</div>
-          <div className="lesson-author element-header">Author</div>
-          <div className="lesson-likes element-header">Likes</div>
-      </div> 
-      {lessons.map((lesson, index) => (
-          <div className="lesson-row" key={lesson._id}>
-            <div className="lesson-number">{index + 1}</div>
-            <NavLink
-              to={`/lesson/${lesson.title}`}
-              className={`special-navlink lesson-title ${selectedLessonId === lesson._id ? 'selected' : ''}`}
-              onClick={() => handleLessonClick(lesson._id)}
-            >
-              {lesson.title}
-            </NavLink>
-            <div className="lesson-author">{lesson.user}</div>
-            <div className="lesson-likes">{this.formatLikes(lesson.likes)}</div>
-          </div>
-      ))}
-      </div>
-    );
-  }
-  
-  renderPagination(totalPages) {
-    const currentPage = parseInt(this.props.match.params.pageNum, 10);
-    const previousPage = currentPage - 1;
-    const nextPage = currentPage + 1;
-
-    return (
-      <div className="lesson-pagination">
-        {currentPage > 0 ? (
-          <NavLink className={'special-navlink'} to={`/lessons/${previousPage}`}>
-          Previous
-        </NavLink>    
-        ) : <span className="grey-span">Previous</span>}
-        <span className="current-page">{currentPage + 1}</span>
-        {currentPage < totalPages - 1 ? (
-          <NavLink className={'special-navlink'} to={`/lessons/${nextPage}`}>
-            Next
-          </NavLink>
-        ) : <span className="grey-span">Next</span>}
-      </div>
-    );
-  }
-
     render() {
       const { lessons, selectedLessonId } = this.state;
       return (
         <div>
         <SearchBar onSearchResults={this.handleSearchResults}/>
           <div className="lessons-container">
-            {lessons.length === 0 ? <p style={{"textAlign": "center"}}>No results</p> : this.renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
-            {this.renderPagination(this.state.totalPages)}
+            {lessons.length === 0 ? <p style={{"textAlign": "center"}}>No results</p> : renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
+            {renderPagination(this.state.totalPages, this.props.match.params.pageNum)}
           </div>
         </div>
         );
