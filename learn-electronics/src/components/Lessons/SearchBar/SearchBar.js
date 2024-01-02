@@ -61,6 +61,7 @@ class SearchBar extends Component {
                     <option value="electric-components">Electric Components</option>
                     <option value="microcontrollers">Microcontrollers</option>
                     <option value="liked">Liked</option>
+                    {this.props.options}
                 </select>
                 <button onClick={this.handleSearch.bind(this)}>Search</button>
             </div>

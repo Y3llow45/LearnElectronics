@@ -29,18 +29,18 @@ class Lessons extends Component {
   }
 
   loadLessons(page) {
-      LessonService.getAll(page)
-        .then((res) => {
-          if (res.lessons && Array.isArray(res.lessons)) {
-            this.setState({
-              lessons: res.lessons,
-              totalPages: res.totalPages
-            });
-          } else {
-            displayError('No response from server')
-          }
-        })
-        .catch((error) => console.log(error));
+    LessonService.getAll(page)
+      .then((res) => {
+        if (res.lessons && Array.isArray(res.lessons)) {
+          this.setState({
+            lessons: res.lessons,
+            totalPages: res.totalPages
+          });
+        } else {
+          displayError('No response from server')
+        }
+      })
+      .catch((error) => console.log(error));
   }
 
   handleLessonClick = (lessonId) => {
@@ -49,19 +49,19 @@ class Lessons extends Component {
   handleSearchResults = (searchResults) => {
     this.setState({ lessons: searchResults });
   };
-
-    render() {
-      const { lessons, selectedLessonId } = this.state;
-      return (
-        <div>
+  
+  render() {
+    const { lessons, selectedLessonId } = this.state;
+    return (
+      <div>
         <SearchBar onSearchResults={this.handleSearchResults}/>
-          <div className="lessons-container">
-            {lessons.length === 0 ? <p style={{"textAlign": "center"}}>No results</p> : renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
-            {renderPagination(this.state.totalPages, this.props.match.params.pageNum)}
-          </div>
+        <div className="lessons-container">
+          {lessons.length === 0 ? <p style={{"textAlign": "center"}}>No results</p> : renderLessonList(lessons, selectedLessonId, this.handleLessonClick)}
+          {renderPagination(this.state.totalPages, this.props.match.params.pageNum)}
         </div>
-        );
-    }
+      </div>
+      );
+  }
 }
 
 export default Lessons;
