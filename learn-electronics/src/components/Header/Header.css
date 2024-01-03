@@ -1,6 +1,6 @@
 .nav-bar {
     display: flex;
-    background-color: #17242fe8;
+    background-color: rgb(255, 240, 240);
     text-align: center;
     padding-bottom: 10px;
     padding-top: 5px;
@@ -12,7 +12,7 @@
 .nav-h2-first{
     font-size: 1.9rem;
     margin-left: 3rem;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     margin-top: 5px;
     margin-bottom: 0px;
     white-space: nowrap;
@@ -27,28 +27,27 @@
     white-space: nowrap;
     color: hsl(185, 62%, 45%);
     font-family: "Source Sans Pro", "Arial", sans-serif;
-    text-shadow: -5px -5px 0 #ffffff, 5px -5px 0 #ffffff, -5px 5px 0 #ffffff, 5px 5px 0 #ffffff;
 }
-
-
 
 .animate-charcter
 {
   background-image: linear-gradient(
     -225deg,
-    hsl(185, 62%, 45%) 0%,
-    #326fad 29%,
-    #696ccb 67%,
-    hsl(185, 62%, 45%) 100%
+    hsl(185, 56%, 60%) 0%,
+    hsl(193, 48%, 54%) 17%,
+    hsl(222, 41%, 47%) 34%,
+    hsl(248, 31%, 52%) 50%,
+    hsl(222, 41%, 47%) 64%,
+    hsl(193, 48%, 54%) 81%,
+    hsl(185, 56%, 60%) 100%
   );
   background-clip: border-box;
   background-size: 200% auto;
   color: #fff;
   background-clip: text;
-    -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: textclip 2s linear infinite;
+  animation: textclip 6s linear infinite;
   display: inline-block;
 }
 
@@ -57,9 +56,6 @@
     background-position: -200% center;
   }
 }
-
-
-
 
 .nav-link{
     text-decoration: none;
@@ -89,7 +85,7 @@
     /*margin-left: 70px;*/
     margin-left: 20px;
     white-space: nowrap;
-    color: #ffffff;
+    color: #000000;
 }
 
 .menu-icon{
