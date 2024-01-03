@@ -26,8 +26,12 @@
     margin-right: 125px;
 }
 
+.firstDiv {
+    display: flex;
+}
+
 .big-text {
-    width: 78%;
+    margin-right: 5% !important;
     margin: auto;
 }
 

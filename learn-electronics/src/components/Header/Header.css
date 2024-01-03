@@ -1,6 +1,6 @@
 .nav-bar {
     display: flex;
-    background-color: #fff;
+    background-color: #17242fe8;
     text-align: center;
     padding-bottom: 10px;
     padding-top: 5px;
@@ -12,7 +12,7 @@
 .nav-h2-first{
     font-size: 1.9rem;
     margin-left: 3rem;
-    color: black;
+    color: rgb(255, 255, 255);
     margin-top: 5px;
     margin-bottom: 0px;
     white-space: nowrap;
@@ -27,6 +27,7 @@
     white-space: nowrap;
     color: hsl(185, 62%, 45%);
     font-family: "Source Sans Pro", "Arial", sans-serif;
+    text-shadow: -5px -5px 0 #ffffff, 5px -5px 0 #ffffff, -5px 5px 0 #ffffff, 5px 5px 0 #ffffff;
 }
 
 
@@ -88,6 +89,7 @@
     /*margin-left: 70px;*/
     margin-left: 20px;
     white-space: nowrap;
+    color: #ffffff;
 }
 
 .menu-icon{

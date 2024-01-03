@@ -3,8 +3,10 @@ import './Home.css';
 function Home() {
   return (
       <div className="home-wlc-text-div">
-        <p className="home-wlc-text big-text">At Learn Electronics, we're your gateway to the exciting world of electronics, microcontrollers, and more. Whether you're a beginner or a pro, our platform offers resources to help you explore and learn!</p>
-    
+        <div className="firstDiv">
+          <p className="home-wlc-text big-text">At Learn Electronics, we're your gateway to the exciting world of electronics, microcontrollers, and more. Whether you're a beginner or a pro, our platform offers resources to help you explore and learn!</p>
+          <img src='../homeimage.png'></img>
+        </div>
         <div className='el-components-div'>
           <p className='home-wlc-text el-components-text'>Electric components are the building blocks of electronics. They are the tiny parts that come together to create circuits and devices.</p>
           <img src='../c.jpg' alt='somet'></img>
