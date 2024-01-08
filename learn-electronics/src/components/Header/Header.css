@@ -1,6 +1,6 @@
 .nav-bar {
     display: flex;
-    background-color: rgb(255, 240, 240);
+    background-color: #DDE9F5;
     text-align: center;
     padding-bottom: 10px;
     padding-top: 5px;
@@ -12,7 +12,7 @@
 .nav-h2-first{
     font-size: 1.9rem;
     margin-left: 3rem;
-    color: rgb(0, 0, 0);
+    color: black;
     margin-top: 5px;
     margin-bottom: 0px;
     white-space: nowrap;
@@ -85,7 +85,7 @@
     /*margin-left: 70px;*/
     margin-left: 20px;
     white-space: nowrap;
-    color: #000000;
+    color:  black;
 }
 
 .menu-icon{
