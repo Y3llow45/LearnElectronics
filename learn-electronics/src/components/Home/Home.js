@@ -1,18 +1,32 @@
 import './Home.css';
 
-function Home() {
+const Home = () => {
   return (
-      <div className="home-wlc-text-div">
-        <div className="firstDiv">
-          <p className="home-wlc-text big-text">At Learn Electronics, we're your gateway to the exciting world of electronics, microcontrollers, and more. Whether you're a beginner or a pro, our platform offers resources to help you explore and learn!</p>
-          <img src='../homeimage.png'></img>
-        </div>
-        <div className='el-components-div'>
-          <p className='home-wlc-text el-components-text'>Electric components are the building blocks of electronics. They are the tiny parts that come together to create circuits and devices.</p>
-          <img src='../c.jpg' alt='somet'></img>
-        </div>
+    <div>
+      <div class="learning-path">
+          <div class="topic" id="electrons">Electrons</div>
+          <div class="connector"></div>
+          <div class="topic" id="resistance">Resistance, Current, Voltage</div>
+      </div>
+    </div>
+)}
 
-        <div className='canvas-div'>
+export default Home;
+
+/*<div className="home-wlc-text-div">
+          <div class="learning-path">
+            <div class="topic" id="electrons">Electrons</div>
+            <div class="connector"></div>
+            <div class="topic" id="resistance">Resistance, Current, Voltage</div>
+          </div>
+          <div className="firstDiv">
+            <p className="home-wlc-text big-text">At Learn Electronics, we're your gateway to the exciting world of electronics, microcontrollers, and more. Whether you're a beginner or a pro, our platform offers resources to help you explore and learn!</p>
+            <img src='../homeimage.png' alt="homeimage"></img>
+          </div>
+          <div className='el-components-div'>
+            <p className='home-wlc-text el-components-text'>Electric components are the building blocks of electronics. They are the tiny parts that come together to create circuits and devices.</p>
+            <img src='../c.jpg' alt='somet'></img>
+          </div> <div className='canvas-div'>
         <img src="./arduino.png" alt="arduino" id="arduino"></img>
           <p className="microcontroller-text home-wlc-text">Microcontrollers are tiny computers. They can control lights, thermostats, motors and many more.
             In our "Microcontrollers" category, you'll discover how these little devices can automate everyday tasks.
@@ -27,8 +41,4 @@ function Home() {
             <img className='img-bottom' src='../2.png' alt='somet'></img>
             </div>
         </div>
-      </div>
-  );
-}
-
-export default Home;
+      </div> */
