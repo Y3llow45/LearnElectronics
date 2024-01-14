@@ -5,36 +5,129 @@ const Home = () => {
     <div>
       <div class="learning-path">
         <div class="horizontal-div">
-          <div class="empty-border"></div>
+          <div class="empty-border"><div class="empty-topic"></div></div>
+          <div class="emptyHconnector"></div>
           <div class="topic-border">
             <div class="topic" id="electrons">Electrons</div>
           </div>
-          <div class="empty-border"></div>
+          <div class="emptyHconnector"></div>
+          <div class="empty-border"><div class="empty-topic"></div></div>
         </div>
+
         <div class="connector"></div>
 
         <div class="horizontal-div">
         <div class="topic-border">
             <div class="topic" id="electrons">Electricity safety</div>
           </div>
-          <div class="connector"></div>
+          <div class="Hconnector"></div>
           <div class="topic-border">
             <div class="topic" id="resistance">Resistance, Current, Voltage</div>
+          </div>
+          <div class="emptyHconnector"></div>
+          <div class="empty-border"><div class="empty-topic"></div></div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="horizontal-div">
+        <div class="empty-border"><div class="empty-topic"></div></div>
+          <div class="emptyHconnector"></div>
+          <div class="topic-border">
+            <div class="topic" id="signal">AC, DC, PWM</div>
+          </div>
+          <div class="emptyHconnector"></div>
+          <div class="empty-border"><div class="empty-topic"></div></div>
+        </div>
+        
+        <div class="connector"></div>
+
+        <div class="horizontal-div">
+        <div class="empty-border"><div class="empty-topic"></div></div>
+          <div class="emptyHconnector"></div>
+          <div class="topic-border">
+            <div class="topic" id="signal">Electromagnetism</div>
+          </div>
+          <div class="emptyHconnector"></div>
+          <div class="empty-border"><div class="empty-topic"></div></div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="horizontal-div">
+        <div class="topic-border">
+            <div class="topic" id="electrons">IC's</div>
+          </div>
+          <div class="Hconnector"></div>
+          <div class="topic-border">
+            <div class="topic" id="resistance">Electric components</div>
+          </div>
+          <div class="Hconnector"></div>
+          <div class="topic-border">
+            <div class="topic" id="resistance">Extra components</div>
+          </div>
+        </div>
+
+        <div class="horizontal-div">
+          <div class="connector"></div>
+          <div class="div-space"></div>
+          <div class="connector"></div>
+          <div class="div-space"></div>
+          <div class="emptyconnector"></div>
+        </div>
+
+        <div class="horizontal-div">
+        <div class="topic-border">
+            <div class="topic" id="electrons">Microcontrollers</div>
+          </div>
+          <div class="emptyHconnector"></div>
+          <div class="topic-border">
+            <div class="topic" id="resistance">Basic circuits</div>
+          </div>
+          <div class="Hconnector"></div>
+          <div class="topic-border">
+            <div class="topic" id="resistance">Other resources</div>
           </div>
         </div>
 
         <div class="connector"></div>
-        <div class="topic-border">
-          <div class="topic" id="resistance">AC, DC, PWM</div>
+
+        <div class="horizontal-div">
+        <div class="empty-border"><div class="empty-topic"></div></div>
+          <div class="emptyHconnector"></div>
+          <div class="topic-border">
+            <div class="topic" id="signal">Oscillation and frequency</div>
+          </div>
+          <div class="Hconnector"></div>
+          <div class="topic-border">
+            <div class="topic" id="signal">Tesla coil</div>
+          </div>
         </div>
+
         <div class="connector"></div>
-        <div class="topic-border">
-          <div class="topic" id="resistance">Electric components</div>
+
+        <div class="horizontal-div">
+        <div class="empty-border"><div class="empty-topic"></div></div>
+          <div class="emptyHconnector"></div>
+          <div class="topic-border">
+            <div class="topic" id="signal">Laws and formulas</div>
+          </div>
+          <div class="emptyHconnector"></div>
+          <div class="empty-border"><div class="empty-topic"></div></div>
         </div>
+
         <div class="connector"></div>
-        <div class="topic-border">
-          <div class="topic" id="resistance">Basic circuits</div>
+
+        <div class="horizontal-div">
+        <div class="empty-border"><div class="empty-topic"></div></div>
+          <div class="emptyHconnector"></div>
+          <div class="topic-border">
+            <div class="topic" id="signal">Advanced circuits</div>
+          </div>
+          <div class="emptyHconnector"></div>
+          <div class="empty-border"><div class="empty-topic"></div></div>
         </div>
+
       </div>
     </div>
 )}

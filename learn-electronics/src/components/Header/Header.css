@@ -283,6 +283,29 @@ body {
     background-color: #3498db;
 }
 
+.emptyconnector {
+    width: 5px;
+    height: 20px;
+    margin: auto;
+}
+
+.Hconnector {
+    width: 20px;
+    height: 5px;
+    margin: auto;
+    background-color: #3498db;
+}
+
+.emptyHconnector {
+    width: 20px;
+    height: 5px;
+    margin: auto;
+}
+
+.div-space {
+    width: 179px;
+}
+
 #resistance {
     left: 200px;
 }
@@ -300,11 +323,19 @@ body {
 .horizontal-div {
     display: flex;
     flex-direction: row;
-    width: 360px;
+    width: auto;
     margin: auto;
 }
 
 .empty-border {
     width: 164px;
     height: 74px;
+    margin: auto;
+}
+
+.empty-topic {
+    width: 150px;
+    height: 60px;
+    margin: auto;
+    margin-top: 7px;
 }
