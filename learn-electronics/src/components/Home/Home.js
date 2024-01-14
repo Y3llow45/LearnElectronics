@@ -4,9 +4,37 @@ const Home = () => {
   return (
     <div>
       <div class="learning-path">
-          <div class="topic" id="electrons">Electrons</div>
+        <div class="horizontal-div">
+          <div class="empty-border"></div>
+          <div class="topic-border">
+            <div class="topic" id="electrons">Electrons</div>
+          </div>
+          <div class="empty-border"></div>
+        </div>
+        <div class="connector"></div>
+
+        <div class="horizontal-div">
+        <div class="topic-border">
+            <div class="topic" id="electrons">Electricity safety</div>
+          </div>
           <div class="connector"></div>
-          <div class="topic" id="resistance">Resistance, Current, Voltage</div>
+          <div class="topic-border">
+            <div class="topic" id="resistance">Resistance, Current, Voltage</div>
+          </div>
+        </div>
+
+        <div class="connector"></div>
+        <div class="topic-border">
+          <div class="topic" id="resistance">AC, DC, PWM</div>
+        </div>
+        <div class="connector"></div>
+        <div class="topic-border">
+          <div class="topic" id="resistance">Electric components</div>
+        </div>
+        <div class="connector"></div>
+        <div class="topic-border">
+          <div class="topic" id="resistance">Basic circuits</div>
+        </div>
       </div>
     </div>
 )}
