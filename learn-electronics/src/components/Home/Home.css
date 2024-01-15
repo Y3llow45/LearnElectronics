@@ -79,3 +79,47 @@
     max-width: 455px !important;
     height: 315px;
 }
+
+
+
+ .sliding-container {
+    background-color: #1A242D;
+ }
+  .slides {
+    display: flex;
+    transition: transform 0.5s ease;
+    padding-top: 20px;
+  }
+  
+  .slide {
+    flex: 0 0 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 24px;
+  }
+  
+  .slide.active {
+    display: block;
+    transform: translateX(0);
+  }
+  
+  .slide img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .homecontrol {
+    background: #ffffff;
+    border: none;
+    width: 50px;
+    height: 10px;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
+.buttons {
+    text-align: center;
+    padding-bottom: 20px;
+}

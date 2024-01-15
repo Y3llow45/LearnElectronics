@@ -1,8 +1,45 @@
 import './Home.css';
+import React, { useState, useEffect } from 'react';
 
 const Home = () => {
+  const [slideIndex, setSlideIndex] = useState(0);
+
+  const slides = [
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Philips_N4422_-_power_supply_transformer-2098.jpg/330px-Philips_N4422_-_power_supply_transformer-2098.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Electronic_component_inductors.jpg/330px-Electronic_component_inductors.jpg',
+    'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.build-electronic-circuits.com%2Fwp-content%2Fuploads%2F2013%2F05%2Felectrolytic-capacitor.jpg&f=1&nofb=1&ipt=1d70c0f17be076547e735960b4a1bc9a59602c0f06b45ff9036fb78f45b4e46d&ipo=images',
+  ];
+
+  const handleButtonClick = (index) => {
+    setSlideIndex(index);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
   return (
     <div>
+
+      <div className="sliding-container">
+      <div className="slides" style={{ transform: `translateX(-${slideIndex * 100}vw)` }}>
+        {slides.map((slide, index) => (
+          <div key={index} className="slide">
+            <img src={slide} alt={`Slide ${index + 1}`} />
+          </div>
+        ))}
+      </div>
+      <div className="buttons">
+        {slides.map((_, index) => (
+          <button className="homecontrol" key={index} onClick={() => handleButtonClick(index)} />
+        ))}
+      </div>
+      </div>
+
       <div class="learning-path">
         <div class="horizontal-div">
           <div class="empty-border"><div class="empty-topic"></div></div>
