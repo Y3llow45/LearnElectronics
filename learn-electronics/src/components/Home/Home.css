@@ -84,6 +84,7 @@
 
  .sliding-container {
     background-color: #1A242D;
+    
  }
   .slides {
     display: flex;
@@ -122,4 +123,16 @@
 .buttons {
     text-align: center;
     padding-bottom: 20px;
+}
+
+.custom-shape-divider-top-1705344337 {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.big-text {
+    font-size: 40px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
 }

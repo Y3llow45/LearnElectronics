@@ -8,6 +8,8 @@ const Home = () => {
     'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Philips_N4422_-_power_supply_transformer-2098.jpg/330px-Philips_N4422_-_power_supply_transformer-2098.jpg',
     'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Electronic_component_inductors.jpg/330px-Electronic_component_inductors.jpg',
     'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.build-electronic-circuits.com%2Fwp-content%2Fuploads%2F2013%2F05%2Felectrolytic-capacitor.jpg&f=1&nofb=1&ipt=1d70c0f17be076547e735960b4a1bc9a59602c0f06b45ff9036fb78f45b4e46d&ipo=images',
+    'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fhobbycomponents.com%2F1794-large_default%2Fxl60009-dc-dc-step-up-boost-converter.jpg&f=1&nofb=1&ipt=c06f9cd2e5cd80fa52a17c398a9701ee980cdb922a12225caa486be74ab92b26&ipo=images',
+    'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fsktechworks.ca%2Fwp-content%2Fuploads%2F2020%2F08%2FL298-2-1534x1536.jpg&f=1&nofb=1&ipt=fa4c785318924bcd8576ffb006c9941027977212efd5d4c72acd4551ad80c6a2&ipo=images',
   ];
 
   const handleButtonClick = (index) => {
@@ -17,7 +19,7 @@ const Home = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 2000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [slides.length]);
@@ -39,6 +41,13 @@ const Home = () => {
         ))}
       </div>
       </div>
+
+      <div class="custom-shape-divider-top-1705344337">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill" fill='#1A242D'></path>
+        </svg>
+      </div>    
+      <p className='big-text'>Learning path</p>
 
       <div class="learning-path">
         <div class="horizontal-div">
