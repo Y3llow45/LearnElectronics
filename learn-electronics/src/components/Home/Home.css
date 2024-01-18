@@ -81,9 +81,9 @@
 }
 
 
-
  .sliding-container {
     background-color: #1A242D;
+    overflow-x: hidden;
     
  }
   .slides {
@@ -112,12 +112,16 @@
   }
   
   .homecontrol {
-    background: #c4c4c4;
+    background: #7e7e7e;
     border: none;
     width: 50px;
-    height: 10px;
+    height: 5px;
     margin: 0 5px;
     cursor: pointer;
+  }
+
+  .homecontrol.active {
+    background: #ffffff;
   }
   
 .buttons {

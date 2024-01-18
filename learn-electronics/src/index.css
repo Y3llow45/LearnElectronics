@@ -13,9 +13,9 @@ code {
     monospace;
 }
 
-#root {
+/*#root {
   overflow-x: hidden;
-}
+}*/
 
 /*background: linear-gradient(rgb(220, 255, 250), #fff, rgb(206, 254, 247));
   background-repeat: no-repeat;

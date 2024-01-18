@@ -27,6 +27,8 @@ const Home = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
+      //selected = document.getElementById()
+      //selected.style()
     }, 4000);
 
     return () => clearInterval(interval);
@@ -45,7 +47,7 @@ const Home = () => {
       </div>
       <div className="buttons">
         {slides.map((_, index) => (
-          <button className="homecontrol" key={index} onClick={() => handleButtonClick(index)} />
+          <button className={index === slideIndex ? 'homecontrol active' : 'homecontrol'} key={index} onClick={() => handleButtonClick(index)} />
         ))}
       </div>
       </div>
