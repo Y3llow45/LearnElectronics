@@ -1,9 +1,10 @@
 import './Home.css';
 import React, { useState, useEffect } from 'react';
+import Headroom from 'headroom.js';
 
 const Home = () => {
   const [slideIndex, setSlideIndex] = useState(0);
-
+  
   const slides = [
     './transformer.png',
     './inductor.png',
@@ -34,8 +35,28 @@ const Home = () => {
     return () => clearInterval(interval);
   }, [slides.length]);
 
+  useEffect(() => {
+    const myElement = document.querySelector('.headroom');
+
+    const headroom = new Headroom(myElement, {
+      offset: 205,
+      tolerance: 5,
+      classes: {
+        initial: 'animated',
+        pinned: 'slideDown',
+        unpinned: 'slideUp',
+      },
+    });
+
+    headroom.init();
+
+    return () => {
+      headroom.destroy();
+    };
+  }, []);
+
   return (
-    <div>
+    <div className="headroom">
       <div className="sliding-container">
       <div className="slides" style={{ transform: `translateX(-${slideIndex * 100}vw)` }}>
         {slides.map((slide, index, text) => (
