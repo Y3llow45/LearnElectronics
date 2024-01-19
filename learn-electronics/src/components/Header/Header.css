@@ -7,6 +7,9 @@
     flex: 1;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
 }
 
 .nav-h2-first{
@@ -203,7 +206,6 @@ body {
     fill: #000000;
 }
   
-
 .bm-overlay {
     display: none;
     
@@ -254,88 +256,3 @@ body {
 }*/
 
 
-.learning-path {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    margin-top: 20px;
-}
-
-.topic {
-    width: 150px;
-    height: 60px;
-    /*background-color: #3498db;*/
-    background-color: white;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    margin: auto;
-    margin-top: 7px;
-}
-
-.connector {
-    width: 5px;
-    height: 20px;
-    margin: auto;
-    background-color: #3498db;
-}
-
-.emptyconnector {
-    width: 5px;
-    height: 20px;
-    margin: auto;
-}
-
-.Hconnector {
-    width: 20px;
-    height: 5px;
-    margin: auto;
-    background-color: #3498db;
-}
-
-.emptyHconnector {
-    width: 20px;
-    height: 5px;
-    margin: auto;
-}
-
-.div-space {
-    width: 179px;
-}
-
-#resistance {
-    left: 200px;
-}
-
-.topic-border {
-    width: 164px;
-    height: 74px;
-    margin: auto;
-    border-radius: 12px;
-    background: #C9D6FF;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #f8d8d8, #C9D6FF);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #f8d8d8, #C9D6FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-.horizontal-div {
-    display: flex;
-    flex-direction: row;
-    width: auto;
-    margin: auto;
-}
-
-.empty-border {
-    width: 164px;
-    height: 74px;
-    margin: auto;
-}
-
-.empty-topic {
-    width: 150px;
-    height: 60px;
-    margin: auto;
-    margin-top: 7px;
-}

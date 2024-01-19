@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="app-container">
       <UserProvider>
-        <Header style={{ position: 'fixed' }}/>
+        <Header/>
         <ToastContainer
           className="add-toast-container"
           position="top-right"
