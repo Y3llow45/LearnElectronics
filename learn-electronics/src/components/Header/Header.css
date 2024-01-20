@@ -1,6 +1,7 @@
 .nav-bar {
     display: flex;
-    background-color: #DDE9F5;
+    /*background-color: #DDE9F5;*/
+    background-color: #ffffff;
     text-align: center;
     padding-bottom: 10px;
     padding-top: 5px;
@@ -10,6 +11,7 @@
     position: fixed;
     width: 100%;
     z-index: 2;
+    box-shadow: 0px  .1px 4px #1A242D;
 }
 
 .nav-h2-first{

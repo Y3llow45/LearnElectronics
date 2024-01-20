@@ -20,6 +20,7 @@ function App() {
     <div className="app-container">
       <UserProvider>
         <Header/>
+        <div style={{paddingTop: '48px'}}></div>
         <ToastContainer
           className="add-toast-container"
           position="top-right"

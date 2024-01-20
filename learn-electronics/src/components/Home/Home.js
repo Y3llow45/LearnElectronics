@@ -13,6 +13,14 @@ const Home = () => {
   ];
 
   const descriptions = [
+    'A transformer is a passive component that transfers electrical energy from one electrical circuit to another',
+    'A passive two-terminal electrical component that stores energy in a magnetic field when electric current flows through it.',
+    'A capacitor is an electronic device that stores electrical energy in an electric field',
+    'An electronic circuit or electromechanical device that converts a source of direct current (DC) from one voltage level to another',
+    'An H-bridge is an electronic circuit that switches the polarity of a voltage applied to a load.'
+  ]
+
+  const titles = [
     'How transformers work?',
     'Check out this inductor tutorial!',
     'How to charger a capacitor?',
@@ -27,9 +35,7 @@ const Home = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
-      //selected = document.getElementById()
-      //selected.style()
-    }, 4000);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, [slides.length]);
@@ -40,7 +46,11 @@ const Home = () => {
       <div className="slides" style={{ transform: `translateX(-${slideIndex * 100}vw)` }}>
         {slides.map((slide, index, text) => (
           <div key={index} className="slide">
-            <h2>{descriptions[index]}</h2>
+            <div className='little-slide'>
+              <p className='slide-title'>{titles[index]}</p>
+              <p className='slide-description'>{descriptions[index]}</p>
+              <button className='slide-link'>Read more </button>
+            </div>
             <img src={slide} alt={`Slide ${index + 1}`} />
           </div>
         ))}
@@ -52,14 +62,28 @@ const Home = () => {
       </div>
       </div>
 
-      <div class="custom-shape-divider-top-1705344337" style={{"height": "158px"}}>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path  fill='#1A242D' class="shape-fill" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,144C384,128,480,64,576,48C672,32,768,64,864,85.3C960,107,1056,117,1152,106.7C1248,96,1344,64,1392,48L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+      <div class="custom-shape-divider-top-1705344337" style={{"height": "200px"}}>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 70">
+        <path
+          fill="#1A242D"
+          className="shape-fill"
+          fill-opacity="1"
+          d="M0,35C120,55,240,35,360,30C480,25,600,35,720,35C840,35,960,25,1080,20C1200,15,1320,15,1440,35L1440,0L0,0Z"
+        ></path>
       </svg>
-
       </div>    
-      <p className='lp-text'>Learning path</p>
 
+      <div className='middle-home'>
+        <div><p>Explore lessons</p></div>
+        <div><p>Add lessons</p></div>
+        <div><p>Edit lessons</p></div>
+        <div><p>Other resources</p></div>
+        <div><p>Github</p></div>
+        <div><p>Distractions</p></div>
+        <div><p>Visit blog</p></div>
+      </div>
+
+      <p className='lp-text'>Learning path</p>
       <div class="learning-path">
         <div class="horizontal-div">
           <div class="empty-border"><div class="empty-topic"></div></div>

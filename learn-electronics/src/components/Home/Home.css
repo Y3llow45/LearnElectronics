@@ -98,7 +98,6 @@
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 24px;
 }
 
 .slide.active {
@@ -107,15 +106,15 @@
 }
 
 .slide img {
-  width: 100%;
-  height: auto;
+  height: 250px;
+  padding-top: 60px;
 }
 
 .homecontrol {
   background: #7e7e7e;
   border: none;
   width: 50px;
-  height: 5px;
+  height: 4px;
   margin: 0 5px;
   cursor: pointer;
 }
@@ -135,6 +134,7 @@
 }
 
 .lp-text {
+    margin-top: 0px;
     font-size: 40px;
     text-align: center;
     font-family: 'Roboto', sans-serif;
@@ -226,4 +226,30 @@
     height: 60px;
     margin: auto;
     margin-top: 7px;
+}
+
+.slide-title {
+    font-size: 40px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+.slide-description {
+    font-size: 20px;
+    width: 600px;
+}
+
+.little-slide {
+    margin-right: 20px;
+}
+
+.slide-link {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    height: 46px;
+    width: 200px;
+    font-size: 20px;
+    font-family:Arial, Helvetica, sans-serif;
 }
