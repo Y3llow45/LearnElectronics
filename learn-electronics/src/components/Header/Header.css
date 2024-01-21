@@ -12,6 +12,7 @@
     width: 100%;
     z-index: 2;
     box-shadow: 0px  .1px 4px #1A242D;
+    
 }
 
 .nav-h2-first{
@@ -95,12 +96,14 @@
 
 .nav-user-wellcome{
     font-size: 20px;
-    margin-top: 9px;
+    margin-top: 12px;
     margin-bottom: 0px;
     /*margin-left: 70px;*/
     margin-left: 20px;
     white-space: nowrap;
     color:  black;
+    font-weight: 600;
+    font-family: "Source Sans Pro", "Arial", sans-serif;
 }
 
 .menu-icon{

@@ -77,9 +77,9 @@ function Header() {
             <div className='right-div'>
                 <div className='nav-user'>
                     {username ? (
-                        <h3 className='nav-user-wellcome'>Welcome, {username}!</h3>
+                        <p className='nav-user-wellcome'>Welcome, {username}!</p>
                     ) : (
-                        <h3 className='nav-user-wellcome'>Welcome, Guest</h3>
+                        <p className='nav-user-wellcome'>Welcome, Guest</p>
                     )}
                 </div>
                 {userRole === 'admin' ? 

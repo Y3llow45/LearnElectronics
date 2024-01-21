@@ -22,33 +22,50 @@ class SignUp extends Component {
         handleInputChangeComponent(event, this.setState.bind(this));
     }
 
-    checkEmail = () => {
-        checkEmail(this.state.email)
+    checkEmail = async () => {
+        console.log('email check')
+        await checkEmail(this.state.email)
     }
 
-    checkUsername = () => {
-        checkUsername(this.state.username);
+    checkUsername = async () => {
+        console.log('username check')
+        await checkUsername(this.state.username);
     }
 
-    handleSignUp = (event) => {
+    handleSignUp = async (event) => {
+        try{
         event.preventDefault();
-        if(this.checkEmail()) {
-            displayInfo("Email already exists")
-        }else if(this.checkUsername()) {
-            displayInfo("Username already exists")
-        }else if(!passwordPattern.test(this.state.password)){
+        if(!passwordPattern.test(this.state.password)){
             displayInfo("Weak password")
+            return
+        }
+        const emailExists = await this.checkEmail();
+        if(emailExists) {
+            displayInfo("Email already exists")
+            console.log('email check 2')
+            return
+        }else if(!this.checkUsername()) {
+            displayInfo("Username already exists")
+            return
         }else {
             signUp(this.state.username, this.state.email, this.state.password)
                 .then(res => {
+                    console.log('send the req')
                     if(res.status === 201){
                         displaySuccess("Account created")
                         this.props.history.push('/signin')
-                    }else {
+                    }else if(res.status === 400){
+                        displayInfo(`${res.statusText}`)
+                    }
+                    else {
                         displayError("No response from server")
                     }
                 })
                 .catch((error) => console.log(error))
+        }
+        }
+        catch(error) {
+            displayInfo(`${error}`);
         }
     };
 

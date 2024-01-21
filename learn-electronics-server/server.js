@@ -66,6 +66,9 @@ app.get('/lesson/:title', async (req, res) => {
 app.get('/lessons/:page', async (req, res) => {
   try {
     const page = parseInt(req.params.page);
+    if(page < 0){
+      page = 0;
+    }
     const pageSize = 10;
     const skip = page * pageSize;
     const lessonCount = await Lesson.count();
@@ -181,9 +184,17 @@ app.get('/api/getUserLiked', verifyToken, async (req, res) => {
   }
 });
 
-app.post('/signup', (req, res) => {
+app.post('/signup',async (req, res) => {
   try{
     let { username, email, password } = req.body;
+    const testUsername = await User.find({username: username})
+    if (testUsername) {
+      return res.status(400).json({ message: 'Username already exists' });
+    }
+    const testEmail = await User.find({email: email})
+    if (testEmail) {
+      return res.status(400).json({ message: 'Email already exists' });
+    }
     bcrypt
       .hash(password, saltRounds)
       .then(hash => {

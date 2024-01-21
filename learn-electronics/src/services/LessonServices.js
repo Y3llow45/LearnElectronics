@@ -11,6 +11,9 @@ export const getLessonDetail = (title) => {
 }
 
 export const getAll = (pageNum) => {
+    if(pageNum < 0){
+        pageNum = 0;
+    }
     return fetch(`${url}lessons/${pageNum}`)
         .then(res => res.json()) 
         .then((data) => {
