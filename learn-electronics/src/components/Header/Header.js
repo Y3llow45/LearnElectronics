@@ -56,7 +56,7 @@ function Header() {
                 onStateChange={({ isOpen }) => setIsMenuOpen(isOpen)}
                 menuClassName="slide-menu"
                 right
-            >
+            > 
                 <div className='hamburger-links'><NavLink to='/' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Home</NavLink>
                 <NavLink to='/lessons/0' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Lessons</NavLink>
                 {username !== 'Guest' ? (

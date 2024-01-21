@@ -178,14 +178,14 @@
 }
 
 .Hconnector {
-    width: 20px;
+    width: 40px;
     height: 5px;
     margin: auto;
     background-color: #3498db;
 }
 
 .emptyHconnector {
-    width: 20px;
+    width: 40px;
     height: 5px;
     margin: auto;
 }
@@ -253,3 +253,31 @@
     font-size: 20px;
     font-family:Arial, Helvetica, sans-serif;
 }
+
+/*.middle-lessons {
+    border-radius: 2px;
+    border: 1px white solid;
+    background-color: #3498db;
+    color: white;
+    text-align: center;
+    
+}
+
+.long-div {
+    width: 250px;
+    height: 50px;
+}
+
+.short-div {
+    width: 125px;
+    height: 50px;
+}
+
+.middle-first {
+    display: flex;
+    justify-content: center;
+}
+
+.middle-home {
+    margin-bottom: 50px;
+}*/

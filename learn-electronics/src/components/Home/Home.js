@@ -62,7 +62,7 @@ const Home = () => {
       </div>
       </div>
 
-      <div class="custom-shape-divider-top-1705344337" style={{"height": "200px"}}>
+      <div class="custom-shape-divider-top-1705344337">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 70">
         <path
           fill="#1A242D"
@@ -73,15 +73,7 @@ const Home = () => {
       </svg>
       </div>    
 
-      <div className='middle-home'>
-        <div><p>Explore lessons</p></div>
-        <div><p>Add lessons</p></div>
-        <div><p>Edit lessons</p></div>
-        <div><p>Other resources</p></div>
-        <div><p>Github</p></div>
-        <div><p>Distractions</p></div>
-        <div><p>Visit blog</p></div>
-      </div>
+      
 
       <p className='lp-text'>Learning path</p>
       <div class="learning-path">
@@ -214,3 +206,15 @@ const Home = () => {
 )}
 
 export default Home;
+
+/*<div className='middle-home'>
+        <div className='middle-first'>
+          <div className='middle-lessons long-div'><p>Explore lessons</p></div>
+          <div className='middle-lessons short-div'><p>Add lessons</p></div>
+          <div className='middle-lessons short-div'><p>Edit lessons</p></div>
+        </div>
+        <div className='middle-first'>
+          <div className='middle-lessons long-div'><p>Other resources</p></div>
+          <div className='middle-lessons long-div'><p>Visit forum</p></div>
+        </div>
+      </div>*/
