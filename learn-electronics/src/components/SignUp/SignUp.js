@@ -49,36 +49,27 @@ class SignUp extends Component {
             displayInfo("Weak password")
             return
         }
-        const emailExists = await this.checkEmail()
-        if(emailExists) {
-            displayInfo("Email already exists")
-            console.log('email check 2')
-            return
-        }else if(!this.checkUsername()) {
-            displayInfo("Username already exists")
-            return
-        }else {
-            signUp(this.state.username, this.state.email, this.state.password)
-                .then(res => {
-                    console.log('send the req')
-                    if(res.status === 201){
-                        displaySuccess("Account created")
-                        this.props.history.push('/signin')
-                    }else if(res.status === 400){
-                        displayInfo(`${res.statusText}`)
-                    }
-                    else {
-                        displayError("No response from server")
-                    }
-                })
-                .catch((error) => console.log(error))
-        }
-        }
-        catch(error) {
-            displayInfo(`${error}`);
-        }
-    };
-
+        signUp(this.state.username, this.state.email, this.state.password)
+            .then(async (res) => {
+                const { message } = await res.json();
+                console.log(res)
+                console.log(res.status)
+                if(res.status === 201){
+                    displaySuccess("Account created")
+                    this.props.history.push('/signin')
+                }else if(res.status === 400){
+                    displayInfo(`${message}`)
+                }
+                else {
+                    displayError("No response from server")
+                }
+            })
+            .catch((error) => console.log(error))
+            }catch(error){
+                console.log(error)
+            }
+        };
+        
     render() {
         return (
             <div className="signup-container-border">

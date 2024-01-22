@@ -188,11 +188,11 @@ app.post('/signup',async (req, res) => {
   try{
     let { username, email, password } = req.body;
     const testUsername = await User.find({username: username})
-    if (testUsername) {
+    if (testUsername.length > 0) {
       return res.status(400).json({ message: 'Username already exists' });
     }
     const testEmail = await User.find({email: email})
-    if (testEmail) {
+    if (testEmail.length > 0) {
       return res.status(400).json({ message: 'Email already exists' });
     }
     bcrypt
@@ -202,6 +202,7 @@ app.post('/signup',async (req, res) => {
         newUser.save();
       })
       .catch((err) => {throw err})
+    console.log('done')
   }
   catch(error){
     res.statusMessage = `${error}`;
