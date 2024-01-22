@@ -18,6 +18,16 @@ class SignUp extends Component {
         };
     }
 
+    componentDidMount() {
+        document.getElementById("email").addEventListener("blur", this.checkEmail);
+        document.getElementById("username").addEventListener("blur", this.checkUsername);
+    }
+
+    componentWillUnmount() {
+        document.getElementById("email").removeEventListener("blur", this.checkEmail);
+        document.getElementById("username").removeEventListener("blur", this.checkUsername);
+    }
+
     handleInputChange = (event) => {
         handleInputChangeComponent(event, this.setState.bind(this));
     }
@@ -39,7 +49,7 @@ class SignUp extends Component {
             displayInfo("Weak password")
             return
         }
-        const emailExists = await this.checkEmail();
+        const emailExists = await this.checkEmail()
         if(emailExists) {
             displayInfo("Email already exists")
             console.log('email check 2')
@@ -82,7 +92,7 @@ class SignUp extends Component {
                             value={this.state.email}
                             onChange={this.handleInputChange}
                             className='input-form'
-                            onBlur={this.checkEmail}
+                            id="email"
                             required
                         />
                         <FormComponent 

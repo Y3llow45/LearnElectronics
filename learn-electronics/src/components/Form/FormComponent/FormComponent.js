@@ -9,7 +9,7 @@ const FormComponent = ({ username, password, handleInputChange, checkFunc }) => 
                 placeholder="Username"
                 value={username}
                 onChange={handleInputChange}
-                onBlur={checkFunc}
+                id="username"
                 className='input-form'
                 required
             />
