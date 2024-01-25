@@ -33,12 +33,10 @@ class SignUp extends Component {
     }
 
     checkEmail = async () => {
-        console.log('email check')
         await checkEmail(this.state.email)
     }
 
     checkUsername = async () => {
-        console.log('username check')
         await checkUsername(this.state.username);
     }
 
@@ -52,8 +50,6 @@ class SignUp extends Component {
         signUp(this.state.username, this.state.email, this.state.password)
             .then(async (res) => {
                 const { message } = await res.json();
-                console.log(res)
-                console.log(res.status)
                 if(res.status === 201){
                     displaySuccess("Account created")
                     this.props.history.push('/signin')

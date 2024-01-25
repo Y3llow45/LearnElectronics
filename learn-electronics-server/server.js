@@ -202,13 +202,12 @@ app.post('/signup',async (req, res) => {
         newUser.save();
       })
       .catch((err) => {throw err})
-    console.log('done')
   }
   catch(error){
     res.statusMessage = `${error}`;
     res.status(500).send();
   }
-  res.status(201).send();
+  res.status(201).json({message: 'Account created'});
 })
 
 app.post('/signin', async (req, res) => {
