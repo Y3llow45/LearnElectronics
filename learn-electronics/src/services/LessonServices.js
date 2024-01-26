@@ -107,16 +107,6 @@ export const signIn = (username, password, updateUsername) => {
         },
         body: JSON.stringify(user)
     })
-        .then(res => res.json())
-        .then(data => {
-            localStorage.setItem('token', data.token)
-            localStorage.setItem('username', data.username)
-            localStorage.setItem('liked', data.liked)
-            updateUsername(data.username);
-            displaySuccess('Logged in')
-            return data
-        })
-        .catch((error) => console.log(error));
 };
 
 export const add = (title, content, category) => {

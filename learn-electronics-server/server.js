@@ -50,19 +50,6 @@ app.get('/lesson/:title', async (req, res) => {
   }
 });
 
-/*app.get('/lessons', async (req, res) => {
-  try {
-    const lessonData = await getLessons("");
-    if (lessonData) {
-      res.status(200).json(lessonData);
-    } else {
-      res.status(404).json({ error: 'Data not found' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});*/
-
 app.get('/lessons/:page', async (req, res) => {
   try {
     const page = parseInt(req.params.page);
