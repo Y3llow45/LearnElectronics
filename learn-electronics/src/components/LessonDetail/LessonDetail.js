@@ -28,8 +28,9 @@ class LessonDetail extends Component {
       return
     }
     const likedData = localStorage.getItem('liked');
-    const likedIds = likedData ? JSON.parse(likedData) : [];
-    if (!likedIds.includes(this.state.lesson[0]._id)) {
+    try{
+      const likedIds = likedData ? JSON.parse(likedData) : [];
+      if (!likedIds.includes(this.state.lesson[0]._id)) {
         likedIds.push(this.state.lesson[0]._id);
         localStorage.setItem('liked', JSON.stringify(likedIds));
         try {
@@ -40,7 +41,7 @@ class LessonDetail extends Component {
         } catch(error) {
           console.log(error);
         }
-    }else {
+      }else {
         const updatedLikedIds = likedIds.filter(existingId => existingId !== this.state.lesson[0]._id);
         localStorage.setItem('liked', JSON.stringify(updatedLikedIds));
         try {
@@ -51,7 +52,10 @@ class LessonDetail extends Component {
         } catch(error) {
           console.log(error);
         }
-    }
+      }
+      }catch(err) {
+        console.log(err);
+      }
   }
   
   handleDeleteConfirmation = (confirmed) => {

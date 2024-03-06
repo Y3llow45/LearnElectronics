@@ -9,6 +9,9 @@ const generateToken = require('./services/genToken');
 const app = express();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+//const Jsoup = require('jssoup')
+//const sanitizeHtml = require('sanitize-html');
+//const DOMPurify = require('dompurify');
 
 const port = process.env.PORT;
 const AtlasUri = process.env.ATLASURI;
@@ -232,8 +235,17 @@ app.post('/signin', async (req, res) => {
 app.post('/add', verifyToken, async (req, res) => {
   const { title, content, category } = req.body;
   const username = req.username;
+  //const sanitizedContent = DOMPurify.sanitize(lesson[0].content);
+  //const sanitizedInput = Jsoup.clean(content, Jsoup.cleaner.safeLists.relaxed());
+  /*console.log(content)
+  const cleanInput = sanitizeHtml(content, {
+    allowedTags: ['p', 'a', 'h1', 'h1', 'h2', 'h3', 'h4', 'div', 'img', 'a', 'canvas'],
+    allowedAttributes: {},
+  });
+  console.log(cleanInput)*/
+  //safe = Jsoup.clean(unsafe, Whitelist.basic());
   try{
-    let newLesson = new Lesson({title:title, content:content, category:category, user: username});
+    let newLesson = new Lesson({title:title, content:cleanInput, category:category, user: username});
     await newLesson.save();
     res.status(201).json({message: 'created!'});
   }catch(error){

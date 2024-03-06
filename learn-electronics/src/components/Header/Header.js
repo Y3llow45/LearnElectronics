@@ -65,9 +65,6 @@ function Header() {
                 {username !== 'Guest' ? (
                     <NavLink to='/edit' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Edit lessons</NavLink>
                 ): null}
-                {username !== 'Guest' ? (
-                    <NavLink to='/blog' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Visit Blog</NavLink>
-                ): null}
                 <NavLink to='/signup' className='nav-link nav-link-hamburger' onClick={toggleMenu}>Sign up</NavLink>
                 {username !== 'Guest' ? (
                     <NavLink to='/signin' className='nav-link nav-link-hamburger' onClick={logout}>Log out</NavLink>
