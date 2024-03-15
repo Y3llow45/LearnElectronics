@@ -11,6 +11,7 @@ import createImagePlugin from '@draft-js-plugins/image';
 import ImageAdd from './CustomImageEditor/ImageAdd/ImageAdd';
 import './Add.css';
 import { displayError } from '../Notify/Notify';
+import { checkDuplicate } from '../../services/LessonServices';
 
 const imagePlugin = createImagePlugin();
 
@@ -38,6 +39,19 @@ class Add extends Component {
       editorState: createEditorStateWithText(text),
     };
   }
+
+  componentDidMount() {
+    document.getElementById("lesson-title").addEventListener("blur", this.checkLessonTitle);
+  }
+  
+  componentWillUnmount() {
+    document.getElementById("lesson-title").removeEventListener("blur", this.checkLessonTitle);
+  }
+
+  checkLessonTitle = async () => {
+    await checkDuplicate('Title',this.state.title)
+  }
+
   onChange = (editorState) => {
     this.setState({
       editorState,
@@ -81,6 +95,7 @@ class Add extends Component {
                 placeholder='title'
                 value={this.state.title}
                 onChange={this.handleInputChange}
+                id="lesson-title"
                 className='input-form add-input-form'
                 required
               />

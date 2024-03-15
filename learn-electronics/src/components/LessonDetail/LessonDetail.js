@@ -28,8 +28,13 @@ class LessonDetail extends Component {
       return
     }
     const likedData = localStorage.getItem('liked');
+    let likedIds = [];
     try{
-      const likedIds = likedData ? JSON.parse(likedData) : [];
+      if(!likedData.includes("[")) {
+        likedIds = likedData ? likedData.split(",").map(item => item.trim()) : [];
+      }else {
+        likedIds = likedData ? JSON.parse(likedData) : [];
+      }
       if (!likedIds.includes(this.state.lesson[0]._id)) {
         likedIds.push(this.state.lesson[0]._id);
         localStorage.setItem('liked', JSON.stringify(likedIds));

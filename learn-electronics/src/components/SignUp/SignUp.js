@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './SignUp.css';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
-import { signUp, checkEmail, checkUsername } from '../../services/LessonServices';
+import { signUp, checkEmail, checkUsername, checkDuplicate } from '../../services/LessonServices';
 import FormComponent from '../Form/FormComponent/FormComponent';
 import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputChange';
 import { displayError, displayInfo, displaySuccess } from '../Notify/Notify';
@@ -33,11 +33,11 @@ class SignUp extends Component {
     }
 
     checkEmail = async () => {
-        await checkEmail(this.state.email)
+        await checkDuplicate('Email',this.state.email)
     }
 
     checkUsername = async () => {
-        await checkUsername(this.state.username);
+        await checkDuplicate('Username',this.state.username);
     }
 
     handleSignUp = async (event) => {

@@ -294,6 +294,26 @@ export const checkUsername = (username) => {
         );
 };
 
+export const checkDuplicate = (type,username) => {    
+    return fetch(`${url}check/${type}/${username}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })  
+        .then(res => res.json())
+        .then(data => {
+            if(data.message === 'true'){
+                displayInfo(`${type} already exists`)
+                return true;
+            }
+            return false;
+        })
+        .catch(
+            (error) => console.log(error)
+        );
+};
+
 /*
 export const update = (petId, pet) => {
     return fetch(`${url}/${petId}`, {

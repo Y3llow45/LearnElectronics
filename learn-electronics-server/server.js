@@ -327,23 +327,24 @@ app.put('/unlike/:id', verifyToken, async (req, res) => {
   }
 });
 
-app.get('/checkEmail/:email', async (req, res) => {
+app.get('/check/:type/:input', async (req, res) => {
   try{
-    let { email } = req.params;
-    const user = await User.findOne({ email: email });
-    if (!user) {
-      return res.status(200).json({ message: 'false' });
+    let { type, input } = req.params;
+    let user;
+    let lesson;
+    if(type == 'Username'){
+      user = await User.findOne({ username: input });
+    }else if(type == 'Email') {
+      user = await User.findOne({ email: input });
+    }else if(type == 'Title') {
+      lesson = await Lesson.findOne({title: input})
+      if (!lesson) {
+        return res.status(200).json({ message: 'false' });
+      }
+        return res.status(200).json({ message: 'true' });
+    }else {
+      return res.status(404).json({ message: 'No such type' });
     }
-      return res.status(200).json({ message: 'true' });
-  }catch(error){
-    res.status(500).json({ message: error.message});
-  }
-});
-
-app.get('/checkUsername/:username', async (req, res) => {
-  try{
-    let { username } = req.params;
-    const user = await User.findOne({ username: username });
     if (!user) {
       return res.status(200).json({ message: 'false' });
     }
