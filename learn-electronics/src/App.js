@@ -7,7 +7,6 @@ import Add from './components/Add/Add';
 import SignUp from './components/SignUp/SignUp';
 import SignIn from './components/SignIn/SignIn';
 import Footer from './components/Footer/Footer';
-import Blog from './components/Blog/Blog';
 import Edit from './components/Edit/Edit';
 import LessonDetail from './components/LessonDetail/LessonDetail';
 import {UserProvider} from './contexts/UserContext';
@@ -44,7 +43,6 @@ function App() {
             <Route path="/edit" component={Edit} />
             <Route path="/signup" component={SignUp} />
             <Route path="/signin" component={SignIn} />
-            <Route path="/blog" component={Blog} />
           </Switch>
         </div>
       <Footer />

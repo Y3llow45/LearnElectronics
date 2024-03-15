@@ -10,7 +10,7 @@ const app = express();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 //const Jsoup = require('jssoup')
-//const sanitizeHtml = require('sanitize-html');
+const sanitizeHtml = require('sanitize-html');
 //const DOMPurify = require('dompurify');
 
 const port = process.env.PORT;
@@ -237,14 +237,21 @@ app.post('/add', verifyToken, async (req, res) => {
   const username = req.username;
   //const sanitizedContent = DOMPurify.sanitize(lesson[0].content);
   //const sanitizedInput = Jsoup.clean(content, Jsoup.cleaner.safeLists.relaxed());
-  /*console.log(content)
+  console.log(content)
   const cleanInput = sanitizeHtml(content, {
     allowedTags: ['p', 'a', 'h1', 'h1', 'h2', 'h3', 'h4', 'div', 'img', 'a', 'canvas'],
     allowedAttributes: {},
   });
-  console.log(cleanInput)*/
+  console.log(cleanInput)
   //safe = Jsoup.clean(unsafe, Whitelist.basic());
   try{
+    lesson = await Lesson.findOne({title: title})
+    if (lesson) {
+      return res.status(400).json({ message: 'Title already exists' });
+    }
+    if(cleanInput.length > 10000 || cleanInput.length < 120){
+      return res.status(400).json({ message: 'Too short or too long' });
+    }
     let newLesson = new Lesson({title:title, content:cleanInput, category:category, user: username});
     await newLesson.save();
     res.status(201).json({message: 'created!'});

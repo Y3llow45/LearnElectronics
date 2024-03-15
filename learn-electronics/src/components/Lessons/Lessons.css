@@ -66,11 +66,6 @@
     color: white;
 }
 
-
-
-
-
-
 .content-lesson-title {
     font-size: 20px;
     padding-left: 30px
@@ -80,7 +75,7 @@
     padding: 10px;
     justify-content: left;
     display: grid;
-    font-size: 25px;
+    font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
 }

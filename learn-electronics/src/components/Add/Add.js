@@ -66,7 +66,7 @@ class Add extends Component {
     handleInputChangeComponent(event, this.setState.bind(this));
   };
 
-  handleAdd = (event) => {
+  handleAdd  = async(event) => {
     event.preventDefault();
     const contentState = this.state.editorState.getCurrentContent();
     const htmlContent = stateToHTML(contentState);
@@ -78,8 +78,13 @@ class Add extends Component {
       displayError(addErrors.contentLength);
     } 
     else {
-      add(this.state.title, htmlContent, this.state.category)
-      this.props.history.push('/lessons/0')
+      await checkDuplicate('Title',this.state.title)
+        .then((data) => {
+          if(!data) {
+            add(this.state.title, htmlContent, this.state.category)
+            this.props.history.push('/lessons/0')
+          }
+        })
     }
   };
 
