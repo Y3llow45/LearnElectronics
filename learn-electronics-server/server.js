@@ -237,14 +237,14 @@ app.post('/add', verifyToken, async (req, res) => {
   const username = req.username;
   //const sanitizedContent = DOMPurify.sanitize(lesson[0].content);
   //const sanitizedInput = Jsoup.clean(content, Jsoup.cleaner.safeLists.relaxed());
-  console.log(content)
+  //console.log(content)
   const cleanInput = sanitizeHtml(content, {
-    allowedTags: ['p', 'h1', 'h1', 'h2', 'h3', 'h4', 'div', 'img', 'canvas', 'figure', 'strong', 'bold', 'italic', 'src', 'em', 'code', 'u'],
+    allowedTags: ['p', 'h1', 'h1', 'h2', 'h3', 'h4', 'div', 'img', 'canvas', 'figure', 'strong', 'bold', 'italic', 'src', 'em', 'code', 'u', 'a'],
     allowedAttributes: {
       img: [ 'src' ]
     },
   });
-  console.log(cleanInput)
+  //console.log(cleanInput)
   //safe = Jsoup.clean(unsafe, Whitelist.basic());
   try{
     lesson = await Lesson.findOne({title: title})

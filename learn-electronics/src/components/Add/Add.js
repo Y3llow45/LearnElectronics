@@ -29,7 +29,7 @@ const addErrors = {
   title: 'Invalid Title. Use only A-z, 0-9 and ()-/',
   script: 'XSS is not allowed'
 }
-const titleRegex = /^[A-Za-z0-9 ]{1,40}$/;
+const titleRegex = /^[A-Za-z0-9 -]{1,40}$/;
 
 class Add extends Component {
   constructor(props) {

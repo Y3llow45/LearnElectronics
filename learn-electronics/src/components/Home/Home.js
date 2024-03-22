@@ -29,13 +29,23 @@ const Home = () => {
     `Let's boost some voltage with this circuit`,
     'Control mototrs with H-bridge',
   ]
+  
+  const links = [
+    'Transformer',
+    'Electromagnetic Induction',
+    'Capacitor',
+    'DC boost convertor',
+    'H-bridge',
+  ]
 
   const handleButtonClick = (index) => {
     setSlideIndex(index);
   };
 
   const visit = (index) => {
-    history.push(`/${index}`);
+    history.push(`/lesson/${links[index]}`);
+    //history.push('/lesson/Transformer');
+    //console.log(links[index])
   };
 
   useEffect(() => {
