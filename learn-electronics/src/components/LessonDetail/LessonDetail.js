@@ -16,6 +16,10 @@ class LessonDetail extends Component {
       isDeleteConfirmed: false,
     };
   }
+  redirectLessons = () => {
+    this.props.history.push('');
+  }
+  
   handleDelete = (event) => {
     event.preventDefault();
     this.setState({ showDeleteConfirmation: true });
@@ -68,6 +72,7 @@ class LessonDetail extends Component {
       if (confirmed) {
         //console.log(this.state.lesson[0]._id);
         deleteLesson(this.state.lesson[0]._id)
+        this.redirectLessons()
       }
     });
   };

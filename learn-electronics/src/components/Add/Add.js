@@ -56,6 +56,7 @@ class Add extends Component {
     this.setState({
       editorState,
     });
+    console.log(stateToHTML(this.state.editorState.getCurrentContent()));
   };
 
   focus = () => {
@@ -74,7 +75,7 @@ class Add extends Component {
       displayError(addErrors.errorEmpty);
     }else if(this.state.title.length > 40){
       displayError(addErrors.titleLength);
-    }else if(htmlContent.length < 120 || htmlContent.length > 10000) {
+    }else if(htmlContent.length < 120 || htmlContent.length > 100000) {
       displayError(addErrors.contentLength);
     } 
     else {

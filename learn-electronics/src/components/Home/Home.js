@@ -1,8 +1,10 @@
 import './Home.css';
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Home = () => {
   const [slideIndex, setSlideIndex] = useState(0);
+  const history = useHistory();
   
   const slides = [
     './transformer.png',
@@ -32,6 +34,10 @@ const Home = () => {
     setSlideIndex(index);
   };
 
+  const visit = (index) => {
+    history.push(`/${index}`);
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       setSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
@@ -49,7 +55,7 @@ const Home = () => {
             <div className='little-slide'>
               <p className='slide-title'>{titles[index]}</p>
               <p className='slide-description'>{descriptions[index]}</p>
-              <button className='slide-link'>Read more </button>
+              <button className='slide-link' onClick={() => visit(index)}>Read more</button>
             </div>
             <img src={slide} alt={`Slide ${index + 1}`} />
           </div>

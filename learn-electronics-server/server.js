@@ -239,8 +239,10 @@ app.post('/add', verifyToken, async (req, res) => {
   //const sanitizedInput = Jsoup.clean(content, Jsoup.cleaner.safeLists.relaxed());
   console.log(content)
   const cleanInput = sanitizeHtml(content, {
-    allowedTags: ['p', 'a', 'h1', 'h1', 'h2', 'h3', 'h4', 'div', 'img', 'a', 'canvas'],
-    allowedAttributes: {},
+    allowedTags: ['p', 'a', 'h1', 'h1', 'h2', 'h3', 'h4', 'div', 'img', 'a', 'canvas', 'figure', 'strong', 'bold', 'italic', 'src', 'em', 'code', 'u'],
+    allowedAttributes: {
+      img: [ 'src' ]
+    },
   });
   console.log(cleanInput)
   //safe = Jsoup.clean(unsafe, Whitelist.basic());
@@ -249,7 +251,7 @@ app.post('/add', verifyToken, async (req, res) => {
     if (lesson) {
       return res.status(400).json({ message: 'Title already exists' });
     }
-    if(cleanInput.length > 10000 || cleanInput.length < 120){
+    if(cleanInput.length > 100000 || cleanInput.length < 120){
       return res.status(400).json({ message: 'Too short or too long' });
     }
     let newLesson = new Lesson({title:title, content:cleanInput, category:category, user: username});
