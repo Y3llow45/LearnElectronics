@@ -26,8 +26,10 @@ const addErrors = {
   errorEmpty: 'Provide title and content',
   errorTitleExist: 'Lesson with such title already exist',
   contentLength: 'Content is too short or too long',
-  titleLength: 'Title is too long'
+  title: 'Invalid Title. Use only A-z, 0-9 and ()-/',
+  script: 'XSS is not allowed'
 }
+const titleRegex = /^[A-Za-z0-9]{1,40}$/;
 
 class Add extends Component {
   constructor(props) {
@@ -56,7 +58,7 @@ class Add extends Component {
     this.setState({
       editorState,
     });
-    console.log(stateToHTML(this.state.editorState.getCurrentContent()));
+    //console.log(stateToHTML(this.state.editorState.getCurrentContent()));
   };
 
   focus = () => {
@@ -73,11 +75,13 @@ class Add extends Component {
     const htmlContent = stateToHTML(contentState);
     if(this.state.title === '' || htmlContent === ''){
       displayError(addErrors.errorEmpty);
-    }else if(this.state.title.length > 40){
-      displayError(addErrors.titleLength);
+    }else if(!titleRegex.test(this.state.title)){
+      displayError(addErrors.title);
     }else if(htmlContent.length < 120 || htmlContent.length > 100000) {
       displayError(addErrors.contentLength);
-    } 
+    }else if(htmlContent.includes("<script") || htmlContent.includes("<?")) {
+      displayError(addErrors.script);
+    }
     else {
       await checkDuplicate('Title',this.state.title)
         .then((data) => {

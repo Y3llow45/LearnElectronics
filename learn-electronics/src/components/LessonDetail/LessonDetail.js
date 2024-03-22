@@ -106,7 +106,7 @@ class LessonDetail extends Component {
     const { lesson } = this.state;
     return (
       <div className="lesson-detail">
-        {lesson ? (
+        {lesson && lesson[0] ? (
           <div className="lesson-detail-center">
             <h1>{lesson[0].title}</h1> 
             <div dangerouslySetInnerHTML={{ __html: lesson[0].content }}></div>

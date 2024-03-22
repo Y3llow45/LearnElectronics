@@ -239,7 +239,7 @@ app.post('/add', verifyToken, async (req, res) => {
   //const sanitizedInput = Jsoup.clean(content, Jsoup.cleaner.safeLists.relaxed());
   console.log(content)
   const cleanInput = sanitizeHtml(content, {
-    allowedTags: ['p', 'a', 'h1', 'h1', 'h2', 'h3', 'h4', 'div', 'img', 'a', 'canvas', 'figure', 'strong', 'bold', 'italic', 'src', 'em', 'code', 'u'],
+    allowedTags: ['p', 'h1', 'h1', 'h2', 'h3', 'h4', 'div', 'img', 'canvas', 'figure', 'strong', 'bold', 'italic', 'src', 'em', 'code', 'u'],
     allowedAttributes: {
       img: [ 'src' ]
     },
