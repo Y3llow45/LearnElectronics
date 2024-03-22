@@ -29,7 +29,7 @@ const addErrors = {
   title: 'Invalid Title. Use only A-z, 0-9 and ()-/',
   script: 'XSS is not allowed'
 }
-const titleRegex = /^[A-Za-z0-9]{1,40}$/;
+const titleRegex = /^[A-Za-z0-9 ]{1,40}$/;
 
 class Add extends Component {
   constructor(props) {
@@ -73,6 +73,7 @@ class Add extends Component {
     event.preventDefault();
     const contentState = this.state.editorState.getCurrentContent();
     const htmlContent = stateToHTML(contentState);
+    console.log(htmlContent)
     if(this.state.title === '' || htmlContent === ''){
       displayError(addErrors.errorEmpty);
     }else if(!titleRegex.test(this.state.title)){
@@ -86,7 +87,7 @@ class Add extends Component {
       await checkDuplicate('Title',this.state.title)
         .then((data) => {
           if(!data) {
-            add(this.state.title, htmlContent, this.state.category)
+            add(this.state.title.trim(), htmlContent, this.state.category)
             this.props.history.push('/lessons/0')
           }
         })
