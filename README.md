@@ -3,6 +3,9 @@
 ![Bcrypt badge](https://img.shields.io/badge/bcrypt-5.1.1-blue)
 ![JWT badge](https://img.shields.io/badge/jsonwebtoken-9.0.2-purple)
 ![Mongoose badge](https://img.shields.io/badge/mongoose-7.4.5-lightgreen)
+![Static Badge](https://img.shields.io/badge/sanitizehtml-2.12.1-brown)
+![Static Badge](https://img.shields.io/badge/draftjs-0.11.7-orange)
+![Static Badge](https://img.shields.io/badge/React-18.2.0-blue)
 
 Explore the world of electricity with LearnElectronics. Learn about electrical components and how circuits work. You can learn or teach others by making lessons. 
 
