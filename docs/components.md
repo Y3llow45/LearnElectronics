@@ -30,19 +30,28 @@ User can add lesson with a click of a button
 Client side validations are made, lesson's content is converted to html and then send to LessonServices component which makes 
 request to the server to create the lesson
 ```javascript
-handleAdd = (event) => {
+handleAdd  = async(event) => {
     event.preventDefault();
     const contentState = this.state.editorState.getCurrentContent();
     const htmlContent = stateToHTML(contentState);
+    console.log(htmlContent)
     if(this.state.title === '' || htmlContent === ''){
       displayError(addErrors.errorEmpty);
-    }else if(this.state.title.length > 40){
-      displayError(addErrors.titleLength);
-    }else if(htmlContent.length < 120 || htmlContent.length > 10000) {
+    }else if(!titleRegex.test(this.state.title)){
+      displayError(addErrors.title);
+    }else if(htmlContent.length < 120 || htmlContent.length > 100000) {
       displayError(addErrors.contentLength);
-    } 
+    }else if(htmlContent.includes("<script") || htmlContent.includes("<?")) {
+      displayError(addErrors.script);
+    }
     else {
-      add(this.state.title, htmlContent, this.state.category)
+      await checkDuplicate('Title',this.state.title)
+        .then((data) => {
+          if(!data) {
+            add(this.state.title.trim(), htmlContent, this.state.category)
+            this.props.history.push('/lessons/0')
+          }
+        })
     }
   };
 ```
@@ -71,7 +80,6 @@ When user selects lesson it's content is converted from html to readable text wi
 handleLessonClick = (index, id) => {
   const selectedLesson = this.state.lessons[index];
   const editorState = convertHTMLToEditorContent(selectedLesson.content);
-  console.log(id)
   this.setState({
       selectedLessonId: id,
       title: selectedLesson.title,
@@ -115,18 +123,19 @@ Client side validations are made, lesson content is converted to html and then t
 which makes request to the server to edit the lesson
 ```javascript
 handleEdit = (event) => {
-  event.preventDefault();
-  const contentState = this.state.editorState.getCurrentContent();
-  const htmlContent = stateToHTML(contentState);
-  if(this.state.title === '' || htmlContent === ''){
-    displayError(addErrors.errorEmpty);
-  }else if(htmlContent.length < 120 || htmlContent.length > 5000) {
-    displayError(addErrors.contentLength);
-  }
-  else {
-    edit(this.state.selectedLessonId, this.state.title, htmlContent, this.state.category)
-  }
-};
+    event.preventDefault();
+    const contentState = this.state.editorState.getCurrentContent();
+    const htmlContent = stateToHTML(contentState);
+    if(this.state.title === '' || htmlContent === ''){
+      displayError(addErrors.errorEmpty);
+    }else if(htmlContent.length < 120 || htmlContent.length > 100000) {
+      displayError(addErrors.contentLength);
+    }
+    else {
+      edit(this.state.selectedLessonId, this.state.title, htmlContent, this.state.category)
+      this.props.history.push('/lessons/0')
+    }
+  };
 ```
 
 ## Footer component
@@ -243,34 +252,27 @@ Logged in users see all links in the burger menu.
 ```
 
 ## Home component
-This component shows welcoming texts, images of electronics and 3d arduino model.
-
-welcoming texts and images
-```javascript
-<p className="home-wlc-text big-text">At Learn Electronics, we're your gateway to the exciting world of electronics, microcontrollers,
-and more. Whether you're a beginner or a pro, our platform offers resources to help you explore and learn!</p>
-  <div className='el-components-div'>
-    <p className='home-wlc-text el-components-text'>Electric components are the building blocks of electronics. They are the tiny parts
-    that come together to create circuits and devices.</p>
-    <img src='../c.jpg'></img>
-  </div>
-```
-
-## Canvas component
-This component renders 3d arduino model in the Home page.
+Sliding tutorials. Deskriptions and titles for the lessons are in array. Using map function we can loop through them and display them one by one.
 
 ```javascript
-<Canvas dpr={[1,2]} camera={{fov:100}} className='arduino-canvas' shadows={false} >
-  <ambientLight intensity={0.5} />
-  <directionalLight position={[1, 1, 1]} intensity={1} />
-  <PresentationControls speed={2} global>
-    <Stage environment={null}>
-      <Suspense fallback={null}>
-        <Model scale={0.2} />
-      </Suspense>
-    </Stage>
-  </PresentationControls>
-</Canvas>
+<div className="sliding-container">
+      <div className="slides" style={{ transform: `translateX(-${slideIndex * 100}vw)` }}>
+        {slides.map((slide, index) => (
+          <div key={index} className="slide">
+            <div className='little-slide'>
+              <p className='slide-title'>{titles[index]}</p>
+              <p className='slide-description'>{descriptions[index]}</p>
+              <button className='slide-link' onClick={() => visit(index)}>Read more</button>
+            </div>
+            <img src={slide} alt={`Slide ${index + 1}`} />
+          </div>
+        ))}
+      </div>
+      <div className="buttons">
+        {slides.map((_, index) => (
+          <button className={index === slideIndex ? 'homecontrol active' : 'homecontrol'} key={index} onClick={() => handleButtonClick(index)} />
+        ))}
+      </div>
 ```
 
 ## LessonDetail component
@@ -401,35 +403,50 @@ This component performs search with keyword and category
 
 User can search by keyword, category or both
 ```javascript
-<input
-    type="text"
-    placeholder="Search for lessons..."
-    value={this.state.keyword}
-    onChange={this.onInputChangeHandler}
-/>
-<select value={this.state.category} onChange={this.onCategoryChangeHandler} className='searchbar-select'>
-    <option value="all">All Categories</option>
-    <option value="lessons">Lessons</option>
-    <option value="electric-components">Electric Components</option>
-    <option value="microcontrollers">Microcontrollers</option>
-</select>
-<button onClick={this.handleSearch.bind(this)}>Search</button>
+<div className="search-bar">
+    <input
+        type="text"
+        placeholder="Search for lessons..."
+        value={this.state.keyword}
+        onChange={this.onInputChangeHandler}
+    />
+    <select value={this.state.category} onChange={this.onCategoryChangeHandler} className='searchbar-select'>
+        <option value="all">All Categories</option>
+        <option value="lessons">Lessons</option>
+        <option value="electric-components">Electric Components</option>
+        <option value="microcontrollers">Microcontrollers</option>
+        <option value="liked">Liked</option>
+        {this.props.options}
+    </select>
+    <button onClick={this.handleSearch.bind(this)}>Search</button>
+</div>
 ```
 
 The search is performed with LessonServices component
 ```javascript
-handleSearch = (e) => {
-  e.preventDefault();
-  search(this.state.category, this.state.keyword)
-    .then(res => {
-      if (res && res.lessons) {
-          this.props.onSearchResults(res.lessons);
-      } else {
-          displayError("No response from server")
-      }
-    })
-    .catch(displayError("Server error while searching"))
-};
+handleSearch = async (e) => {
+        e.preventDefault();
+        try {
+            if(this.state.category === 'liked'){
+                const res = await getLiked()
+                if (res && res.lessons) {
+                    this.props.onSearchResults(res.lessons);
+                } else {
+                    displayError("No response from server");
+                }    
+            }else{
+                const res = await search(this.state.category, this.state.keyword);
+                if (res && res.lessons) {
+                    this.props.onSearchResults(res.lessons);
+                } else {
+                    displayError("No response from server");
+                }
+            }
+        } catch (error) {
+            console.error("Error while searching:", error);
+            displayError("Server error while searching");
+        }
+    };
 ```
 
 ## Notify component
@@ -535,7 +552,7 @@ Reuse of Form component and button to sign up
 </form>
 ```
 
-If user have an acount they can go to sing in page
+If user have an acount they can go to sign in page
 ```javascript
 <div className="signin-link">
   <p>Already have an account? <NavLink to="/signin">Sign In</NavLink></p>
@@ -595,7 +612,7 @@ const token = localStorage.getItem('token');
     .catch((error) => console.log(error));
 ```
 
-Creates accounts
+Creates accounts with POST request
 ```javascript
 let user = {
   username,
@@ -612,4 +629,4 @@ return fetch(`${url}signup`, {
 });
 ```
 
-Other functions work in similar way
+Not all functions are shown. The rest work in a similar way.
