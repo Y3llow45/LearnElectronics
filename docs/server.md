@@ -137,4 +137,32 @@ app.post('/signin', async (req, res) => {
 });
 ```
 
+This route creates new lessons. It uses sanitize-html library to remove non white listed tags and scripts that can cause XSS attack on other users. The lesson needs to have unique title or it won't be created.
+```javascript
+app.post('/add', verifyToken, async (req, res) => {
+  const { title, content, category } = req.body;
+  const username = req.username;
+  const cleanInput = sanitizeHtml(content, {
+    allowedTags: ['p', 'h1', 'h1', 'h2', 'h3', 'h4', 'div', 'img', 'canvas', 'figure', 'strong', 'bold', 'italic', 'src', 'em', 'code', 'u', 'a'],
+    allowedAttributes: {
+      img: [ 'src' ]
+    },
+  });
+  try{
+    lesson = await Lesson.findOne({title: title})
+    if (lesson) {
+      return res.status(400).json({ message: 'Title already exists' });
+    }
+    if(cleanInput.length > 100000 || cleanInput.length < 120){
+      return res.status(400).json({ message: 'Too short or too long' });
+    }
+    let newLesson = new Lesson({title:title, content:cleanInput, category:category, user: username});
+    await newLesson.save();
+    res.status(201).json({message: 'created!'});
+  }catch(error){
+    res.status(500).json({ message: error.message});
+  }
+});
+```
+
 All other routes work in a very similar way.
