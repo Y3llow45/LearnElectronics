@@ -4,7 +4,7 @@
 ![JWT badge](https://img.shields.io/badge/jsonwebtoken-9.0.2-purple)
 ![Mongoose badge](https://img.shields.io/badge/mongoose-7.4.5-lightgreen)
 
-Explore the world of electricity with LearnElectronics. Learn about electrical components and how circuits work. You can learn or teach others by making lessons. Electronics can be your future hoby or even job. 
+Explore the world of electricity with LearnElectronics. Learn about electrical components and how circuits work. You can learn or teach others by making lessons. 
 
 ## Description
 1. <a href="https://github.com/Y3llow45/LearnElectronics/blob/master/docs/front-end-structure.md">Front-end structure</a>
