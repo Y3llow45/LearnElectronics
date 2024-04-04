@@ -11,20 +11,17 @@
      - Edit lesson link - logged in
      - Log out link - logged in
 + Home page
-  - Welcome texts
-      - electronic components
-      - microcontrollers
-  - 3d Arduino model
-  - Electronics pictures
+  - Learning path
 + Lessons page
   - Search bar
       - keywords
       - category
+      - liked
   - Lessons list
       - title
       - author
       - likes
-  - Delete button - admin and moderators
+  - Delete button - author, admin and moderators
 + Lesson detail page
   - Lesson title
   - Lesson content
