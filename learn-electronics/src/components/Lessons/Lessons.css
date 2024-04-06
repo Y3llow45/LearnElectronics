@@ -144,3 +144,13 @@
         font-size: 12px;
     }
 }*/
+
+@media (max-width: 670px) {
+    /*font size 14px*/
+    .lesson-author, .lesson-likes, .lesson-title {
+        font-size: 14px !important;
+    }
+    .lesson-row > div {
+        font-size: 14px !important;
+    }
+}

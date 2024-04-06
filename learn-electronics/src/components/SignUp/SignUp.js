@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './SignUp.css';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
-import { signUp, checkEmail, checkUsername, checkDuplicate } from '../../services/LessonServices';
+import { signUp, checkDuplicate } from '../../services/LessonServices';
 import FormComponent from '../Form/FormComponent/FormComponent';
 import {handleInputChangeComponent} from '../Form/handleInputChange/handleInputChange';
 import { displayError, displayInfo, displaySuccess } from '../Notify/Notify';

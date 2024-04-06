@@ -33,8 +33,17 @@
     cursor: pointer;
 }
 
-@media(max-width: 708px){
+@media(max-width: 574px){
     .search-bar {
-        padding-left: 10%;
+        margin-left: 12%;
+    }
+}
+
+@media(max-width: 420px){
+    .input-search {
+        width: 44px !important;
+    }
+    .search-bar {
+        margin-left: 16.2%;
     }
 }

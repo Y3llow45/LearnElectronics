@@ -94,7 +94,7 @@ export const signUp = (username, email, password) => {
     });
 };
 
-export const signIn = (username, password, updateUsername) => {
+export const signIn = (username, password) => {
     let user = {
         username,
         password,

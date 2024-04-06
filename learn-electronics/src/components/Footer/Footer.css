@@ -95,3 +95,9 @@ a {
 .big-div {
   display: flex;
 }
+
+@media(max-width: 670px){
+  .tiny-div-hide {
+    display: none;
+  }
+}

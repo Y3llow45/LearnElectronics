@@ -9,7 +9,7 @@ function Footer() {
             <p>Made with <span className='heart' role='img' aria-label='heart'>❤️</span> by <a className='username' href='https://github.com/Y3llow45'>Y3llow45</a></p>
             <div className='big-div'>
             <div className='footer-div'>
-                <div className='tiny-div'>
+                <div className='tiny-div tiny-div-hide'>
                     <a className='footer-link' href='https://github.com/Y3llow45/LearnElectronics'>About this project</a>
                     <a className='footer-link' href='https://github.com/Y3llow45/LearnElectronics/issues/new'>Report issue/bug</a>
                     <a className='footer-link' href='https://github.com/Y3llow45/LearnElectronics/pulls'>Contribute to this project</a>

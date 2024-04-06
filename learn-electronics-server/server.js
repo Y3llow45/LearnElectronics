@@ -266,7 +266,7 @@ app.put('/edit', verifyToken, async (req, res) => {
       return res.status(404).json({ message: 'Lesson not found' });
     }
     if (lesson.user === username) {
-      const cleanInput = sanitizeHtml(lesson.content, {
+      const cleanInput = sanitizeHtml(content, {
         allowedTags: ['p', 'h1', 'h1', 'h2', 'h3', 'h4', 'div', 'img', 'canvas', 'figure', 'strong', 'bold', 'italic', 'src', 'em', 'code', 'u', 'a'],
         allowedAttributes: {
           img: [ 'src' ]

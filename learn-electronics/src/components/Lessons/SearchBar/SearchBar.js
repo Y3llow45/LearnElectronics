@@ -54,6 +54,7 @@ class SearchBar extends Component {
                     placeholder="Search for lessons..."
                     value={this.state.keyword}
                     onChange={this.onInputChangeHandler}
+                    className='input-search'
                 />
                 <select value={this.state.category} onChange={this.onCategoryChangeHandler} className='searchbar-select'>
                     <option value="all">All Categories</option>

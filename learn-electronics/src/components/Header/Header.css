@@ -151,12 +151,18 @@ body {
     }
 }
 
-@media (max-width: 1130px) {
+@media (max-width: 670px) {
     .nav-user {
         display: none;
     }
     .right-div {
         width: 5%;
+    }
+    .nav-h2-first {
+        font-size: 25px;
+    }
+    .animate-charcter {
+        font-size: 25px;
     }
 }
 /*@media(max-width: 1242px) {
@@ -166,10 +172,7 @@ body {
     }
 }*/
 
-@media (max-width: 1000px) {
-    .nav-user{
-        display: none;
-    }
+@media (max-width: 1152px) {
     .nav-h2-first{
         margin-left: 1.2rem;
     }
