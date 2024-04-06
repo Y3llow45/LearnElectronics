@@ -60,7 +60,7 @@ const Home = () => {
     <div>
       <div className="sliding-container">
       <div className="slides" style={{ transform: `translateX(-${slideIndex * 100}vw)` }}>
-        {slides.map((slide, index, text) => (
+        {slides.map((slide, index) => (
           <div key={index} className="slide">
             <div className='little-slide'>
               <p className='slide-title'>{titles[index]}</p>

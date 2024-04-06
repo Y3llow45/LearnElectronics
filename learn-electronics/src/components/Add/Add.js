@@ -77,7 +77,7 @@ class Add extends Component {
     if(this.state.title === '' || htmlContent === ''){
       displayError(addErrors.errorEmpty);
     }else if(!titleRegex.test(this.state.title)){
-      displayError(addErrors.title);
+      displayError(addErrors.title); 
     }else if(htmlContent.length < 120 || htmlContent.length > 100000) {
       displayError(addErrors.contentLength);
     }else if(htmlContent.includes("<script") || htmlContent.includes("<?")) {
