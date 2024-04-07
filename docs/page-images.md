@@ -21,11 +21,19 @@
 
 # Responsive design for tablets and phones
 
-## Home page - IPad(810px in width) and Small Phone(360px in width)
+## Home page - Small Phone(360px in width) and IPad(810px in width)
 <img src="https://github.com/Y3llow45/LearnElectronics/assets/68009977/01020145-9b3d-49d1-956c-da870a478a1a" width="350px">
 <img src="https://github.com/Y3llow45/LearnElectronics/assets/68009977/18220825-c1ac-4ee6-9952-2c917c0a410d" width="350px">
 
+## Sign Up and Sign In page
+<img src="https://github.com/Y3llow45/LearnElectronics/assets/68009977/9bd803ee-cc10-4d6d-90f9-42923a696bd8" width="350px">
+<img src="https://github.com/Y3llow45/LearnElectronics/assets/68009977/7ab9c33c-b1b5-467f-a7fc-7d84b934951e" width="350px">
 
+## Lessons page
+<img src="https://github.com/Y3llow45/LearnElectronics/assets/68009977/3397f637-7dc2-4dea-b177-c8636388e66b" width="350px">
+
+## Edit Lessons Page
+<img src="https://github.com/Y3llow45/LearnElectronics/assets/68009977/aab37ad4-f5e7-45b7-a14a-688044fc1587" width="350px">
 
 ## (OLD) Home page
 <img src="https://github.com/Y3llow45/LearnElectronics/assets/68009977/32d65f0b-ecb5-42fd-b5be-0eec83058962" width="700px">
