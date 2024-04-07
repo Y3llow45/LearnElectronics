@@ -32,6 +32,9 @@
 ## Lessons page
 <img src="https://github.com/Y3llow45/LearnElectronics/assets/68009977/3397f637-7dc2-4dea-b177-c8636388e66b" width="350px">
 
+## Add Lessons Page
+<img src="https://github.com/Y3llow45/LearnElectronics/assets/68009977/f9a97350-4038-4633-8fbc-ab52eeca6fbb" width="350px">
+
 ## Edit Lessons Page
 <img src="https://github.com/Y3llow45/LearnElectronics/assets/68009977/aab37ad4-f5e7-45b7-a14a-688044fc1587" width="350px">
 
