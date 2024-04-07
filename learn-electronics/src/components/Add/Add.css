@@ -75,3 +75,9 @@
     margin-top: 10px;
 }
 */
+
+@media (max-width: 544px) {
+    .add-first {
+        text-align: center;
+    }
+}

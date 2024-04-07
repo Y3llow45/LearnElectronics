@@ -13,20 +13,6 @@
     margin-bottom: 25px;
 }*/
 
-@media (max-width: 768px) {
-    .add-input-container {
-        display: grid;
-        flex-direction: column; 
-        gap: 5px; 
-    }
-    .add-select {
-        width: 100%;
-    }
-    .addImage {
-        margin-right: 0px;
-    }
-}
-
 /*.input-form {
     background-color: white;
 }
@@ -81,4 +67,28 @@
     padding: 6px;
     border-radius: 10px;
     border: white;
+}
+
+@media (max-width: 922px) {
+    .edit-lesson-title {
+        font-size: 14px;
+    }
+    .edit-container{
+        margin-left: 0px;
+        width: 40%;
+    }
+    .add-container {
+        padding-left: 42px;
+    }
+    .edit-lesson-list {
+        margin-right: 10px;
+        width: 27%;
+    }
+}
+
+@media (max-width: 636px) {
+    .space-left {
+        margin-left: 0px;
+        margin-top: 10px;
+    }
 }

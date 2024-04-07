@@ -26,7 +26,7 @@ const Home = () => {
     'How transformers work?',
     'Check out this inductor tutorial!',
     'How to charger a capacitor?',
-    `Let's boost some voltage with this circuit`,
+    `DC voltage regulator`,
     'Control mototrs with H-bridge',
   ]
   
@@ -51,7 +51,7 @@ const Home = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 7000);
+    }, 70000000); //7000
 
     return () => clearInterval(interval);
   }, [slides.length]);
@@ -135,7 +135,7 @@ const Home = () => {
         <div className="empty-border"><div className="empty-topic"></div></div>
           <div className="emptyHconnector"></div>
           <div className="topic-border">
-            <div className="topic" id="signal">Electromagnetism</div>
+            <div className="topic" id="signal">Electro- magnetism</div>
           </div>
           <div className="emptyHconnector"></div>
           <div className="empty-border"><div className="empty-topic"></div></div>
