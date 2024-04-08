@@ -51,7 +51,7 @@ const Home = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 70000000); //7000
+    }, 7000); //7000
 
     return () => clearInterval(interval);
   }, [slides.length]);

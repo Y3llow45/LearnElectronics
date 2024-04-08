@@ -78,7 +78,7 @@
         width: 40%;
     }
     .add-container {
-        padding-left: 42px;
+        padding-left: 0px !important;
     }
     .edit-lesson-list {
         margin-right: 10px;
