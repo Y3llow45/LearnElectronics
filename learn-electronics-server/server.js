@@ -9,9 +9,7 @@ const generateToken = require('./services/genToken');
 const app = express();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-//const Jsoup = require('jssoup')
 const sanitizeHtml = require('sanitize-html');
-//const DOMPurify = require('dompurify');
 
 const port = process.env.PORT;
 const AtlasUri = process.env.ATLASURI;
@@ -25,7 +23,7 @@ mongoose.connect(AtlasUri).then(() => {
   console.log('Connected');
 })
 
-app.get('/edit',verifyToken, async (req, res) => {
+app.get('/edit', verifyToken, async (req, res) => {
   try {
     const username = req.username;
     const lessonData = await getLessons(username);
@@ -42,7 +40,7 @@ app.get('/edit',verifyToken, async (req, res) => {
 app.get('/lesson/:title', async (req, res) => {
   try {
     const title = req.params.title;
-    const lessonData = await Lesson.find({title: title});
+    const lessonData = await Lesson.find({ title: title });
     if (lessonData) {
       res.status(200).json(lessonData);
     } else {
@@ -56,7 +54,7 @@ app.get('/lesson/:title', async (req, res) => {
 app.get('/lessons/:page', async (req, res) => {
   try {
     const page = parseInt(req.params.page);
-    if(page < 0){
+    if (page < 0) {
       page = 0;
     }
     const pageSize = 10;
@@ -67,7 +65,7 @@ app.get('/lessons/:page', async (req, res) => {
       .skip(skip)
       .limit(pageSize)
       .exec();
-    
+
     res.status(200).json({
       lessons: lessons,
       totalPages: Math.ceil(lessonCount / pageSize)
@@ -82,8 +80,8 @@ app.get('/search/liked', verifyToken, async (req, res) => {
     const username = req.username;
     const user = await User.findOne({ username: username });
     let lessons = [];
-    for(let i = 0; i< user.liked.length; i++){
-      lesson = await Lesson.findOne({_id: user.liked[i]});
+    for (let i = 0; i < user.liked.length; i++) {
+      lesson = await Lesson.findOne({ _id: user.liked[i] });
       lessons.push(lesson);
     }
     res.status(200).json({ lessons });
@@ -120,84 +118,63 @@ app.get('/search/:category/:keyword', async (req, res) => {
     const lessons = await Lesson.find(
       category === 'all'
         ? { title: { $regex: keyword, $options: 'i' } }
-        : { category, title: { $regex: keyword, $options: 'i' }
-      });
+        : {
+          category, title: { $regex: keyword, $options: 'i' }
+        });
     res.status(200).json({ lessons });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
-  /*fs.readFile('lessons.json', 'utf8', (err, data) => {
-    if (err) {
-      res.status(500).json({ error: 'Internal Server Error' });
-    } else {
-      let lessons = JSON.parse(data).lessons;
-
-      let filteredLessons = lessons;
-
-      if (category !== 'all') {
-        filteredLessons = lessons.filter(lesson => lesson.category === category);
-      }
-
-      if (keyword) {
-        filteredLessons = filteredLessons.filter(lesson => {
-          let lowercaseTitle = lesson.title.toLowerCase();
-          let lowercaseKeyword = keyword.toLowerCase();
-          return lowercaseTitle.includes(lowercaseKeyword);
-        });
-      }
-      res.status(200).json({ lessons: filteredLessons });
-    }
-  });*/
 });
 
 app.get('/api/getUserRole', verifyToken, async (req, res) => {
-  try{
+  try {
     const username = req.username;
     const user = await User.findOne({ username });
     res.status(200).json({ role: user._doc.role });
   }
-  catch(error) {
+  catch (error) {
     console.log(error);
     res.status(401).json({ message: 'server error' });
   }
 });
 
 app.get('/api/getUserLiked', verifyToken, async (req, res) => {
-  try{
+  try {
     const username = req.username;
     const user = await User.findOne({ username });
     res.status(200).json({ role: user._doc.liked });
   }
-  catch(error) {
+  catch (error) {
     console.log(error);
     res.status(401).json({ message: 'server error' });
   }
 });
 
-app.post('/signup',async (req, res) => {
-  try{
+app.post('/signup', async (req, res) => {
+  try {
     let { username, email, password } = req.body;
-    const testUsername = await User.find({username: username})
+    const testUsername = await User.find({ username: username })
     if (testUsername.length > 0) {
       return res.status(400).json({ message: 'Username already exists' });
     }
-    const testEmail = await User.find({email: email})
+    const testEmail = await User.find({ email: email })
     if (testEmail.length > 0) {
       return res.status(400).json({ message: 'Email already exists' });
     }
     bcrypt
       .hash(password, saltRounds)
       .then(hash => {
-        let newUser = new User({username: username, email: email, password: hash, role: 'user', liked: []})
+        let newUser = new User({ username: username, email: email, password: hash, role: 'user', liked: [] })
         newUser.save();
       })
-      .catch((err) => {throw err})
+      .catch((err) => { throw err })
   }
-  catch(error){
+  catch (error) {
     res.statusMessage = `${error}`;
     res.status(500).send();
   }
-  res.status(201).json({message: 'Account created'});
+  res.status(201).json({ message: 'Account created' });
 })
 
 app.post('/signin', async (req, res) => {
@@ -207,7 +184,7 @@ app.post('/signin', async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-        return res.status(401).json({ error: 'Invalid credentials' });
+      return res.status(401).json({ error: 'Invalid credentials' });
     }
 
     bcrypt
@@ -215,7 +192,7 @@ app.post('/signin', async (req, res) => {
       .then(hash => {
         user.password = hash;
       })
-      .catch((err) => {throw err})
+      .catch((err) => { throw err })
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
@@ -238,28 +215,28 @@ app.post('/add', verifyToken, async (req, res) => {
   const cleanInput = sanitizeHtml(content, {
     allowedTags: ['p', 'h1', 'h1', 'h2', 'h3', 'h4', 'div', 'img', 'canvas', 'figure', 'strong', 'bold', 'italic', 'src', 'em', 'code', 'u', 'a'],
     allowedAttributes: {
-      img: [ 'src' ]
+      img: ['src']
     },
   });
-  try{
-    lesson = await Lesson.findOne({title: title})
+  try {
+    lesson = await Lesson.findOne({ title: title })
     if (lesson) {
       return res.status(400).json({ message: 'Title already exists' });
     }
-    if(cleanInput.length > 100000 || cleanInput.length < 120){
+    if (cleanInput.length > 100000 || cleanInput.length < 120) {
       return res.status(400).json({ message: 'Too short or too long' });
     }
-    let newLesson = new Lesson({title:title, content:cleanInput, category:category, user: username});
+    let newLesson = new Lesson({ title: title, content: cleanInput, category: category, user: username });
     await newLesson.save();
-    res.status(201).json({message: 'created!'});
-  }catch(error){
-    res.status(500).json({ message: error.message});
+    res.status(201).json({ message: 'created!' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
 app.put('/edit', verifyToken, async (req, res) => {
-  try{
-    const { id ,title, content, category } = req.body;
+  try {
+    const { id, title, content, category } = req.body;
     const username = req.username;
     const lesson = await Lesson.findById(id);
     if (!lesson) {
@@ -269,7 +246,7 @@ app.put('/edit', verifyToken, async (req, res) => {
       const cleanInput = sanitizeHtml(content, {
         allowedTags: ['p', 'h1', 'h1', 'h2', 'h3', 'h4', 'div', 'img', 'canvas', 'figure', 'strong', 'bold', 'italic', 'src', 'em', 'code', 'u', 'a'],
         allowedAttributes: {
-          img: [ 'src' ]
+          img: ['src']
         },
       });
       lesson.title = title;
@@ -277,14 +254,14 @@ app.put('/edit', verifyToken, async (req, res) => {
       lesson.category = category;
       await lesson.save();
       res.status(200).json({ message: 'updated!' });
-  }
-  }catch(error){
-    res.status(500).json({ message: error.message});
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
 app.delete('/delete/:id', verifyToken, async (req, res) => {
-  try{
+  try {
     let { id } = req.params;
     const username = req.username;
     const role = req.role;
@@ -296,13 +273,13 @@ app.delete('/delete/:id', verifyToken, async (req, res) => {
       await lesson.deleteOne();
       res.status(200).json({ message: 'deleted!' });
     }
-  }catch(error){
-    res.status(500).json({ message: error.message});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
 app.put('/like/:id', verifyToken, async (req, res) => {
-  try{
+  try {
     let { id } = req.params;
     const username = req.username;
     const user = await User.findOne({ username: username });
@@ -314,13 +291,13 @@ app.put('/like/:id', verifyToken, async (req, res) => {
       await Lesson.findByIdAndUpdate(id, { $inc: { likes: 1 } });
       res.status(200).json({ message: 'liked!' });
     }
-  }catch(error){
-    res.status(500).json({ message: error.message});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
 app.put('/unlike/:id', verifyToken, async (req, res) => {
-  try{
+  try {
     let { id } = req.params;
     const username = req.username;
     const user = await User.findOne({ username: username });
@@ -332,35 +309,35 @@ app.put('/unlike/:id', verifyToken, async (req, res) => {
       await Lesson.findByIdAndUpdate(id, { $inc: { likes: -1 } });
       res.status(200).json({ message: 'unliked!' });
     }
-  }catch(error){
-    res.status(500).json({ message: error.message});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
 app.get('/check/:type/:input', async (req, res) => {
-  try{
+  try {
     let { type, input } = req.params;
     let user;
     let lesson;
-    if(type == 'Username'){
+    if (type == 'Username') {
       user = await User.findOne({ username: input });
-    }else if(type == 'Email') {
+    } else if (type == 'Email') {
       user = await User.findOne({ email: input });
-    }else if(type == 'Title') {
-      lesson = await Lesson.findOne({title: input})
+    } else if (type == 'Title') {
+      lesson = await Lesson.findOne({ title: input })
       if (!lesson) {
         return res.status(200).json({ message: 'false' });
       }
-        return res.status(200).json({ message: 'true' });
-    }else {
+      return res.status(200).json({ message: 'true' });
+    } else {
       return res.status(404).json({ message: 'No such type' });
     }
     if (!user) {
       return res.status(200).json({ message: 'false' });
     }
-      return res.status(200).json({ message: 'true' });
-  }catch(error){
-    res.status(500).json({ message: error.message});
+    return res.status(200).json({ message: 'true' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
