@@ -53,9 +53,9 @@ app.get('/lesson/:title', async (req, res) => {
 
 app.get('/lessons/:page', async (req, res) => {
   try {
-    const page = parseInt(req.params.page);
-    if (page < 0) {
-      page = 0;
+    const page = Number(req.params.page);
+    if (!Number.isSafeInteger(page) || page < 0) {
+      return res.status(400).json({ error: 'Invalid page number' });
     }
     const pageSize = 10;
     const skip = page * pageSize;
@@ -153,29 +153,30 @@ app.get('/api/getUserLiked', verifyToken, async (req, res) => {
 
 app.post('/signup', async (req, res) => {
   try {
-    let { username, email, password } = req.body;
-    const testUsername = await User.find({ username: username })
-    if (testUsername.length > 0) {
+    const { username, email, password } = req.body || {};
+    if (typeof username !== 'string' || !username.trim() ||
+        typeof email !== 'string' || !email.trim() ||
+        typeof password !== 'string' || password.length < 10) {
+      return res.status(400).json({ message: 'Invalid registration details' });
+    }
+    if (await User.exists({ username })) {
       return res.status(400).json({ message: 'Username already exists' });
     }
-    const testEmail = await User.find({ email: email })
-    if (testEmail.length > 0) {
+    if (await User.exists({ email })) {
       return res.status(400).json({ message: 'Email already exists' });
     }
-    bcrypt
-      .hash(password, saltRounds)
-      .then(hash => {
-        let newUser = new User({ username: username, email: email, password: hash, role: 'user', liked: [] })
-        newUser.save();
-      })
-      .catch((err) => { throw err })
+
+    const hash = await bcrypt.hash(password, saltRounds);
+    await User.create({ username, email, password: hash, role: 'user', liked: [] });
+    return res.status(201).json({ message: 'Account created' });
+  } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({ message: 'Username or email already exists' });
+    }
+    console.error('Sign-up failed:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
-  catch (error) {
-    res.statusMessage = `${error}`;
-    res.status(500).send();
-  }
-  res.status(201).json({ message: 'Account created' });
-})
+});
 
 app.post('/signin', async (req, res) => {
   const { username, password } = req.body;
@@ -186,13 +187,6 @@ app.post('/signin', async (req, res) => {
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-
-    bcrypt
-      .hash(user.password, saltRounds)
-      .then(hash => {
-        user.password = hash;
-      })
-      .catch((err) => { throw err })
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
