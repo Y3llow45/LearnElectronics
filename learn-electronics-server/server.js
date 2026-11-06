@@ -53,9 +53,9 @@ app.get('/lesson/:title', async (req, res) => {
 
 app.get('/lessons/:page', async (req, res) => {
   try {
-    const page = parseInt(req.params.page);
-    if (page < 0) {
-      page = 0;
+    const page = Number(req.params.page);
+    if (!Number.isSafeInteger(page) || page < 0) {
+      return res.status(400).json({ error: 'Invalid page number' });
     }
     const pageSize = 10;
     const skip = page * pageSize;
@@ -81,7 +81,7 @@ app.get('/search/liked', verifyToken, async (req, res) => {
     const user = await User.findOne({ username: username });
     let lessons = [];
     for (let i = 0; i < user.liked.length; i++) {
-      lesson = await Lesson.findOne({ _id: user.liked[i] });
+      const lesson = await Lesson.findOne({ _id: user.liked[i] });
       lessons.push(lesson);
     }
     res.status(200).json({ lessons });
@@ -153,29 +153,30 @@ app.get('/api/getUserLiked', verifyToken, async (req, res) => {
 
 app.post('/signup', async (req, res) => {
   try {
-    let { username, email, password } = req.body;
-    const testUsername = await User.find({ username: username })
-    if (testUsername.length > 0) {
+    const { username, email, password } = req.body || {};
+    if (typeof username !== 'string' || !username.trim() ||
+        typeof email !== 'string' || !email.trim() ||
+        typeof password !== 'string' || password.length < 10) {
+      return res.status(400).json({ message: 'Invalid registration details' });
+    }
+    if (await User.exists({ username })) {
       return res.status(400).json({ message: 'Username already exists' });
     }
-    const testEmail = await User.find({ email: email })
-    if (testEmail.length > 0) {
+    if (await User.exists({ email })) {
       return res.status(400).json({ message: 'Email already exists' });
     }
-    bcrypt
-      .hash(password, saltRounds)
-      .then(hash => {
-        let newUser = new User({ username: username, email: email, password: hash, role: 'user', liked: [] })
-        newUser.save();
-      })
-      .catch((err) => { throw err })
+
+    const hash = await bcrypt.hash(password, saltRounds);
+    await User.create({ username, email, password: hash, role: 'user', liked: [] });
+    return res.status(201).json({ message: 'Account created' });
+  } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({ message: 'Username or email already exists' });
+    }
+    console.error('Sign-up failed:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
-  catch (error) {
-    res.statusMessage = `${error}`;
-    res.status(500).send();
-  }
-  res.status(201).json({ message: 'Account created' });
-})
+});
 
 app.post('/signin', async (req, res) => {
   const { username, password } = req.body;
@@ -186,13 +187,6 @@ app.post('/signin', async (req, res) => {
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-
-    bcrypt
-      .hash(user.password, saltRounds)
-      .then(hash => {
-        user.password = hash;
-      })
-      .catch((err) => { throw err })
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
@@ -219,7 +213,7 @@ app.post('/add', verifyToken, async (req, res) => {
     },
   });
   try {
-    lesson = await Lesson.findOne({ title: title })
+    const lesson = await Lesson.findOne({ title: title })
     if (lesson) {
       return res.status(400).json({ message: 'Title already exists' });
     }
@@ -241,6 +235,9 @@ app.put('/edit', verifyToken, async (req, res) => {
     const lesson = await Lesson.findById(id);
     if (!lesson) {
       return res.status(404).json({ message: 'Lesson not found' });
+    }
+    if (lesson.user !== username) {
+      return res.status(403).json({ message: 'Not allowed to edit this lesson' });
     }
     if (lesson.user === username) {
       const cleanInput = sanitizeHtml(content, {
@@ -271,8 +268,9 @@ app.delete('/delete/:id', verifyToken, async (req, res) => {
     }
     if (lesson.user === username || role == 'admin' || role == 'moderator') {
       await lesson.deleteOne();
-      res.status(200).json({ message: 'deleted!' });
+      return res.status(200).json({ message: 'deleted!' });
     }
+    return res.status(403).json({ message: 'Not allowed to delete this lesson' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -289,8 +287,9 @@ app.put('/like/:id', verifyToken, async (req, res) => {
     if (!user.liked.includes(id)) {
       await user.updateOne({ $addToSet: { liked: id } });
       await Lesson.findByIdAndUpdate(id, { $inc: { likes: 1 } });
-      res.status(200).json({ message: 'liked!' });
+      return res.status(200).json({ message: 'liked!' });
     }
+    return res.status(200).json({ message: 'Already liked' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -307,8 +306,9 @@ app.put('/unlike/:id', verifyToken, async (req, res) => {
     if (user.liked.includes(id)) {
       await user.updateOne({ $pull: { liked: id } });
       await Lesson.findByIdAndUpdate(id, { $inc: { likes: -1 } });
-      res.status(200).json({ message: 'unliked!' });
+      return res.status(200).json({ message: 'unliked!' });
     }
+    return res.status(200).json({ message: 'Already unliked' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
