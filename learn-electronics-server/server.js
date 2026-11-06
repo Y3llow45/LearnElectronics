@@ -81,7 +81,7 @@ app.get('/search/liked', verifyToken, async (req, res) => {
     const user = await User.findOne({ username: username });
     let lessons = [];
     for (let i = 0; i < user.liked.length; i++) {
-      lesson = await Lesson.findOne({ _id: user.liked[i] });
+      const lesson = await Lesson.findOne({ _id: user.liked[i] });
       lessons.push(lesson);
     }
     res.status(200).json({ lessons });
@@ -213,7 +213,7 @@ app.post('/add', verifyToken, async (req, res) => {
     },
   });
   try {
-    lesson = await Lesson.findOne({ title: title })
+    const lesson = await Lesson.findOne({ title: title })
     if (lesson) {
       return res.status(400).json({ message: 'Title already exists' });
     }
@@ -235,6 +235,9 @@ app.put('/edit', verifyToken, async (req, res) => {
     const lesson = await Lesson.findById(id);
     if (!lesson) {
       return res.status(404).json({ message: 'Lesson not found' });
+    }
+    if (lesson.user !== username) {
+      return res.status(403).json({ message: 'Not allowed to edit this lesson' });
     }
     if (lesson.user === username) {
       const cleanInput = sanitizeHtml(content, {
@@ -265,8 +268,9 @@ app.delete('/delete/:id', verifyToken, async (req, res) => {
     }
     if (lesson.user === username || role == 'admin' || role == 'moderator') {
       await lesson.deleteOne();
-      res.status(200).json({ message: 'deleted!' });
+      return res.status(200).json({ message: 'deleted!' });
     }
+    return res.status(403).json({ message: 'Not allowed to delete this lesson' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -283,8 +287,9 @@ app.put('/like/:id', verifyToken, async (req, res) => {
     if (!user.liked.includes(id)) {
       await user.updateOne({ $addToSet: { liked: id } });
       await Lesson.findByIdAndUpdate(id, { $inc: { likes: 1 } });
-      res.status(200).json({ message: 'liked!' });
+      return res.status(200).json({ message: 'liked!' });
     }
+    return res.status(200).json({ message: 'Already liked' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -301,8 +306,9 @@ app.put('/unlike/:id', verifyToken, async (req, res) => {
     if (user.liked.includes(id)) {
       await user.updateOne({ $pull: { liked: id } });
       await Lesson.findByIdAndUpdate(id, { $inc: { likes: -1 } });
-      res.status(200).json({ message: 'unliked!' });
+      return res.status(200).json({ message: 'unliked!' });
     }
+    return res.status(200).json({ message: 'Already unliked' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
